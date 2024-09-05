@@ -1,0 +1,20 @@
+@media screen and (max-width:320px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 8px 20px 20px;
+        border-radius: 16px;
+        margin: 0 auto;
+}
+}
+
+@media screen and (min-width:321px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 16px 32px;
+        margin: 0 auto;
+    }
+}
