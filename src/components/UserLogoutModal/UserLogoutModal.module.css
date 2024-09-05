@@ -1,0 +1,7 @@
+.div {
+  display: flex;
+  gap: 24px;
+}
+.text {
+  margin-bottom: 24px;
+}
