@@ -1,8 +1,14 @@
-import css from './WelcomePage.module.css'
+import WaterConsumptionTracker from "../../components/WaterConsumptionTracker/WaterConsumptionTracker.jsx";
+import WhyDrinkWater from "../../components/WhyDrinkWater/WhyDrinkWater.jsx";
+import css from "./WelcomePage.module.css";
 
-export default function WelcomePage() {
-    return (
-        <div className={css.container}>
-        </div>
-    )
-}
+const WelcomePage = () => {
+  return (
+    <div className={css.welcomepage}>
+      <WaterConsumptionTracker />
+      <WhyDrinkWater />
+    </div>
+  );
+};
+
+export default WelcomePage;

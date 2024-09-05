@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: #2f2f2f;
+}
+
+.welcomepage {
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-image: url("/src/assets/img/mobile/MainPageBG.png");
+  background-size: 320px 952px;
+  background-repeat: no-repeat;
+  background-position-y: -52px;
+  min-height: 73vh;
+}
+
+@media (min-resolution: 2dppx) {
+  .welcomepage {
+    background-image: url("/src/assets/img/mobile/MainPageBG@2x.png");
+    background-size: 320px 952px;
+    background-repeat: no-repeat;
+    background-position-y: -52px;
+    min-height: 73vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .welcomepage {
+    max-width: 768px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 35px;
+    background-image: url("/src/assets/img/tab/MainPageBG.png");
+    background-size: 768px 800px;
+    background-repeat: no-repeat;
+    background-position-y: -65px;
+    min-height: 90vh;
+  }
+}
+
+@media (min-width: 768px) and (min-resolution: 2dppx) {
+  .welcomepage {
+    background-image: url("/src/assets/img/tab/MainPageBG@2x.png");
+    background-size: 768px 800px;
+    background-repeat: no-repeat;
+    background-position-y: -65px;
+    min-height: 90vh;
+  }
+}
+
+@media (min-width: 1440px) {
+  .welcomepage {
+    max-width: 1440px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image: url("/src/assets/img/desc/MainPageBubbleBG.png"),
+      url("/src/assets/img/desc/MainPageBG.png");
+    padding: 194px 136px;
+    background-repeat: no-repeat;
+    background-size: 1404px 552px, 1440px 432px;
+    background-position: right 18px top 178px, right 0px top 418px;
+    min-height: 100vh;
+    gap: 81px;
+  }
+}
+
+@media (min-width: 1440px) and (min-resolution: 2dppx) {
+  .welcomepage {
+    max-width: 1440px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image: url("/src/assets/img/desc/MainPageBubbleBG@2x.png"),
+      url("/src/assets/img/desc/MainPageBG@2x.png");
+    padding: 194px 136px;
+    background-repeat: no-repeat;
+    background-size: 1404px 552px, 1440px 432px;
+    background-position: right 18px top 178px, right 0px top 418px;
+    min-height: 100vh;
+    gap: 81px;
+  }
+}
