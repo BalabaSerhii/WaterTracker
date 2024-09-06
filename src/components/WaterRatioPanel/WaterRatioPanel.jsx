@@ -1,7 +1,8 @@
-import css from './WaterRatioPanel.module.css'
-
+import WaterRatioPanelItem from "../WaterRatioPanelItem/WaterRatioPanelItem"
 export default function WaterRatioPanel() {
     return (
-        <div className={css.container}></div>
+        <ul>
+            <li><WaterRatioPanelItem/></li>
+        </ul>
     )
 }
