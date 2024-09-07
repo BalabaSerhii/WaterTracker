@@ -1,0 +1,30 @@
+.iconButton {
+    background-color: transparent;
+    padding: 0;
+}
+
+.iconSvg {
+    fill: none;
+}
+
+.iconDown {
+    stroke: #407BFF;
+}
+
+.userAvatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+}
+
+.name {
+    color: #2F2F2F;
+    font-size: 18px;
+}
