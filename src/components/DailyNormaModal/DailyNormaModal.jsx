@@ -59,9 +59,10 @@ export default function DailyNormaModal({ isOpen, onClose }) {
         </p>
       </div>
       <p className={css.instruction_text}>
-        <span className={css.star}>* </span>V is the volume of the water norm in liters per day, M is your body
-        weight, T is the time of active sports, or another type of activity
-        commensurate in terms of loads (in the absence of these, you must set 0)
+        <span className={css.star}>* </span>V is the volume of the water norm in
+        liters per day, M is your body weight, T is the time of active sports,
+        or another type of activity commensurate in terms of loads (in the
+        absence of these, you must set 0)
       </p>
       <form>
         <p className={css.large_text}>Calculate your rate</p>
