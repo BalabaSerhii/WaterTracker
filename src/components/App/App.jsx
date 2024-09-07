@@ -18,9 +18,8 @@ export default function App() {
     return (
         <div className={css.container}>
             <Suspense fallback={<Loader/>}>
-                <SharedLayout>
+                <SharedLayout path='/'>
                     <Routes>
-                        <Route path='/'></Route>
                         <Route path='/welcome' element={<WelcomePage/>}></Route>
                         <Route path='/signin' element={<SignInPage/>}></Route>
                         <Route path='/signup' element={<SignUpPage/>}></Route>
