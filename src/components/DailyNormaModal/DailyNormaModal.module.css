@@ -7,6 +7,7 @@
   color: #2f2f2f;
   margin-bottom: 16px;
 }
+
 .small_text {
   font-family: Roboto;
   font-size: 16px;
@@ -18,7 +19,8 @@
 }
 .formula_div {
   display: flex;
-  gap: 24px;
+  gap: 16px;
+  flex-direction: column;
   margin-bottom: 12px;
 }
 .formula {
@@ -29,17 +31,26 @@
   text-align: left;
   color: #407bff;
 }
+.star {
+  color: #407bff;
+}
 .instruction_text {
   font-family: Roboto;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
+  color: #8f8f8f;
   padding: 10px;
   gap: 10px;
   border-radius: 10px;
   border: 1px solid #d7e3ff;
   opacity: 0px;
   margin-bottom: 24px;
+}
+.gender_div {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
 }
 .input {
   width: 100%;
@@ -56,12 +67,14 @@
   line-height: 20px;
   text-align: left;
   color: #407bff;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
+
 .btn_save {
   display: flex;
+  width: 100%;
   text-align: center;
-  justify-content: flex-end;
+  justify-content: center;
 }
 .liters {
   font-family: Roboto;
@@ -70,4 +83,17 @@
   line-height: 24px;
   text-align: left;
   color: #407bff;
+}
+
+@media (min-width: 768px) {
+  .formula_div {
+    flex-direction: row;
+    gap: 24px;
+  }
+  .input {
+    margin-bottom: 24px;
+  }
+  .btn_save {
+    justify-content: flex-end;
+  }
 }
