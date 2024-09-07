@@ -1,109 +1,109 @@
-// import { Suspense } from "react";
-// import SharedLayout from "../SharedLayout/SharedLayout";
-// import { Route, Routes } from "react-router-dom";
-// // import PrivateRoute from '../PrivateRoute/PrivateRoute'
-// import { lazy } from "react";
-// // import RestrictedRoute from '../RestrictedRoute/RestrictedRoute'
-// import Loader from "../Loader/Loader";
-// import css from "./App.module.css";
+import { Suspense } from "react";
+import SharedLayout from "../SharedLayout/SharedLayout";
+import { Route, Routes } from "react-router-dom";
+// import PrivateRoute from '../PrivateRoute/PrivateRoute'
+import { lazy } from "react";
+// import RestrictedRoute from '../RestrictedRoute/RestrictedRoute'
+import Loader from "../Loader/Loader";
+import css from "./App.module.css";
 
-// const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
-// const SignInPage = lazy(() => import("../../pages/SignInPage/SignInPage"));
-// const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
-// const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"));
-// const NotFoundPage = lazy(() =>
-//   import("../../pages/NotFoundPage/NotFoundPage")
-// );
-
-// export default function App() {
-//   return (
-//     <div className={css.container}>
-//       <Suspense fallback={<Loader />}>
-//         <SharedLayout path="/">
-//           <Routes>
-//             <Route path="/welcome" element={<WelcomePage />}></Route>
-//             <Route path="/signin" element={<SignInPage />}></Route>
-//             <Route path="/signup" element={<SignUpPage />}></Route>
-//             <Route path="/home" element={<HomePage />}></Route>
-//             <Route path="/*" element={<NotFoundPage />}></Route>
-//           </Routes>
-//         </SharedLayout>
-//       </Suspense>
-//     </div>
-//   );
-// }
-import { useState, useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { register, logIn, logOut } from "../../redux/auth/operations"; // Убедитесь, что путь правильный
-import { selectAuthError, selectAuthLoading } from "../../redux/auth/selectors"; // Ваши селекторы
-import { selectToken } from "../../redux/auth/selectors";
-import {
-  fetchUser,
-  updateUserInfo,
-  updateUserPhoto,
-} from "../../redux/user/operations";
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const SignInPage = lazy(() => import("../../pages/SignInPage/SignInPage"));
+const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
+const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"));
+const NotFoundPage = lazy(() =>
+  import("../../pages/NotFoundPage/NotFoundPage")
+);
 
 export default function App() {
-  const dispatch = useDispatch();
-  const [avatar, setAvatar] = useState(null);
-
-  // Получаем состояние загрузки и ошибки из Redux
-  const isLoading = useSelector(selectAuthLoading);
-  const error = useSelector(selectAuthError);
-
-  // Обработчик выбора файла
-  const handleFileChange = (e) => {
-    setAvatar(e.target.files[0]);
-  };
-
-  // Обработчик отправки формы
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Если файл не выбран, ничего не делаем
-    if (!avatar) {
-      return;
-    }
-
-    // Создаем FormData и добавляем файл аватара
-    const formData = new FormData();
-    formData.append("avatar", avatar);
-
-    // Отправляем данные через операцию updateUserPhoto
-    try {
-      const result = await dispatch(updateUserPhoto(formData));
-
-      if (updateUserPhoto.fulfilled.match(result)) {
-        console.log("Avatar updated successfully", result.payload);
-      } else {
-        console.log("Failed to update avatar", result.error.message);
-      }
-    } catch (error) {
-      console.error("Error during avatar update", error);
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="avatar">Upload Avatar:</label>
-        <input
-          type="file"
-          name="avatar"
-          id="avatar"
-          onChange={handleFileChange}
-          required
-        />
-      </div>
-
-      {isLoading && <p>Updating avatar...</p>}
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
-
-      <button type="submit" disabled={isLoading || !avatar}>
-        Update Avatar
-      </button>
-    </form>
+    <div className={css.container}>
+      <Suspense fallback={<Loader />}>
+        <SharedLayout path="/">
+          <Routes>
+            <Route path="/welcome" element={<WelcomePage />}></Route>
+            <Route path="/signin" element={<SignInPage />}></Route>
+            <Route path="/signup" element={<SignUpPage />}></Route>
+            <Route path="/home" element={<HomePage />}></Route>
+            <Route path="/*" element={<NotFoundPage />}></Route>
+          </Routes>
+        </SharedLayout>
+      </Suspense>
+    </div>
   );
+}
+// import { useState, useEffect, useMemo } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { register, logIn, logOut } from "../../redux/auth/operations"; // Убедитесь, что путь правильный
+// import { selectAuthError, selectAuthLoading } from "../../redux/auth/selectors"; // Ваши селекторы
+// import { selectToken } from "../../redux/auth/selectors";
+// import {
+//   fetchUser,
+//   updateUserInfo,
+//   updateUserPhoto,
+// } from "../../redux/user/operations";
+
+// export default function App() {
+//   const dispatch = useDispatch();
+//   const [avatar, setAvatar] = useState(null);
+
+//   // Получаем состояние загрузки и ошибки из Redux
+//   const isLoading = useSelector(selectAuthLoading);
+//   const error = useSelector(selectAuthError);
+
+//   // Обработчик выбора файла
+//   const handleFileChange = (e) => {
+//     setAvatar(e.target.files[0]);
+//   };
+
+//   // Обработчик отправки формы
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     // Если файл не выбран, ничего не делаем
+//     if (!avatar) {
+//       return;
+//     }
+
+//     // Создаем FormData и добавляем файл аватара
+//     const formData = new FormData();
+//     formData.append("avatar", avatar);
+
+//     // Отправляем данные через операцию updateUserPhoto
+//     try {
+//       const result = await dispatch(updateUserPhoto(formData));
+
+//       if (updateUserPhoto.fulfilled.match(result)) {
+//         console.log("Avatar updated successfully", result.payload);
+//       } else {
+//         console.log("Failed to update avatar", result.error.message);
+//       }
+//     } catch (error) {
+//       console.error("Error during avatar update", error);
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <div>
+//         <label htmlFor="avatar">Upload Avatar:</label>
+//         <input
+//           type="file"
+//           name="avatar"
+//           id="avatar"
+//           onChange={handleFileChange}
+//           required
+//         />
+//       </div>
+
+//       {isLoading && <p>Updating avatar...</p>}
+//       {error && <p style={{ color: "red" }}>Error: {error}</p>}
+
+//       <button type="submit" disabled={isLoading || !avatar}>
+//         Update Avatar
+//       </button>
+//     </form>
+//   );
   //   const dispatch = useDispatch();
   //   const token = useSelector(selectToken); // Проверяем наличие токена
   //   const isLoading = useSelector(selectAuthLoading); // Состояние загрузки
@@ -297,4 +297,4 @@ export default function App() {
   //       </button>
   //     </form>
   //   );
-}
+// }
