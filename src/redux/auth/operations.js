@@ -1,42 +1,77 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "react-toastify";
 
-const API_URL = " "; 
+axios.defaults.baseURL = "https://project-water-bac.onrender.com";
 
-export const registerUser = createAsyncThunk(
-  "auth/registerUser",
-  async (data, thunkAPI) => {
+const setAuthHeader = (token) => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
+
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = "";
+};
+
+export const register = createAsyncThunk(
+  "/auth/register",
+  async (newUser, thunkAPI) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/register`, data);
-      toast.success("Registration successful!");
-      axios.defaults.headers.common.Authorization = `Bearer ${response.data.data.accessToken}`;
-      return response.data.data;
-    } catch (error) {
-      const message =
-        error.response?.data?.message ||
-        "Registration failed. Please try again.";
-      toast.error(message);
-      return thunkAPI.rejectWithValue(message);
+      const response = await axios.post("/auth/register", newUser);
+      setAuthHeader(response.data.accessToken);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
     }
   }
 );
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (data, thunkAPI) => {
+export const logIn = createAsyncThunk(
+  "auth/login",
+  async (userInfo, thunkAPI) => {
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, data);
-      const token = response.data.data.accessToken;
-      localStorage.setItem("token", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      return response.data.data;
+      const response = await axios.post("/auth/login", userInfo);
+      setAuthHeader(response.data.accessToken);
+      return response.data;
     } catch (error) {
-      const message =
-        error.response?.data?.message || "Login failed. Please try again.";
-      toast.error(message);
-      return thunkAPI.rejectWithValue(message);
+      return thunkAPI.rejectWithValue(error.message);
     }
+  }
+);
+
+export const logOut = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+  try {
+    const response = await axios.post("/auth/logout");
+    clearAuthHeader();
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const refreshUser = createAsyncThunk(
+  "auth/refresh",
+  async (_, thunkAPI) => {
+    try {
+      const reduxState = thunkAPI.getState();
+      //* v1
+      // setAuthHeader(reduxState.auth.accessToken);
+      // const res = await axios.get("/water");
+      // return res.data;
+      const { accessToken } = reduxState.auth;
+      if (!accessToken) {
+        throw new Error("Cannot refresh user");
+      }
+
+      const response = await axios.post("/auth/refresh");
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
+    }
+  },
+
+  {
+    condition(_, thunkAPI) {
+      const reduxState = thunkAPI.getState();
+      return reduxState.auth.accessToken !== null;
+    },
   }
 );

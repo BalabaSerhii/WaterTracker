@@ -50,7 +50,3 @@ button {
     max-width: 384px;
     border-radius: 10px;
 }
-
-button:hover {
-    background-color: #407BFF;
-}

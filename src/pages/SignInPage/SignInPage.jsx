@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import AuthForm from '../../components/AuthFrom/AuthForm'
-import { loginUser } from '../../redux/auth/operations'
+import { logIn } from '../../redux/auth/operations'
 
 import css from './SigninPage.module.css'
 import { Section } from '../../components/Section/Section'
@@ -12,8 +12,8 @@ export default function SigninPage() {
   const navigate = useNavigate()
 
   const handleSignin = (values, { setSubmitting }) => {
-    dispatch(loginUser(values)).then((result) => {
-      if (loginUser.fulfilled.match(result)) {
+    dispatch(logIn(values)).then((result) => {
+      if (logIn.fulfilled.match(result)) {
         navigate('/home') 
       }
       setSubmitting(false)

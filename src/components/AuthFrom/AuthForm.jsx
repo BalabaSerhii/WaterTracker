@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { selectError, selectisLoading } from "../../redux/auth/selectors";
+import { selectAuthError, selectAuthLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
 
 import css from "./AuthForm.module.css";
@@ -11,8 +11,8 @@ import icon from "../../assets/img/icons.svg";
 export default function AuthForm({ type, onSubmit }) {
   const isSignup = type === "signup";
   const [error, setError] = useState("");
-  const authError = useSelector(selectError);
-  const isLoading = useSelector(selectisLoading);
+  const authError = useSelector(selectAuthError);
+  const isLoading = useSelector(selectAuthLoading);
 
   const createAuthErrorMessage = (authError) => {
     const errorMessage =
@@ -105,9 +105,9 @@ export default function AuthForm({ type, onSubmit }) {
               >
                 <svg className={css.icon} width="16" height="16">
                   {showPassword ? (
-                    <use href={`${icon}#icon-eye`} />
+                    <use href={`${icon}#icon-open-eye`} />
                   ) : (
-                    <use href={`${icon}#icon-eye-slash`} />
+                    <use href={`${icon}#icon-close-eye`} />
                   )}
                 </svg>
               </button>
@@ -143,9 +143,9 @@ export default function AuthForm({ type, onSubmit }) {
                 >
                   <svg className={css.icon} width="16" height="16">
                     {showPassword ? (
-                      <use href={`${icon}#icon-eye`} />
+                      <use href={`${icon}#icon-open-eye`} />
                     ) : (
-                      <use href={`${icon}#icon-eye-slash`} />
+                      <use href={`${icon}#icon-close-eye`} />
                     )}
                   </svg>
                 </button>

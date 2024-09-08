@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { registerUser } from '../../redux/auth/operations'
+import { register } from '../../redux/auth/operations'
 import AuthForm from '../../components/AuthFrom/AuthForm'
 
 import css from './SignupPage.module.css'
@@ -14,8 +14,8 @@ export default function SignupPage() {
   const handleSignup = (values, { setSubmitting }) => {
     const { repeatPassword, ...signupData } = values
 
-    dispatch(registerUser(signupData)).then((result) => {
-      if (registerUser.fulfilled.match(result)) {
+    dispatch(register(signupData)).then((result) => {
+      if (register.fulfilled.match(result)) {
         navigate('/signin')
       }
       setSubmitting(false)

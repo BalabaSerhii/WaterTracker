@@ -19,39 +19,21 @@ const NotFoundPage = lazy(() => import("../../pages/NotFoundPage/NotFoundPage"))
 
 
 export default function App() {
-      useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-  }, []);
 
-  const PrivateRoute = ({ children }) => {
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    return isAuthenticated ? children : <Navigate to="/signin" />;
-  };
 
     return (
-        <div className={css.container}>
-            <Suspense fallback={<Loader/>}>
-                <SharedLayout path ='/' element={
-                    <PrivateRoute>
-                        <HomePage />
-                    </PrivateRoute>
-            }>
-                        <Routes>
-                            <Route path='/welcome' element={<WelcomePage/>}/>
-                            <Route path='/signin' element={<SignInPage/>}/>
-                            <Route path='/signup' element={<SignUpPage/>}/>
-                            <Route path='/home' element={
-                                <PrivateRoute>
-                                    <HomePage />
-                                </PrivateRoute>}/>
-                            
-                            <Route path='/*' element={<NotFoundPage/>}></Route>
-                        </Routes>
-                </SharedLayout>
-            </Suspense>
-        </div>
-    )
+    <div className={css.container}>
+      <Suspense fallback={<Loader />}>
+        <SharedLayout path="/">
+          <Routes>
+            <Route path="/welcome" element={<WelcomePage />}></Route>
+            <Route path="/signin" element={<SignInPage />}></Route>
+            <Route path="/signup" element={<SignUpPage />}></Route>
+            <Route path="/home" element={<HomePage />}></Route>
+            <Route path="/*" element={<NotFoundPage />}></Route>
+          </Routes>
+        </SharedLayout>
+      </Suspense>
+    </div>
+  );
 }

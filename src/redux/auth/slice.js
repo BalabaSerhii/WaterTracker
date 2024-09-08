@@ -1,56 +1,67 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-
-import {
-  registerUser,
-  loginUser,
-} from "./operations";
-
+import { register, logIn, logOut, refreshUser } from "./operations";
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
-    isAuthenticated: false,
+    accessToken: null,
+    isLoggedIn: false,
     isLoading: false,
-    error: null,
+    isError: false,
+    isRefreshing: false,
   },
-  reducers: {
-    logout(state) {
-      state.user = null;
-      state.isAuthenticated = false;
-      toast.info("You have been logged out.");
-    },
-  },
-  extraReducers: (builder) => {
+  extraReducers: (builder) =>
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(register.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(loginUser.fulfilled, (state, action) => {
+      .addCase(register.fulfilled, (state, action) => {
+        state.accessToken = action.payload.data.accessToken;
         state.isLoading = false;
-        state.user = action.payload;
-        state.isAuthenticated = true;
-        toast.success("Login successful!");
+        state.isLoggedIn = true;
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
+      .addCase(register.rejected, (state) => {
+        state.isError = true;
+        state.isLoggedIn = false;
       })
-      .addCase(registerUser.pending, (state) => {
+      .addCase(logIn.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
+      .addCase(logIn.fulfilled, (state, action) => {
+        state.accessToken = action.payload.data.accessToken;
+        state.isLoggedIn = true;
         state.isLoading = false;
-        state.user = action.payload;
-        state.isAuthenticated = true;
+        state.isError = false;
+        console.log(action.payload.data.accessToken);
       })
-      .addCase(registerUser.rejected, (state, action) => {
+      .addCase(logIn.rejected, (state) => {
+        state.isError = true;
+        state.isLoggedIn = false;
+      })
+      .addCase(logOut.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.accessToken = null;
+        state.isLoggedIn = false;
+        state.isError = false;
+      })
+      .addCase(logOut.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
-      });
-  },
+        state.isError = action.payload;
+      })
+      .addCase(refreshUser.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.accessToken = action.payload.data.accessToken;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.rejected, (state) => {
+        state.isRefreshing = false;
+      }),
 });
 
-export const { logout } = authSlice.actions;
 export default authSlice.reducer;
