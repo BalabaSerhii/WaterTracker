@@ -1,7 +1,7 @@
  .container {
-max-width: 1440px;
 background-image: url(../../assets/img/desc/MainPageBubbleBG.png);
 background-repeat: no-repeat;
+background-size: 100%;
  }
  
  .WaterInfocontainer {

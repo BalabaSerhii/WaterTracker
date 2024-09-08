@@ -1,8 +1,43 @@
 import css from "./ProgressBar.module.css"
 import { Line } from 'rc-progress';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTodayWaterAmount } from '../../../redux/water/selectors';
+import { selectUserWaterAmount } from "../../../redux/user/selectors"
+import { getTodayWater } from '../../../redux/water/operations';
+import TodayListModal from "../../TodayListModal/TodayListModal"
 
 const ProgressBar = () => {
-    let percent = 89
+    const dailyAmount = useSelector(selectTodayWaterAmount);
+  const dailyNorma = useSelector( selectUserWaterAmount );
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+    dispatch(getTodayWater());
+  }, [dispatch]);
+
+
+    let value = Math.round(dailyAmount / (dailyNorma * 10));
+  let percent = value > 100 ? 100 : value;
+  useEffect(() => {
+    if (dailyNorma > 0) {
+      value = Math.round(dailyAmount / (dailyNorma * 10));
+      percent = value > 100 ? 100 : value;
+    }
+  }, [dailyAmount, dailyNorma]);
+
+
+  
+
+   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  };
     return (
 
         <div className={css.progressConatiner}>
@@ -28,12 +63,18 @@ const ProgressBar = () => {
       </div>
             </div>
             <div className={css.addWaterBtnContainer}>
-                <button className={css.addWaterBtn} type="button">
+                <button className={css.addWaterBtn} type="button" onClick={handleOpenModal}>
                     <svg className={css.buttonIcon} width="18px" height="18px">
                         <use href="../../../assets/img/icons.svg#icon-plus"></use>
                     </svg>
         Add water
-      </button>
+          </button>
+          <TodayListModal
+           closeModal={handleCloseModal}
+        isOpen={modalIsOpen}
+          
+          
+          />
     </div>
         </div>
     )
