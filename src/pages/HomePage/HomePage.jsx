@@ -1,10 +1,19 @@
-import MonthStatsTable from '../../components/MonthStatsTable/MonthStatsTable';
+import TodayWaterList from '../../components/TodayWaterList/TodayWaterList';
 import css from './HomePage.module.css'
+import DailyNorma from '../../components/DailyNorma/DailyNorma';
+import WaterRatioPanel from '../../components/WaterRatioPanel/WaterRatioPanel';
 
 export default function HomePage() {
   return (
     <div className={css.container}>
-      <MonthStatsTable/>
+          <div>
+            <DailyNorma />
+            <div className={css.bottleBG}></div>
+            <WaterRatioPanel />
+          </div>
+          <div className={css.calendarBox}>
+            <TodayWaterList/>
+          </div>
     </div>
   );
 }
