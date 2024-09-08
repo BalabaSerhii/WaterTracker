@@ -1,5 +1,7 @@
+import css from './WaterRatioPanel.module.css'
+
 export default function WaterRatioPanel() {
     return (
-        <div></div>
+        <div className={css.container}></div>
     )
 }
