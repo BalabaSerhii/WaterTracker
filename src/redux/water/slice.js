@@ -56,7 +56,7 @@ const waterSlice = createSlice({
         // state.todayWater = state.todayWater.filter((item) => {
         //   return item._id !== action.payload;
         // });
-
+        //TODO: посмотреть удаление и что приходит ;
         const indexToDelete = state.todayWater.findIndex(
           ({ _id }) => _id === action.payload
         );
