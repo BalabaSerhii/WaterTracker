@@ -1,21 +1,22 @@
-import { Suspense, useEffect, useSelector } from 'react'
+import { Suspense, useEffect, useSelector } from "react";
 import axios from "axios"
-import SharedLayout from '../SharedLayout/SharedLayout'
+import SharedLayout from "../SharedLayout/SharedLayout";
 import {
   Routes,
   Route,
   Navigate
-} from "react-router-dom";
-import { lazy } from 'react'
-import Loader from '../Loader/Loader'
-import css from './App.module.css'
+} from "react-router-dom";;
+import { lazy } from "react";
+import Loader from "../Loader/Loader";
+import css from "./App.module.css";
 
-const HomePage = lazy(() => import("../../pages/HomePage/HomePage"))
-const SignInPage = lazy(() => import("../../pages/SignInPage/SignInPage"))
-const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"))
-const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"))
-const NotFoundPage = lazy(() => import("../../pages/NotFoundPage/NotFoundPage"))
-
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const SignInPage = lazy(() => import("../../pages/SignInPage/SignInPage"));
+const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
+const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"));
+const NotFoundPage = lazy(() =>
+  import("../../pages/NotFoundPage/NotFoundPage")
+);
 
 
 export default function App() {
