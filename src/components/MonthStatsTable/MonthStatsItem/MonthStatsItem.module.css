@@ -1,0 +1,32 @@
+.calendarDay {
+    width: 34px;
+    display: flex;
+    flex-direction: column;
+    /* Встановлює вертикальне розміщення елементів */
+    align-items: center;
+    justify-content: center;
+}
+
+.dayNumber {
+    color: black;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+}
+
+.dailyTotal {
+    font-family: Roboto;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        text-align: center;
+        color:#9EBBFF;
+}
