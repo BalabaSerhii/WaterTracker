@@ -5,8 +5,12 @@ import css from "./WelcomePage.module.css";
 const WelcomePage = () => {
   return (
     <div className={css.welcomepage}>
-      <WaterConsumptionTracker />
-      <WhyDrinkWater />
+      <div className={css.welcomwpagecontainer}>
+        <div className={css.components}>
+          <WaterConsumptionTracker />
+          <WhyDrinkWater />
+        </div>
+      </div>
     </div>
   );
 };
