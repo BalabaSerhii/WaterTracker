@@ -1,5 +1,5 @@
 import css from './WaterRatioPanel.module.css'
-import  ProgressBar  from './ProgressBar/ProgresBar'
+import ProgressBar from './ProgressBar/ProgresBar'
 
 export default function WaterRatioPanel() {
     return (
