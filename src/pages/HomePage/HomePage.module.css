@@ -1,0 +1,17 @@
+ .container {
+max-width: 1440px;
+background-image: url(../../assets/img/desc/MainPageBubbleBG.png);
+background-repeat: no-repeat;
+ }
+ 
+ .WaterInfocontainer {
+    max-width: 1280px;
+        margin-left: 40px;
+        margin-top: 22px;
+        padding: 2rem;
+        text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            
+        }
