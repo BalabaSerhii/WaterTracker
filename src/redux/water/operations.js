@@ -55,7 +55,7 @@ export const getTodayWater = createAsyncThunk(
   "water/getTodayWater",
   async (date, { getState, rejectWithValue }) => {
     try {
-      const accessToken = getState().auth.accessToken;
+      const accessToken = '4ayZ5FTG3kLNNSZMTUxYhda1kTv3sJf9gXJ7I60p';
 
       const response = await axios.get("/water/perDay", {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -119,7 +119,7 @@ export const deleteWater = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
 
-      const persistedToken = state.auth.token;
+      const persistedToken = '4ayZ5FTG3kLNNSZMTUxYhda1kTv3sJf9gXJ7I60p';
 
       const response = await axios.delete(`water/${id}`, {
         headers: { Authorization: `Bearer ${persistedToken}` },

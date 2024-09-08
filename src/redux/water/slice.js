@@ -56,11 +56,10 @@ const waterSlice = createSlice({
         // state.todayWater = state.todayWater.filter((item) => {
         //   return item._id !== action.payload;
         // });
-
-        const indexToDelete = state.todayWater.findIndex(
+        const indexToDelete = state.todayWater.data.findIndex(
           ({ _id }) => _id === action.payload
         );
-        state.todayWater.splice(indexToDelete, 1);
+        state.todayWater.data.splice(indexToDelete, 1);
       })
       .addCase(deleteWater.rejected, handleRejected)
 

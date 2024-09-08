@@ -6,6 +6,7 @@ import WaterRatioPanel from '../../components/WaterRatioPanel/WaterRatioPanel';
 export default function HomePage() {
   return (
     <div className={css.container}>
+      <TodayWaterList/>
     </div>
     
   );
