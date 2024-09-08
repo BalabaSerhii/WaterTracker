@@ -5,7 +5,7 @@ export const getWaterByMonth = createAsyncThunk(
   "water/getWaterByMonth",
   async (month, { getState, rejectWithValue }) => {
     try {
-      const accessToken = getState().auth.accessToken;
+      const accessToken = 'R9HReZlNB4Xbsu7pigxXAJ55P2eaLhHuZqXlopBd';
 
       const response = await axios.get("/water/perMonth", {
         headers: { Authorization: `Bearer ${accessToken}` },
