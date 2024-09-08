@@ -26,11 +26,11 @@ const ProgressBar = () => {
         <span>50%</span>
         <span>100%</span>
       </div>
-            </div>
+    </div>
             <div className={css.addWaterBtnContainer}>
                 <button className={css.addWaterBtn} type="button">
-                    <svg className={css.buttonIcon} width="18px" height="18px">
-                        <use href="../../../assets/img/icons.svg#icon-plus"></use>
+                    <svg className={css.buttonIcon} width="18" height="18px">
+                        <use className={css.strokePlus} href="/src/assets/img/icons.svg#icon-circle-plus"></use>
                     </svg>
         Add water
       </button>
