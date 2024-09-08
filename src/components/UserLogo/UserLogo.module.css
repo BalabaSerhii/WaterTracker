@@ -1,0 +1,16 @@
+.userIcon {
+    fill: none;
+}
+
+.userButton {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    background-color: transparent;
+    color: #407BFF;
+    padding: 0;
+}
+
+.userIconUse {
+    stroke: #2F2F2F;
+}
