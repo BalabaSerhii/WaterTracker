@@ -1,8 +1,6 @@
 .waterDailyContainer {
-    width: 164px;
-    height: 76px;
-    top: 112px;
-    left: 112px;
+    max-width: 173px;
+    max-height: 76px;
     padding: 8px 20px 8px 20px;
     border-radius: 10px;
     border: 1px;
@@ -40,6 +38,7 @@
     color: #8BAEFF;
     background-color: #ffffff;
     border: 0px;
+    padding: 0;
 }
 
 .dailyNormaContainer {
@@ -48,12 +47,4 @@
     gap: 12px;
     align-items: baseline;
     margin-top: 12px;
-}
-.container {
- width: 738px;
- height: 548px;
-background-image: url(../../assets/img/desc/HomePageBottle.png);
-background-repeat: no-repeat;
-/* background-position: left; */
-
 }
