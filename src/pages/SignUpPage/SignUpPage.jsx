@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../../redux/auth/operations'
 import AuthForm from '../../components/AuthFrom/AuthForm'
 
-import css from './SignupPage.module.css'
+import css from './SignUpPage.module.css'
 import { Section } from '../../components/Section/Section'
 import { Container } from '../../components/Container/Container'
 
-export default function SignupPage() {
+export default function SignUpPage() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
