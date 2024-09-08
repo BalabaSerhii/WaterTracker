@@ -8,10 +8,8 @@ export default function WaterList() {
   const day = useSelector(selectTodayWater) || {};
   const dispatch = useDispatch();
 
-  // Використовуємо useMemo для запам'ятовування обчисленого значення dayArr
   const dayArr = useMemo(() => day.data || [], [day]);
 
-  // Використовуємо useMemo для запам'ятовування об'єкта з сьогоднішньою датою
   const obj = useMemo(() => {
     const getTodayDate = () => {
       const today = new Date();
@@ -40,7 +38,7 @@ export default function WaterList() {
           </li>
         ))
       ) : (
-        <li>No data available</li>
+        <li></li>
       )}
     </ul>
   );

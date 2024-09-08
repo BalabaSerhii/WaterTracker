@@ -10,7 +10,7 @@ export default function WaterListItem({ day }) {
   hour: 'numeric',
   minute: 'numeric',
   hour12: true,
-  timeZone: 'America/New_York' // Ви можете замінити на вашу часову зону
+  timeZone: 'America/New_York'
     });
 
     const handleDelete = () => {
