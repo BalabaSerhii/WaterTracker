@@ -5,15 +5,12 @@ export const getWaterByMonth = createAsyncThunk(
   "water/getWaterByMonth",
   async (month, { getState, rejectWithValue }) => {
     try {
-      const accessToken = 'R9HReZlNB4Xbsu7pigxXAJ55P2eaLhHuZqXlopBd';
+       const accessToken = getState().auth.accessToken;
 
-      const params = new URLSearchParams(month).toString();
-      
-      const response = await axios.get(`/water/perMonth?${params}`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      }
-    });
+      const response = await axios.get("/water/perMonth", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        params: month, //! попросить сделать на беке через квери параметры, если не захотят, передавать месяц в теле запроса (вторым аргументом) и передавать заголовок контект тайпа апликейшн джсон
+      });
 
       return response.data;
     } catch (error) {
