@@ -63,7 +63,7 @@ const ProgressBar = () => {
       </div>
     </div>
             <div className={css.addWaterBtnContainer}>
-                <button className={css.addWaterBtn} type="button">
+                <button className={css.addWaterBtn} type="button" onClick={handleOpenModal}>
                     <svg className={css.buttonIcon} width="18" height="18px">
                         <use className={css.strokePlus} href="/src/assets/img/icons.svg#icon-circle-plus"></use>
                     </svg>
