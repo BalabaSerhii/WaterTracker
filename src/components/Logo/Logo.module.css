@@ -3,7 +3,6 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
-  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,8 +13,8 @@
   background-color: transparent;
 }
 .icon {
-  width: 58px;
-  height: 28px;
+  width: 102px;
+  height: 48px;
 }
 .icon:hover {
   stroke: rgb(255, 157, 67);
