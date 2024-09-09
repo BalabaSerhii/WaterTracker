@@ -20,6 +20,7 @@ const [modalIsOpen, setModalIsOpen] = useState(false);
     return (
         <div className={css.container}>
 
+
     <div className={css.waterDailyContainer}>
       <p className={css.waterDailyText}>My daily norma</p>
       <div className={css.dailyNormaContainer}>
@@ -31,6 +32,7 @@ const [modalIsOpen, setModalIsOpen] = useState(false);
            closeModal={handleCloseModal}
         isOpen={modalIsOpen}/>
     </div>
+
         </div>
     )
 }
