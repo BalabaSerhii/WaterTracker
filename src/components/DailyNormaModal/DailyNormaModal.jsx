@@ -31,7 +31,6 @@ export default function DailyNormaModal({ isOpen, onClose }) {
 
   const calculateWaterRequirement = () => {
     let waterAmount = 0;
-
     if (
       isNaN(weightInKg) ||
       weightInKg <= 0 ||
@@ -39,6 +38,7 @@ export default function DailyNormaModal({ isOpen, onClose }) {
       activityInHours < 0
     ) {
       setRequiredWater(0);
+
       return;
     }
 
@@ -50,7 +50,6 @@ export default function DailyNormaModal({ isOpen, onClose }) {
 
     setRequiredWater(waterAmount.toFixed(2));
   };
-
   const handleSave = async () => {
     const obj = {
       gender: gender === "For man" ? "man" : "woman",
@@ -59,6 +58,7 @@ export default function DailyNormaModal({ isOpen, onClose }) {
     };
     console.log(obj);
     dispatch(updateUserAmountOfWater(obj));
+
     onClose();
   };
 
