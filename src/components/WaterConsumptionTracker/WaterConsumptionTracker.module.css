@@ -13,13 +13,14 @@
   color: #2f2f2f;
   font-weight: 400;
   line-height: 30px;
+  max-width: 215px;
 }
 
 .sectiontitle {
   font-size: 18px;
   text-align: left;
   color: #2f2f2f;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 12px;
   line-height: 20px;
 }
@@ -54,7 +55,6 @@
 .benefiticon {
   width: 32px;
   height: 32px;
-  margin-right: 10px;
 }
 
 .trybutton {
@@ -90,7 +90,7 @@
     font-size: 36px;
     text-align: left;
     color: #2f2f2f;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 16px;
     line-height: 42px;
   }
@@ -98,13 +98,14 @@
   .pagesubtitle {
     font-size: 26px;
     line-height: 32px;
+    max-width: max-content;
   }
 
   .sectiontitle {
     font-size: 18px;
     text-align: left;
     color: #2f2f2f;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 12px;
   }
 
@@ -161,7 +162,7 @@
     font-size: 18px;
     text-align: left;
     color: #2f2f2f;
-    font-weight: 700;
+    font-weight: 500;
     margin-bottom: 15px;
   }
 
@@ -189,7 +190,7 @@
 
   .trybutton {
     font-size: 18px;
-    width: 350px;
-    max-width: 100%;
+    width: 100%;
+    max-width:384px;
   }
 }
