@@ -1,10 +1,9 @@
-@media (max-width: 767px) {
+
   .auth_form {
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-top: 16px;
-    margin-bottom: 16px;
   }
 
   .auth_form label {
@@ -36,6 +35,14 @@
 
   .input_wrapper {
     position: relative;
+  }
+
+  .icon {
+    fill: none;
+  }
+
+  .stroke {
+    stroke: #407BFF;
   }
 
   .password_toggle {
@@ -85,7 +92,7 @@
   .auth_form a:hover {
     color: #ff9d43;
   }
-}
+
 
 @media (min-width: 768px) {
   .auth_form {

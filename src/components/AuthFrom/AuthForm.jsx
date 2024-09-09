@@ -105,9 +105,9 @@ export default function AuthForm({ type, onSubmit }) {
               >
                 <svg className={css.icon} width="16" height="16">
                   {showPassword ? (
-                    <use href={`${icon}#icon-open-eye`} />
+                    <use className={css.stroke} href={`${icon}#icon-open-eye`} />
                   ) : (
-                    <use href={`${icon}#icon-close-eye`} />
+                    <use className={css.stroke} href={`${icon}#icon-close-eye`} />
                   )}
                 </svg>
               </button>
@@ -143,9 +143,9 @@ export default function AuthForm({ type, onSubmit }) {
                 >
                   <svg className={css.icon} width="16" height="16">
                     {showPassword ? (
-                      <use href={`${icon}#icon-open-eye`} />
+                      <use className={css.stroke} href={`${icon}#icon-open-eye`} />
                     ) : (
-                      <use href={`${icon}#icon-close-eye`} />
+                      <use className={css.stroke} href={`${icon}#icon-close-eye`} />
                     )}
                   </svg>
                 </button>

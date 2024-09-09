@@ -1,11 +1,26 @@
 .section {
+    background-image: url(../../assets/img/mobile/SignInBG.png);
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: top center;
+    background-position-y: 30px;
+    padding: 4px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 66px;
+}
+
+.bottle {
+    background-image: url(../../assets/img/mobile/SignInBottle.png);
     background-size: contain;
-    height: calc(100vh - 65px);
-    background-image: image-set
-        (url(../../assets/img/mobile/SignInBG.png) 1x,
-        url(../../assets/img/mobile/SignInBG@2x.png) 2x);
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 210px;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 1.23;
 }
 
 .block {
@@ -16,100 +31,38 @@
     flex-direction: column;
 }
 
-.title {
-    font-weight: 500;
-    font-size: 26px;
-    line-height: 1.23;
-}
-
 .redirektLink {
     margin-top: 16px;
     font-weight: 400px;
     font-size: 16px;
     line-height: 1.25;
-    /* color: #407bff; */
+    color: #407bff;
 }
 
-@media screen and (max-width: 767px) {
-    .container {
-        display: flex;
-        justify-content: center;
-    }
-
-    .block {
-        margin-top: 24px;
-    }
-
-    .bottle {
-        width: 280px;
-        height: 210px;
-        background-repeat: no-repeat;
-        background-size: contain;
-        margin-left: auto;
-        margin-right: auto;
-        background-image: image-set(
-            url(../../assets/img/mobile/SignInBottle.png) 1x,
-            url(../../assets/img/mobile/SignInBottle@2x.png) 2x);
-        margin-top: -26px;
-    }
-}
-
-@media screen and (min-width: 768px) {
+@media screen and (min-width:768px) {
     .section {
-        background-size: contain;
-        background-image: image-set(
-            url(../../assets/img/tab/botleSignInTablet.png) 1x,
-            url(../../assets/img/tab/botleSignInTablet-2x.png) 2x);
-        width: 100%;
-        height: 100%;
-        margin-top: -56px;            
-    }
-
-    .block {
-        width: 336px;
-        margin-left: 32px;
-        margin-right: 30px;
-        margin-top: 114px;
+        background-image: url(../../assets/img/tab/SignInBottle.png);
+        background-position: bottom;
+        min-height: 590px;
+        padding: 16px 32px;
     }
 
     .bottle {
         display: none;
     }
-}
-
-@media screen and (min-width: 1440px) {
-    .section {
-        background-image: image-set(
-            url(../../assets/img/desc/MainPageBubbleBG.png) 1x,
-            url(../../assets/img/desc/MainPageBubbleBG@2x.png) 2x);
-        background-repeat: no-repeat;
-        background-position: top center;
-        background-size: contain;
-        margin-top: 12px;
-        width: 100%;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: right;
-        padding-right: 216px;
-    }
 
     .block {
-        margin-right: 216px;
-        width: 384px;
-        align-self: flex-end;
+        width: max-content;
     }
+}
 
-    .bottle {
-        width: 916px;
-        height: 680px;
-        display: flex;
-        background-image: image-set(
-            url(../../assets/img/desc/SignInBottle.png) 1x,
-            url(../../assets/img/desc/SignInBottle@2x.png) 2x);
-        margin-top: -470px;
-        margin-left: -100px;
+@media screen and (min-width:1440px) {
+    .section {
+        background-image: url(../../assets/img/desc/SignInBottle.png), url(../../assets/img/desc/MainPageBubbleBG.png);
+        background-size: contain;
+        background-position: left;
+        flex-direction: row;
+        justify-content: end;
+        padding: 113px 214px;
     }
 }
