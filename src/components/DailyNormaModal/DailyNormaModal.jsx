@@ -1,19 +1,36 @@
 import css from "./DailyNormaModal.module.css";
 import Modal from "../Modal/Modal";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchUser,
+  updateUserAmountOfWater,
+} from "../../redux/user/operations";
+import { selectUserWaterAmount } from "../../redux/user/selectors";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
 export default function DailyNormaModal({ isOpen, onClose }) {
-  const [gender, setGender] = useState("For girl");
-  const [weight, setWeight] = useState("0");
-  const [activityTime, setActivityTime] = useState("0");
-  const [requiredWater, setRequiredWater] = useState("1.8");
-  const [consumedWater, setConsumedWater] = useState("0");
+  const dispatch = useDispatch();
+
+  const [gender, setGender] = useState("For women");
+  const [weight, setWeight] = useState(0);
+  const [activityTime, setActivityTime] = useState(0);
+  const [requiredWater, setRequiredWater] = useState(1.8);
+  const [consumedWater, setConsumedWater] = useState(0);
+
+  const dailyNorma = useSelector(selectUserWaterAmount);
+
+  useEffect(() => {
+    if (isOpen) {
+      dispatch(fetchUser());
+    }
+  }, [isOpen, dispatch]);
+
+  const weightInKg = parseFloat(weight);
+  const activityInHours = parseFloat(activityTime);
 
   const calculateWaterRequirement = () => {
     let waterAmount = 0;
-    const weightInKg = parseFloat(weight);
-    const activityInHours = parseFloat(activityTime);
 
     if (
       isNaN(weightInKg) ||
@@ -21,6 +38,7 @@ export default function DailyNormaModal({ isOpen, onClose }) {
       isNaN(activityInHours) ||
       activityInHours < 0
     ) {
+      setRequiredWater(0);
       return;
     }
 
@@ -33,14 +51,14 @@ export default function DailyNormaModal({ isOpen, onClose }) {
     setRequiredWater(waterAmount.toFixed(2));
   };
 
-  const handleSave = () => {
-    console.log({
-      gender,
-      weight,
-      activityTime,
-      requiredWater,
-      consumedWater,
-    });
+  const handleSave = async () => {
+    const obj = {
+      gender: gender === "For man" ? "man" : "woman",
+      weight: weightInKg,
+      time: activityInHours,
+    };
+    console.log(obj);
+    dispatch(updateUserAmountOfWater(obj));
     onClose();
   };
 

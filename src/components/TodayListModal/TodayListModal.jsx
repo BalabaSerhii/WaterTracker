@@ -1,15 +1,28 @@
 import css from "./TodayListModal.module.css";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
+import { postWater } from "../../redux/water/operations";
+import { useDispatch } from "react-redux";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
-export default function TodayListModal({ onSave, onClose }) {
+export default function TodayListModal({ onClose }) {
   const [amount, setAmount] = useState(50);
   const [inputAmount, setInputAmount] = useState(50);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const dispatch = useDispatch();
 
   const handleSave = () => {
-    onSave({ amount, time: currentTime.toTimeString().substring(0, 5) });
+    const formattedDate = currentTime.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:mm"
+
+    const waterData = {
+      waterVolume: amount,
+      date: formattedDate,
+    };
+    console.log(formattedDate);
+    // Dispatch the postWater action to save data to the server
+    dispatch(postWater(waterData));
+
+    // onSave({ amount, time: currentTime.toTimeString().substring(0, 5) });
     onClose();
   };
 
