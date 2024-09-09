@@ -1,9 +1,12 @@
-import { Suspense } from "react";
+import { Suspense, useEffect, useSelector } from "react";
+import axios from "axios"
 import SharedLayout from "../SharedLayout/SharedLayout";
-import { Route, Routes } from "react-router-dom";
-// import PrivateRoute from '../PrivateRoute/PrivateRoute'
+import {
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";;
 import { lazy } from "react";
-// import RestrictedRoute from '../RestrictedRoute/RestrictedRoute'
 import Loader from "../Loader/Loader";
 import css from "./App.module.css";
 
@@ -15,8 +18,11 @@ const NotFoundPage = lazy(() =>
   import("../../pages/NotFoundPage/NotFoundPage")
 );
 
+
 export default function App() {
-  return (
+
+
+    return (
     <div className={css.container}>
       <Suspense fallback={<Loader />}>
         <SharedLayout>
