@@ -5,7 +5,7 @@ import css from "./WelcomePage.module.css";
 const WelcomePage = () => {
   return (
     <div className={css.welcomepage}>
-      <div className={css.welcomwpagecontainer}>
+      <div className={css.welcomepagecontainer}>
         <div className={css.components}>
           <WaterConsumptionTracker />
           <WhyDrinkWater />

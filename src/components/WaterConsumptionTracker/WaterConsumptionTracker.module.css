@@ -48,8 +48,6 @@
   align-items: center;
   font-size: 16px;
   line-height: 20px;
-  width: 216px;
-  height: 32px;
   gap: 8px;
 }
 
@@ -70,10 +68,9 @@
   text-align: center;
   font-weight: 400;
   box-shadow: 0px 4px 8px rgba(64, 123, 255, 0.34);
-  width: 280px;
-  height: 36px;
   transition: background-color 0.3s;
   line-height: 20px;
+  width: 100%;
 }
 
 .trybutton:hover {
@@ -113,7 +110,6 @@
 
   .waterconsumptiontracker {
     margin-bottom: 0px;
-    height: 254px;
   }
 
   .trackerbenefits {
@@ -128,7 +124,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 704px;
     gap: 16px;
   }
 
@@ -136,8 +131,6 @@
     display: flex;
     align-items: center;
     font-size: 16px;
-    width: 224px;
-    height: 40px;
     margin: 0;
     gap: 8px;
   }
@@ -174,7 +167,6 @@
 
   .waterconsumptiontracker {
     margin-bottom: 0px;
-    height: 366px;
   }
 
   .trackerbenefitslist {
@@ -182,7 +174,6 @@
     padding: 0;
     margin: 0;
     display: flex;
-    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
@@ -200,6 +191,5 @@
     font-size: 18px;
     width: 350px;
     max-width: 100%;
-    margin-bottom: 10px;
   }
 }

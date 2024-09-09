@@ -8,15 +8,15 @@ body {
 
 .welcomepage {
   max-width: 320px;
-  height: 960px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-image: url("/src/assets/img/mobile/MainPageBG.png");
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position-y: 21px;
+  background-size: cover;
+  height: 100vh;
+  background-position: bottom;
 }
 
 .components {
@@ -29,29 +29,20 @@ body {
 @media (min-resolution: 2dppx) {
   .welcomepage {
     background-image: url("/src/assets/img/mobile/MainPageBG@2x.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-y: 21px;
-  }
-  .components {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 40px;
   }
 }
 
 @media (min-width: 768px) {
   .welcomepage {
     max-width: 768px;
+    align-items: flex-start;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 35px;
+    justify-content: center;
     background-image: url("/src/assets/img/tab/MainPageBG.png");
-    background-size: contain;
     background-repeat: no-repeat;
-    background-position-y: 139px;
+    background-size: contain;
+    background-position: bottom;
+    height: 100vh;
   }
   .components {
     display: flex;
@@ -64,15 +55,6 @@ body {
 @media (min-width: 768px) and (min-resolution: 2dppx) {
   .welcomepage {
     background-image: url("/src/assets/img/tab/MainPageBG@2x.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-y: 139px;
-  }
-  .components {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 60px;
   }
 }
 
@@ -87,55 +69,20 @@ body {
   }
   .welcomepage {
     max-width: 1440px;
-    height: 432px;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
     justify-content: center;
-    background-image: url("/src/assets/img/desc/MainPageBG.png");
+    background-image: url("/src/assets/img/desc/Main-Page-desc@1x.png");
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: 0px 272px;
-  }
-
-  .welcomwpagecontainer {
-    max-width: 1404px;
-    height: 582px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    background-image: url("/src/assets/img/desc/MainPageBubbleBG.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+    background-position: bottom;
+    height: 100vh;
+    align-items: center;
   }
 }
 
 @media (min-width: 1440px) and (min-resolution: 2dppx) {
-  .components {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 81px;
-  }
   .welcomepage {
-    max-width: 1440px;
-    height: 432px;
-    display: flex;
-    flex-direction: row;
-    background-image: url("/src/assets/img/desc/MainPageBG@2x.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: 0px 272px;
-  }
-  .welcomwpagecontainer {
-    max-width: 1404px;
-    height: 582px;
-    display: flex;
-    flex-direction: row;
-    background-image: url("/src/assets/img/desc/MainPageBubbleBG@2x.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+    background-image: url("/src/assets/img/desc/Main-Page-desc@2x.png");
   }
 }
