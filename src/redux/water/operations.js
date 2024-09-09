@@ -5,7 +5,7 @@ export const getWaterByMonth = createAsyncThunk(
   "water/getWaterByMonth",
   async (month, { getState, rejectWithValue }) => {
     try {
-      const accessToken = getState().auth.accessToken;
+       const accessToken = getState().auth.accessToken;
 
       const response = await axios.get("/water/perMonth", {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -119,10 +119,10 @@ export const deleteWater = createAsyncThunk(
     try {
       const state = thunkAPI.getState();
 
-      const persistedToken = state.auth.token;
+      const accessToken = getState().auth.accessToken;
 
       const response = await axios.delete(`water/${id}`, {
-        headers: { Authorization: `Bearer ${persistedToken}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
 
       return response.data;
