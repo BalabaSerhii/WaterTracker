@@ -73,7 +73,7 @@ const Pagitation = () => {
     <h1 className={css.title}>Month</h1>
 
     <div className={css.datePickContainer}>
-      <button onClick={handlePrevMonth} type="button" className={css.button}>
+       <button onClick={handlePrevMonth} type="button" className={css.buttonCalendar}>
         &lt;
       </button>
 
@@ -84,7 +84,7 @@ const Pagitation = () => {
       <button
         onClick={handleNextMonth}
         type="button"
-        className={css.button}
+        className={css.buttonCalendar}
         disabled={isLastMonth}
       >
         &gt;
