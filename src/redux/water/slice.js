@@ -6,6 +6,7 @@ import {
   deleteWater,
   patchWater,
 } from "./operations";
+import { getISOStringDate } from "../../components/MonthStatsTable/Pagitation/Pagitation";
 const handlePending = (state) => {
   state.loading = true;
   state.error = null;
@@ -19,12 +20,17 @@ const handleRejected = (state, action) => {
 const waterSlice = createSlice({
   name: "water",
   initialState: {
+    chosenDate: getISOStringDate(),
     monthly: [],
     todayWater: [],
     isLoading: false,
     isError: false,
   },
-
+   reducers: {
+    setChosenDate: (state, action) => {
+      state.chosenDate = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getWaterByMonth.pending, handlePending)
@@ -59,7 +65,7 @@ const waterSlice = createSlice({
         const indexToDelete = state.todayWater.data.findIndex(
           ({ _id }) => _id === action.payload
         );
-        state.todayWater.splice(indexToDelete, 1);
+        state.todayWater.data.splice(indexToDelete, 1);
       })
       .addCase(deleteWater.rejected, handleRejected)
 
@@ -77,7 +83,7 @@ const waterSlice = createSlice({
   },
 });
 export default waterSlice.reducer;
-
+export const { setChosenDate } = waterSlice.actions;
 /*
 Какой фукнционал есть в приложении в разделе работы с водой?
 - Сегодня

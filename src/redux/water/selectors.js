@@ -1,6 +1,8 @@
 export const selectMonthly = (state) => state.water.monthly;
 export const selectTodayWater = (state) => state.water.todayWater;
 
+export const chosenDate = (state) => state.water.chosenDate;
+
 export const selectWaterLoading = (state) => state.water.loading;
 export const selectWaterError = (state) => state.water.error;
 
