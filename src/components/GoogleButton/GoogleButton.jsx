@@ -6,7 +6,7 @@ import css from './GoogleButton.module.css';
 const GoogleButton = () => {
   const handleGoogleLogin = async () => {
     try {
-      const { data } = await axios.get('https://test-aquatrack-backend.onrender.com/auth/get-oauth-url');
+      const { data } = await axios.get('https://project-water-bac.onrender.com/auth/get-oauth-url');
       window.location.href = data.url; // Перенаправлення на сторінку Google OAuth
     } catch (error) {
       toast.error('Error getting Google OAuth URL');
