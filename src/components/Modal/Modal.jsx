@@ -4,10 +4,10 @@ import styles from "./style.module.scss";
 
 import PropTypes from "prop-types";
 
-export default function Modal({ modalTitle, children }) {
+export default function Modal({ modalTitle, onClose, children }) {
   const [isVisible, setIsVisible] = useState(false);
-
   const handleCloseModal = () => setIsVisible(false);
+  onClose = handleCloseModal;
 
   useEffect(() => {
     setIsVisible(true);
@@ -51,4 +51,5 @@ export default function Modal({ modalTitle, children }) {
 Modal.propTypes = {
   modalTitle: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  onClose: PropTypes.node,
 };
