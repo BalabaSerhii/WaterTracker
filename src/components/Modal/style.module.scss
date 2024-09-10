@@ -3,7 +3,6 @@
 }
 
 .modal {
-  height: 90%;
   background-color: $primary-color-white;
   position: relative;
   z-index: 999;
@@ -42,7 +41,9 @@
   button {
     background-color: transparent;
     padding: 0;
+    border: transparent;
   }
+
 
   }
 

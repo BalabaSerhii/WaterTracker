@@ -6,23 +6,20 @@ import { useDispatch } from "react-redux";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
 export default function TodayListModal({ onClose }) {
-  const [amount, setAmount] = useState(50);
-  const [inputAmount, setInputAmount] = useState(50);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [amount, setAmount] = useState(50); // Amount of water in ml
+  const [currentTime, setCurrentTime] = useState(new Date()); // Current time
   const dispatch = useDispatch();
 
   const handleSave = () => {
-    const formattedDate = currentTime.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:mm"
+    const formattedDate = currentTime.toISOString().slice(0, 16); // Format date as "YYYY-MM-DDTHH:mm"
 
     const waterData = {
       waterVolume: amount,
       date: formattedDate,
     };
-    console.log(formattedDate);
-    // Dispatch the postWater action to save data to the server
-    dispatch(postWater(waterData));
 
-    // onSave({ amount, time: currentTime.toTimeString().substring(0, 5) });
+    // Dispatch action to save water data
+    dispatch(postWater(waterData));
     onClose();
   };
 
@@ -31,26 +28,34 @@ export default function TodayListModal({ onClose }) {
     const updatedTime = new Date(currentTime);
     updatedTime.setHours(hours);
     updatedTime.setMinutes(minutes);
-    setCurrentTime(updatedTime);
+    setCurrentTime(updatedTime); // Update time based on user input
   };
 
-  const handleInputAmountChange = (event) => {
-    setInputAmount(parseInt(event.target.value, 10));
-  };
+ const handleInputAmountChange = (event) => {
+  const value = event.target.value;
+
+ 
+  if (value === '') {
+    setAmount(''); 
+  } else {
+    setAmount(parseInt(value, 10) || 0); 
+  }
+};
+
 
   const handleAmountAdjustment = (adjustment) => {
-    setAmount((prevAmount) => Math.max(0, prevAmount + adjustment));
+    setAmount((prevAmount) => Math.max(0, prevAmount + adjustment)); // Adjust amount, ensuring it doesn't go below 0
   };
-
-  return (
+return (
     <Modal modalTitle="Add water" onClose={onClose}>
-      <div>
+      <div className={css.modalContainer}>
         <p className={css.large_text}>Choose a value:</p>
         <p className={css.small_text}>Amount of water:</p>
         <div className={css.div}>
           <button
             className={css.icon}
-            onClick={() => handleAmountAdjustment(-parseInt(inputAmount, 10))}>
+            onClick={() => handleAmountAdjustment(-50)} // Decrease by 50 ml
+          >
             <svg width="24" height="24" fill=" #407bff">
               <use href="/src/assets/img/icons.svg#icon-minus"></use>
             </svg>
@@ -58,33 +63,37 @@ export default function TodayListModal({ onClose }) {
           <span className={css.amount}>{amount} ml</span>
           <button
             className={css.icon}
-            onClick={() => handleAmountAdjustment(parseInt(inputAmount, 10))}>
+            onClick={() => handleAmountAdjustment(50)} // Increase by 50 ml
+          >
             <svg width="24" height="24" stroke=" #407bff">
               <use href="/src/assets/img/icons.svg#icon-plus"></use>
             </svg>
           </button>
         </div>
+
         <p className={css.small_text}>Recording time:</p>
         <input
           className={css.input}
           type="time"
-          value={currentTime.toTimeString().substring(0, 5)}
+          value={currentTime.toTimeString().substring(0, 5)} // Display current time
           onChange={handleTimeChange}
         />
+
         <p className={css.large_text}>Enter the value of the water used:</p>
         <input
           className={css.input}
           type="number"
-          value={inputAmount}
-          onChange={handleInputAmountChange}
+          value={amount}
+          onChange={handleInputAmountChange} // Update amount when the user inputs a value
           min="0"
         />
-        <button type="button" onClick={handleSave}>
-          Save
-        </button>
-        {/* <div className={css.btn_save}>
-          <ButtonComponent text="Save" onClick={handleSave} />
-        </div> */}
+
+        <div className={css.buttonSaveContainer}>
+          <h2 className={css.amountDown}>{amount} ml</h2>
+          <button className={css.buttonSave} type="button" onClick={handleSave}>
+            Save
+          </button>
+        </div>
       </div>
     </Modal>
   );
