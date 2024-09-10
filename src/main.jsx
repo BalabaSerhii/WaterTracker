@@ -4,10 +4,10 @@ import App from "./components/App/App.jsx";
 import "./index.module.css";
 import "./index.scss";
 import "./i18n.js";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./redux/store.js";
+import { BrowserRouter } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
 // createRoot(document.getElementById("root")).render(
 //   <StrictMode>
 //     <BrowserRouter>
@@ -16,7 +16,7 @@ import { store, persistor } from "./redux/store.js";
 //   </StrictMode>
 // );
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+<StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
@@ -24,5 +24,5 @@ createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </StrictMode>
+</StrictMode>
 );
