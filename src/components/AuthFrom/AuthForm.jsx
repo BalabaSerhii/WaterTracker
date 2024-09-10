@@ -1,9 +1,11 @@
+
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectAuthError, selectAuthLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
+import GoogleButton from '../GoogleButton/GoogleButton';
 
 import css from "./AuthForm.module.css";
 import icon from "../../assets/img/icons.svg";
@@ -168,6 +170,7 @@ export default function AuthForm({ type, onSubmit }) {
           >
             {isLoading ? <Loader /> : isSignup ? "Sign Up" : "Sign In"}
           </button>
+          <GoogleButton />
 
           {!isSignup && (
             <div className={css.link_container}>
