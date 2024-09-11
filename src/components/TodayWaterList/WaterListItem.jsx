@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import css from './WaterListItem.module.css';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
+import { selectUserData } from '../../redux/user/selectors';
 
 export default function WaterListItem({ day }) {
   const date = new Date(day.createdAt);
@@ -13,7 +14,6 @@ export default function WaterListItem({ day }) {
     timeZone: 'America/New_York',
   });
 
-  // Manage state for modals
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 

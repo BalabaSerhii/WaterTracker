@@ -15,7 +15,7 @@ const DeleteWaterModal = ({ isOpen, onClose, entryId, setIsOpen }) => {
     dispatch(deleteWater(entryId));
     onClose();
   };
-
+  console.log(entryId)
   return (
     <Modal
       modalTitle="Delete entry"
