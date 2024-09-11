@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import IconComponent from "../IconComponent/IconComponent";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 
-export default function TodayListEditModal({ onSave, onClose }) {
+export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen }) {
   const [amount, setAmount] = useState(50);
   const [inputAmount, setInputAmount] = useState("50");
   const [currentTime, setCurrentTime] = useState(
@@ -46,7 +46,7 @@ export default function TodayListEditModal({ onSave, onClose }) {
   };
 
   return (
-    <Modal modalTitle="Edit the entered amount of water" onClose={onClose}>
+    <Modal modalTitle="Edit the entered amount of water" onClose={onClose} isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={style.conteiner}>
         <div className={style.glass}>
           <IconComponent

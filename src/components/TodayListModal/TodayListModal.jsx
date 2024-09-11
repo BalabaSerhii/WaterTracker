@@ -6,21 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUserData } from "../../redux/user/selectors";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
-export default function TodayListModal({ onClose }) {
-  const [amount, setAmount] = useState(50); // Amount of water in ml
-  const [currentTime, setCurrentTime] = useState(new Date()); // Current time
+export default function TodayListModal({ onClose, isOpen, setIsOpen }) {1
+  const [amount, setAmount] = useState(50); 
+  const [currentTime, setCurrentTime] = useState(new Date()); 
 
   const dispatch = useDispatch();
 
   const handleSave = () => {
-    const formattedDate = currentTime.toISOString().slice(0, 16); // Format date as "YYYY-MM-DDTHH:mm"
+    const formattedDate = currentTime.toISOString().slice(0, 16); 
 
     const waterData = {
       waterVolume: amount,
       date: formattedDate,
     };
 
-    // Dispatch action to save water data
     dispatch(postWater(waterData));
     console.log(waterData);
   };
@@ -32,7 +31,7 @@ export default function TodayListModal({ onClose }) {
     const updatedTime = new Date(currentTime);
     updatedTime.setHours(hours);
     updatedTime.setMinutes(minutes);
-    setCurrentTime(updatedTime); // Update time based on user input
+    setCurrentTime(updatedTime); 
   };
 
  const handleInputAmountChange = (event) => {
@@ -48,17 +47,17 @@ export default function TodayListModal({ onClose }) {
 
 
   const handleAmountAdjustment = (adjustment) => {
-    setAmount((prevAmount) => Math.max(0, prevAmount + adjustment)); // Adjust amount, ensuring it doesn't go below 0
+    setAmount((prevAmount) => Math.max(0, prevAmount + adjustment)); 
   };
 return (
-    <Modal modalTitle="Add water" onClose={onClose}>
+    <Modal modalTitle="Add water" onClose={onClose} isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={css.modalContainer}>
         <p className={css.large_text}>Choose a value:</p>
         <p className={css.small_text}>Amount of water:</p>
         <div className={css.div}>
           <button
             className={css.icon}
-            onClick={() => handleAmountAdjustment(-50)} // Decrease by 50 ml
+            onClick={() => handleAmountAdjustment(-50)} 
           >
             <svg width="24" height="24" fill=" #407bff">
               <use href="/src/assets/img/icons.svg#icon-minus"></use>
@@ -67,7 +66,7 @@ return (
           <span className={css.amount}>{amount} ml</span>
           <button
             className={css.icon}
-            onClick={() => handleAmountAdjustment(50)} // Increase by 50 ml
+            onClick={() => handleAmountAdjustment(50)} 
           >
             <svg width="24" height="24" stroke=" #407bff">
               <use href="/src/assets/img/icons.svg#icon-plus"></use>
@@ -79,7 +78,7 @@ return (
         <input
           className={css.input}
           type="time"
-          value={currentTime.toTimeString().substring(0, 5)} // Display current time
+          value={currentTime.toTimeString().substring(0, 5)} 
           onChange={handleTimeChange}
         />
 
@@ -88,7 +87,7 @@ return (
           className={css.input}
           type="number"
           value={amount}
-          onChange={handleInputAmountChange} // Update amount when the user inputs a value
+          onChange={handleInputAmountChange} 
           min="0"
         />
 

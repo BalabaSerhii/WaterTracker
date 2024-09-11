@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import css from './WaterListItem.module.css';
 import { deleteWater } from '../../redux/water/operations';
 import { useDispatch } from 'react-redux';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
-import { useState } from 'react';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
 
-export default function WaterListItem({ day }, { openEditModal }) {
+export default function WaterListItem({ day }) {
   const date = new Date(day.createdAt);
   const dispatch = useDispatch();
 
@@ -21,20 +20,17 @@ export default function WaterListItem({ day }, { openEditModal }) {
     dispatch(deleteWater(day._id));
   };
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-  
-  const handleOpenEditModal = () => {
-    setIsEditModalOpen(true)
-  }
+  // Manage state for modals
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const [isDeleteModalOpen, setIsDeleteMpdalOpen] = useState(false)
+  const handleOpenEditModal = () => setIsEditModalOpen(true);
+  const handleCloseEditModal = () => setIsEditModalOpen(false);
+  const handleOpenDeleteModal = () => setIsDeleteModalOpen(true);
+  const handleCloseDeleteModal = () => setIsDeleteModalOpen(false);
 
-  const handleOpenDeleteModal = () => {
-    setIsDeleteMpdalOpen(true)
-  }
-    
   return (
-    <div className={css.container}>
+    <div className={css.container} key={day._id}>
       <div className={css.operationContainer}>
         <div className={css.amountInfoContainer}>
           <svg className={css.iconWaterGlass} width={36} height={36}>
@@ -56,8 +52,15 @@ export default function WaterListItem({ day }, { openEditModal }) {
           </button>
         </div>
       </div>
-      {isEditModalOpen && <TodayListEditModal />}
-      {isDeleteModalOpen && <DeleteWaterModal/>}
+      {isEditModalOpen && <TodayListEditModal isOpen={isEditModalOpen} onClose={handleCloseEditModal}  setIsOpen={setIsEditModalOpen}  />}
+      {isDeleteModalOpen && (
+        <DeleteWaterModal
+          isOpen={isDeleteModalOpen}
+          onClose={handleCloseDeleteModal}
+          entryId={day._id}
+          setIsOpen={setIsDeleteModalOpen}
+        />
+      )}
     </div>
   );
 }
