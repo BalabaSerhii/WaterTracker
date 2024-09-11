@@ -19,7 +19,7 @@ const ButtonComponent = ({
     <button
       className={styles.button}
       style={buttonStyle}
-      onClick={onClick}
+      onClick={() => onClick()}
       aria-label={ariaLabel || text}
     >
       {text}

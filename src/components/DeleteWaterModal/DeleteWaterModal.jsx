@@ -2,13 +2,16 @@ import React from "react";
 import styles from "./DeleteWaterModal.module.css";
 import Modal from "../Modal/Modal";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
+import { deleteWater } from "../../redux/water/operations";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTodayWaterAmount } from "../../redux/water/selectors";
 
 const DeleteWaterModal = ({ isOpen, onClose, entryId, setIsOpen }) => {
-
-  const handleCloseModal = () => {
-    setIsOpen(false); // Use setIsOpen to manage state
+  const dispatch = useDispatch();
+  const handleModal = () => {
+    dispatch(deleteWater(entryId));
   };
-
+  console.log(entryId)
   return (
     <Modal modalTitle="Delete entry" onClose={onClose} isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={styles.container}>
@@ -26,7 +29,7 @@ const DeleteWaterModal = ({ isOpen, onClose, entryId, setIsOpen }) => {
             text="Delete"
             color="rgba(255, 255, 255, 1)"
             backgroundColor="rgba(239, 80, 80, 1)"
-            onClick={handleCloseModal}
+            onClick={handleModal}
           />
         </div>
       </div>

@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import css from './WaterListItem.module.css';
 import { deleteWater } from '../../redux/water/operations';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
+import { selectUserData } from '../../redux/user/selectors';
 
 export default function WaterListItem({ day }) {
   const date = new Date(day.createdAt);
   const dispatch = useDispatch();
-
+  const user = useSelector(selectUserData)
+  
   const formattedTime = date.toLocaleString("en-US", {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
     timeZone: 'America/New_York'
   });
-
   const handleDelete = () => {
     dispatch(deleteWater(day._id));
   };
 
-  // Manage state for modals
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
