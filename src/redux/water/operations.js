@@ -1,13 +1,13 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const getWaterByMonth = createAsyncThunk(
-  "water/getWaterByMonth",
+  'water/getWaterByMonth',
   async (month, { getState, rejectWithValue }) => {
     try {
-       const accessToken = getState().auth.accessToken;
+      const accessToken = getState().auth.accessToken;
 
-      const response = await axios.get("/water/perMonth", {
+      const response = await axios.get('/water/perMonth', {
         headers: { Authorization: `Bearer ${accessToken}` },
         params: month, //! попросить сделать на беке через квери параметры, если не захотят, передавать месяц в теле запроса (вторым аргументом) и передавать заголовок контект тайпа апликейшн джсон
       });
@@ -17,7 +17,7 @@ export const getWaterByMonth = createAsyncThunk(
       if (
         error.response &&
         error.response.status === 404 &&
-        error.response.data.message === "Entries of water not found"
+        error.response.data.message === 'Entries of water not found'
       ) {
         return [];
       }
@@ -27,12 +27,12 @@ export const getWaterByMonth = createAsyncThunk(
 );
 
 export const getWaterByDay = createAsyncThunk(
-  "water/getWaterByDay",
+  'water/getWaterByDay',
   async (dateData, { getState, rejectWithValue }) => {
     try {
       const accessToken = getState().auth.accessToken;
 
-      const response = await axios.get("/water/perDay", {
+      const response = await axios.get('/water/perDay', {
         headers: { Authorization: `Bearer ${accessToken}` },
         params: dateData,
       });
@@ -42,7 +42,7 @@ export const getWaterByDay = createAsyncThunk(
       if (
         error.response &&
         error.response.status === 404 &&
-        error.response.data.message === "Entries of water not found"
+        error.response.data.message === 'Entries of water not found'
       ) {
         return [];
       }
@@ -52,12 +52,12 @@ export const getWaterByDay = createAsyncThunk(
 );
 
 export const getTodayWater = createAsyncThunk(
-  "water/getTodayWater",
+  'water/getTodayWater',
   async (date, { getState, rejectWithValue }) => {
     try {
       const accessToken = getState().auth.accessToken;
 
-      const response = await axios.get("/water/perDay", {
+      const response = await axios.get('/water/perDay', {
         headers: { Authorization: `Bearer ${accessToken}` },
         params: date,
       });
@@ -67,7 +67,7 @@ export const getTodayWater = createAsyncThunk(
       if (
         error.response &&
         error.response.status === 404 &&
-        error.response.data.message === "Entries of water not found"
+        error.response.data.message === 'Entries of water not found'
       ) {
         return [];
       }
@@ -76,13 +76,13 @@ export const getTodayWater = createAsyncThunk(
   }
 );
 export const postWater = createAsyncThunk(
-  "/water",
+  '/water',
   async (data, { getState, rejectWithValue }) => {
     try {
       const accessToken = getState().auth.accessToken;
-     const response = await axios.post("/water", data, {
-  headers: { Authorization: `Bearer ${accessToken}` },
-});
+      const response = await axios.post('/water', data, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -91,7 +91,7 @@ export const postWater = createAsyncThunk(
 );
 
 export const patchWater = createAsyncThunk(
-  "water/patchtWater",
+  'water/patchtWater',
   async ({ id, patchedData }, { getState, rejectWithValue }) => {
     try {
       const accessToken = getState().auth.accessToken;
@@ -99,7 +99,7 @@ export const patchWater = createAsyncThunk(
       const response = await axios.patch(`water/${id}`, patchedData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
 
@@ -111,11 +111,9 @@ export const patchWater = createAsyncThunk(
 );
 
 export const deleteWater = createAsyncThunk(
-  "water/delWater",
-  async (id, thunkAPI) => {
+  'water/delWater',
+  async (id, { getState }) => {
     try {
-      const state = thunkAPI.getState();
-
       const accessToken = getState().auth.accessToken;
 
       const response = await axios.delete(`water/${id}`, {
