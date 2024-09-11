@@ -18,12 +18,12 @@ export const selectWaterDetailsByDate = (state, date) =>
 
 //Select Percentage of Water Intake for Today: This selector calculates the percentage of the daily goal met today.
 export const selectTodayWaterPercentage = state => {
-  const totalAmount = state.water.todayWater.reduce(
+  const totalAmount = state.water.todayWater.data.reduce(
     (acc, item) => acc + item.waterAmount,
     0
   );
   const dailyNorm =
-    state.water.monthly.find(
+    state.water.monthly.data.find(
       day => day.date === new Date().toISOString().split('T')[0]
     )?.dailyNorma || 0;
   return (totalAmount / dailyNorm) * 100;

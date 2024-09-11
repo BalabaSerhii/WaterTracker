@@ -51,7 +51,7 @@ const waterSlice = createSlice({
 
       .addCase(postWater.pending, handlePending)
       .addCase(postWater.fulfilled, (state, action) => {
-        state.todayWater.push(action.payload);
+        state.todayWater.data.push(action.payload);
         state.isLoading = false;
       })
       .addCase(postWater.rejected, handleRejected)
