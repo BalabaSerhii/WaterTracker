@@ -19,20 +19,16 @@ const [modalIsOpen, setModalIsOpen] = useState(false);
     const dailyNorma = useSelector(selectUserWaterAmount)
     return (
         <div className={css.container}>
-
-
-    <div className={css.waterDailyContainer}>
-      <p className={css.waterDailyText}>My daily norma</p>
-      <div className={css.dailyNormaContainer}>
-        <h2 className={css.waterDailyTitle}>{dailyNorma ? dailyNorma : 0}L</h2>
-      <button type="button" className={css.editbutton} onClick={handleOpenModal}>Edit</button>
+          <div className={css.waterDailyContainer}>
+            <p className={css.waterDailyText}>My daily norma</p>
+            <div className={css.dailyNormaContainer}>
+              <h2 className={css.waterDailyTitle}>{dailyNorma ? dailyNorma : 0}L</h2>
+              <button type="button" className={css.editbutton} onClick={handleOpenModal}>Edit</button>
+            </div>
+            <DailyNormaModal
+              closeModal={handleCloseModal}
+              isOpen={modalIsOpen}/>
           </div>
-          <DailyNormaModal
-          
-           closeModal={handleCloseModal}
-        isOpen={modalIsOpen}/>
-    </div>
-
         </div>
     )
 }

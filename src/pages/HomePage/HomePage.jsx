@@ -11,7 +11,7 @@ export default function HomePage() {
             <div className={css.bottleBG}>
               <DailyNorma />
             </div>
-            <WaterRatioPanel />
+              <WaterRatioPanel />
           </div>
           <div className={css.calendarBox}>
             <div className={css.calendarWrapper}>
