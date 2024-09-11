@@ -24,7 +24,7 @@ export default function WaterListItem({ day }) {
           <svg className={css.iconWaterGlass} width={36} height={36}>
             <use href="/src/assets/img/icons.svg#icon-glass"></use>
           </svg>
-          <p className={css.amountInfo}>{day.waterVolume}</p>
+          <p className={css.amountInfo}>{day.waterVolume} ml</p>
           <p className={css.timeInfo}>{formattedTime}</p>
         </div>
         <div className={css.iconsContainer}>

@@ -1,12 +1,13 @@
 import css from './DailyNorma.module.css'
 import { useSelector } from 'react-redux'
-import { selectUserWaterAmount } from "../../redux/user/selectors"
+import { selectUserData, selectUserWaterAmount } from "../../redux/user/selectors"
 import DailyNormaModal from "../DailyNormaModal/DailyNormaModal"
 import { useState } from 'react';
 
 
 export default function DailyNorma() {
-const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  
 
   const handleOpenModal = () => {
     setModalIsOpen(true);
@@ -15,8 +16,8 @@ const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleCloseModal = () => {
     setModalIsOpen(false);
   };
+  const dailyNorma = useSelector(selectUserWaterAmount)
 
-    const dailyNorma = useSelector(selectUserWaterAmount)
     return (
         <div className={css.container}>
           <div className={css.waterDailyContainer}>

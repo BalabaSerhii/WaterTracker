@@ -9,6 +9,8 @@ import {
 import { lazy } from "react";
 import Loader from "../Loader/Loader";
 import css from "./App.module.css";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../../redux/user/operations";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const SignInPage = lazy(() => import("../../pages/SignInPage/SignInPage"));
@@ -20,7 +22,11 @@ const NotFoundPage = lazy(() =>
 
 
 export default function App() {
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(fetchUser())
+  }, [dispatch])
 
     return (
     <div className={css.container}>

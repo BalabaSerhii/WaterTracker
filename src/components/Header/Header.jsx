@@ -1,13 +1,18 @@
 import css from "./Header.module.css";
 import Logo from "../Logo/Logo";
 import UserAuth from "../UserAuth/UserAuth";
-// import UserLogo from '../UserLogo/UserLogo'
+import UserLogo from '../UserLogo/UserLogo'
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
 export default function Header() {
+
+  const isLoggedIn = useSelector(selectIsLoggedIn)
+
+  console.log(isLoggedIn);
   return (
     <header className={css.container}>
       <Logo />
-      <UserAuth />
-      {/* <UserLogo/> */}
+      {!isLoggedIn ? <UserAuth /> : <UserLogo />}
     </header>
   );
 }

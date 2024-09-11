@@ -61,7 +61,6 @@ export default function MonthStatsTable() {
     };
   }, [selectedDay]);
   const dataArr = month?.data || [];
-  console.log(dataArr)
   return (
     <div className={css.container}>
       <Pagitation />
