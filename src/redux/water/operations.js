@@ -26,30 +26,30 @@ export const getWaterByMonth = createAsyncThunk(
   }
 );
 
-// export const getWaterByDay = createAsyncThunk(
-//   "water/getWaterByDay",
-//   async (dateData, { getState, rejectWithValue }) => {
-//     try {
-//       const accessToken = getState().auth.accessToken;
+export const getWaterByDay = createAsyncThunk(
+  "water/getWaterByDay",
+  async (dateData, { getState, rejectWithValue }) => {
+    try {
+      const accessToken = getState().auth.accessToken;
 
-//       const response = await axios.get("/water/perDay", {
-//         headers: { Authorization: `Bearer ${accessToken}` },
-//         params: dateData,
-//       });
+      const response = await axios.get("/water/perDay", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        params: dateData,
+      });
 
-//       return response.data;
-//     } catch (error) {
-//       if (
-//         error.response &&
-//         error.response.status === 404 &&
-//         error.response.data.message === "Entries of water not found"
-//       ) {
-//         return [];
-//       }
-//       return rejectWithValue(error.message);
-//     }
-//   }
-// );
+      return response.data;
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status === 404 &&
+        error.response.data.message === "Entries of water not found"
+      ) {
+        return [];
+      }
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 export const getTodayWater = createAsyncThunk(
   "water/getTodayWater",
