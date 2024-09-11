@@ -1,15 +1,14 @@
 import React, { useEffect, useMemo } from 'react';
-import WaterListItem from "./WaterListItem";
+import WaterListItem from './WaterListItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodayWater } from '../../redux/water/selectors';
-import { getTodayWater } from "../../redux/water/operations";
-import css from './WaterList.module.css'
+import { getTodayWater } from '../../redux/water/operations';
+import css from './WaterList.module.css';
 
 export default function WaterList() {
-  const day = useSelector(selectTodayWater) || {};
+  const dayArr = useSelector(selectTodayWater) || [];
   const dispatch = useDispatch();
-
-  const dayArr = useMemo(() => day.data || [], [day]);
+  // const dayArr = useMemo(() => day.data || [], [day]);
 
   const obj = useMemo(() => {
     const getTodayDate = () => {
@@ -19,20 +18,20 @@ export default function WaterList() {
       const day = String(today.getDate()).padStart(2, '0');
       return `${year}-${month}-${day}`;
     };
-    
+
     return {
       date: getTodayDate(),
     };
-  }, []); 
+  }, []);
 
   useEffect(() => {
     dispatch(getTodayWater(obj));
-  }, [dispatch, obj]);
+  }, [dispatch, dayArr]);
 
   return (
     <ul className={css.list}>
       {dayArr.length > 0 ? (
-        dayArr.map((d) => (
+        dayArr.map(d => (
           <li key={d._id}>
             <WaterListItem day={d} />
           </li>
