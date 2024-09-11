@@ -53,7 +53,7 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
             </button>
           </div>
           <div className={css.buttonsLogout}>
-            <svg className={css.buttonsLogout}>
+            <svg className={css.buttonsLogoutImg}>
               <use href="/src/assets/img/icons.svg#icon-logout" />
             </svg>
             <button className={css.logoutButton} onClick={handleOpenLogout}>

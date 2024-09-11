@@ -49,30 +49,34 @@ const UserLogo = () => {
     setIsUserLogoModalOpen(false);
   };
 
-  // const getUserInitial = () => {
-  //   if (user.name) {
-  //     return user.name.charAt(0).toUpperCase();
-  //   }
-  //   if (user.email) {
-  //     return user.email.charAt(0).toUpperCase();
-  //   }
-  //   return "?";
-  // };
+  const getUserInitial = () => {
+    if (user.name) {
+      return user.name.charAt(0).toUpperCase();
+    }
+    if (user.email) {
+      return user.email.charAt(0).toUpperCase();
+    }
+    return "?";
+  };
+
+const handleToggleModal = () => {
+    setIsUserLogoModalOpen(prevState => !prevState);
+  };
 
   return (
     <div className={css.wrapper}>
       <div className={css.point}>
         <p className={css.user} onClick={handleCloseUserLogoModal}>
-          {/* {user.name ? user.name : "User"} */}
+          {user.name ? user.name : "User"}
         </p>
         <button
           ref={buttonRef}
           className={css.userLogoButton}
           onClick={handleUserLogoClick}
         >
-          {/* {user.avatar ? (
+          {user.photo ? (
             <img
-              src={user.avatar}
+              src={user.photo}
               alt={`${user.name}'s avatar`}
               className={css.avatar}
             />
@@ -80,20 +84,20 @@ const UserLogo = () => {
             <span className={css.userInitial}>
               {user.name ? user.name : getUserInitial()}
             </span>
-          )} */}
+          )}
         </button>
-        <svg className={css.icon} onClick={handleUserLogoClick}>
+        <svg className={css.icon} onClick={handleToggleModal}>
           <use href="/src/assets/img/icons.svg#icon-arrow-down" />
         </svg>
       </div>
 
-      {isUserLogoModalOpen && <UserLogoutModal
+      {isLogoutModalOpen && <UserLogoutModal
         isOpen={isLogoutModalOpen}
         onClose={handleCloseLogoutModal}
         onLogout={handleConfirmLogout}
       />}
 
-      {isUserLogoModalOpen && <SettingModal
+      {isSettingModalOpen && <SettingModal
         isOpen={isSettingModalOpen}
         onClose={handleCloseSettingModal}
       />}

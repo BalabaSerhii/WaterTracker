@@ -5,7 +5,7 @@ import IconComponent from "../IconComponent/IconComponent";
 import css from "./SettingModal.module.css";
 import Modal from "../Modal/Modal";
 
-export default function SettingModal() {
+export default function SettingModal({onClose, isOpen, setIsOpen}) {
     
     let userData = []
     let ShowCurrentPassword = []
@@ -18,7 +18,7 @@ export default function SettingModal() {
 
     
     return (
-        <Modal modalTitle="Setting">
+        <Modal modalTitle="Setting" onClose={onClose} isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className={css.modal} onClick={(e) => e.stopPropagation()}>
                 <div className={css.modalContent}>
                     <Formik
