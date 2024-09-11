@@ -3,7 +3,6 @@
 }
 
 .modal {
-  height: 90%;
   background-color: $primary-color-white;
   position: relative;
   z-index: 999;
@@ -15,9 +14,10 @@
   @include tablet {
     max-width: 704px;
     padding: 32px 24px;
+    width: 100%;
   }
   @include desktop {
-    max-width: 1008px;
+    max-width: max-content;
   }
 }
 
@@ -42,7 +42,7 @@
   button {
     background-color: transparent;
     padding: 0;
+    border: transparent;
   }
 
   }
-

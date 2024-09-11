@@ -32,7 +32,7 @@ export default function MonthStatsTable() {
   const dispatch = useDispatch();
 
   const monthRange = useMemo(() => getMonthRange(chosenDate), [chosenDate]);
-
+  
   useEffect(() => {
     dispatch(getWaterByMonth(monthRange));
   }, [dispatch, monthRange]);
@@ -61,7 +61,6 @@ export default function MonthStatsTable() {
     };
   }, [selectedDay]);
   const dataArr = month?.data || [];
-  console.log(dataArr)
   return (
     <div className={css.container}>
       <Pagitation />

@@ -43,22 +43,22 @@ const Pagitation = () => {
     dispatch(setChosenDate(getISOStringDate(prevMonthDate)));
   };
 
-  const handleNextMonth = () => {
-    const nextMonthDate = new Date(convertedChosenDate);
-    nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
+ const handleNextMonth = () => {
+  const nextMonthDate = new Date(convertedChosenDate);
+  nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);
 
-    const currentDate = new Date();
-    const isValidDate =
-      nextMonthDate.getFullYear() <= currentDate.getFullYear() &&
-      nextMonthDate.getMonth() <= currentDate.getMonth() &&
-      nextMonthDate.getDate() <= currentDate.getDate();
+  const currentDate = new Date();
+  
+  const isFutureDate =
+    nextMonthDate.getFullYear() > currentDate.getFullYear() ||
+    (nextMonthDate.getFullYear() === currentDate.getFullYear() && nextMonthDate.getMonth() > currentDate.getMonth());
 
-    if (isValidDate) {
-      dispatch(setChosenDate(getISOStringDate(nextMonthDate)));
-    } else {
-      dispatch(setChosenDate(getISOStringDate(currentDate)));
-    }
-  };
+  if (!isFutureDate) {
+    dispatch(setChosenDate(getISOStringDate(nextMonthDate)));
+  } else {
+    dispatch(setChosenDate(getISOStringDate(currentDate)));
+  }
+};
 
   const getMonthName = (month) => {
     const monthNames = [

@@ -9,6 +9,7 @@ import UserLogoModal from "../UserLogoModal/UserLogoModal";
 import css from "./UserLogo.module.css";
 
 const UserLogo = () => {
+  
   const dispatch = useDispatch();
   const user = useSelector(selectUserData);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -40,7 +41,7 @@ const UserLogo = () => {
           left: rect.left + window.scrollX,
         });
       }
-      setIsUserLogoModalOpen(true);
+      setIsUserLogoModalOpen(false);
     }
   };
 
@@ -48,28 +49,28 @@ const UserLogo = () => {
     setIsUserLogoModalOpen(false);
   };
 
-  const getUserInitial = () => {
-    if (user.name) {
-      return user.name.charAt(0).toUpperCase();
-    }
-    if (user.email) {
-      return user.email.charAt(0).toUpperCase();
-    }
-    return "?";
-  };
+  // const getUserInitial = () => {
+  //   if (user.name) {
+  //     return user.name.charAt(0).toUpperCase();
+  //   }
+  //   if (user.email) {
+  //     return user.email.charAt(0).toUpperCase();
+  //   }
+  //   return "?";
+  // };
 
   return (
     <div className={css.wrapper}>
       <div className={css.point}>
         <p className={css.user} onClick={handleCloseUserLogoModal}>
-          {user.name ? user.name : "User"}
+          {/* {user.name ? user.name : "User"} */}
         </p>
         <button
           ref={buttonRef}
           className={css.userLogoButton}
           onClick={handleUserLogoClick}
         >
-          {user.avatar ? (
+          {/* {user.avatar ? (
             <img
               src={user.avatar}
               alt={`${user.name}'s avatar`}
@@ -79,23 +80,23 @@ const UserLogo = () => {
             <span className={css.userInitial}>
               {user.name ? user.name : getUserInitial()}
             </span>
-          )}
+          )} */}
         </button>
         <svg className={css.icon} onClick={handleUserLogoClick}>
           <use href="/src/assets/img/icons.svg#icon-arrow-down" />
         </svg>
       </div>
 
-      <UserLogoutModal
+      {isUserLogoModalOpen && <UserLogoutModal
         isOpen={isLogoutModalOpen}
         onClose={handleCloseLogoutModal}
         onLogout={handleConfirmLogout}
-      />
+      />}
 
-      <SettingModal
+      {isUserLogoModalOpen && <SettingModal
         isOpen={isSettingModalOpen}
         onClose={handleCloseSettingModal}
-      />
+      />}
 
       {isUserLogoModalOpen && (
         <UserLogoModal

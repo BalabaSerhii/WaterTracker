@@ -8,7 +8,6 @@ export default function UserLogoutModal({ onClose }) {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
-    onClose();
     console.log("logout");
   };
 
