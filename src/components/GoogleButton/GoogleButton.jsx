@@ -1,20 +1,16 @@
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+// import { googleLogin } from '../redux/actions';
 import css from './GoogleButton.module.css';
 
 const GoogleButton = () => {
-  const handleGoogleLogin = async () => {
-    try {
-      const { data } = await axios.get('/auth/get-oauth-url');
-      if (data && data.url) {
-        window.location.href = data.url;
-      } else {
-        console.error('URL для OAuth не отримано.');
-      }
-    } catch (error) {
-      toast.error('Error getting Google OAuth URL');
-    }
+
+  const handleGoogleLogin = () => {
+    const authUrl = `https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1023602385270-fvjc183aqggcs1q49l8090rtjqg2nvus.apps.googleusercontent.com&redirect_uri=http://localhost:5173/home&scope=email profile`;
+    window.location.href = authUrl;
   };
 
   return (

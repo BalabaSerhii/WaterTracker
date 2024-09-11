@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://project-water-bac.onrender.com";
+axios.defaults.baseURL = "http://localhost:3000";
 
 const setAuthHeader = (token) => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -25,10 +25,10 @@ export const register = createAsyncThunk(
 );
 
 export const logInGoogle = createAsyncThunk(
-  "auth/login",
-  async (userInfo, thunkAPI) => {
+  "auth/google-login",
+  async (code, thunkAPI) => {
     try {
-      const response = await axios.post("/auth/login", userInfo);
+      const response = await axios.post("/auth/google-login", { code });
       setAuthHeader(response.data.accessToken);
       return response.data;
     } catch (error) {
