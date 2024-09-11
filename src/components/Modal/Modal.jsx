@@ -11,7 +11,6 @@ export default function Modal({ modalTitle, onClose, children }) {
 
   useEffect(() => {
     setIsVisible(true);
-    document.body.style.overflow = "hidden";
 
     const handleKeyDown = ({ key }) => {
       if (key === "Escape") {

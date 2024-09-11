@@ -2,12 +2,14 @@ import css from "./TodayListModal.module.css";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import { postWater } from "../../redux/water/operations";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserData } from "../../redux/user/selectors";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
 export default function TodayListModal({ onClose }) {
   const [amount, setAmount] = useState(50); // Amount of water in ml
   const [currentTime, setCurrentTime] = useState(new Date()); // Current time
+
   const dispatch = useDispatch();
 
   const handleSave = () => {
@@ -20,8 +22,10 @@ export default function TodayListModal({ onClose }) {
 
     // Dispatch action to save water data
     dispatch(postWater(waterData));
-    onClose();
+    console.log(waterData);
   };
+
+
 
   const handleTimeChange = (event) => {
     const [hours, minutes] = event.target.value.split(":");

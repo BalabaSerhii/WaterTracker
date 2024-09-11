@@ -3,6 +3,7 @@ import WaterListItem from "./WaterListItem";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodayWater } from '../../redux/water/selectors';
 import { getTodayWater } from "../../redux/water/operations";
+import css from './WaterList.module.css'
 
 export default function WaterList() {
   const day = useSelector(selectTodayWater) || {};
@@ -27,10 +28,9 @@ export default function WaterList() {
   useEffect(() => {
     dispatch(getTodayWater(obj));
   }, [dispatch, obj]);
-    
 
   return (
-    <ul>
+    <ul className={css.list}>
       {dayArr.length > 0 ? (
         dayArr.map((d) => (
           <li key={d._id}>

@@ -69,14 +69,8 @@ const ProgressBar = () => {
                     </svg>
         Add water
           </button>
-          <TodayListModal
-           closeModal={handleCloseModal}
-        isOpen={modalIsOpen}
-          
-          
-          />
     </div>
-        </div>
+  </div>
     )
 }
 
