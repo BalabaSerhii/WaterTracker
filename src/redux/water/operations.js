@@ -80,12 +80,9 @@ export const postWater = createAsyncThunk(
   async (data, { getState, rejectWithValue }) => {
     try {
       const accessToken = getState().auth.accessToken;
-
-      const response = await axios.post("/water", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        params: data, //! same thing as for the perMonth
-      });
-
+     const response = await axios.post("/water", data, {
+  headers: { Authorization: `Bearer ${accessToken}` },
+});
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

@@ -32,7 +32,7 @@ export default function MonthStatsTable() {
   const dispatch = useDispatch();
 
   const monthRange = useMemo(() => getMonthRange(chosenDate), [chosenDate]);
-
+  
   useEffect(() => {
     dispatch(getWaterByMonth(monthRange));
   }, [dispatch, monthRange]);
