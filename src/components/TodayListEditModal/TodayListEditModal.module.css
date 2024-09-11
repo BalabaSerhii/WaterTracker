@@ -33,9 +33,20 @@
     color: #407bff;
     margin-bottom: 24px;
   }
+
+input::-webkit-calendar-picker-indicator {
+      background: none;
+    }
+
   .number{
-    @extend .input;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    color: #407bff;
     border: none;
+    margin-right: 16px;
   }
   
   .amount {
@@ -74,34 +85,64 @@
     box-shadow: 0px 2px 4px 0px #407bff33;
     background-color: rgba(0, 0, 0, 0);
   }
-  @media (min-width: 768px) {
-    .btn_save {
-      justify-content: flex-end;
-    }
-  }
   
   .glass {
-    width: 254px;
-    height: 52px;
     background-color: rgba(236, 242, 255, 1);
     border-radius: 10px;
     margin-bottom: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 24px;
+    gap: 12px;
   }
   .glassComp {
     margin-right: 20px;
   }
   
   .buttonSaveSec{
-    text-align: right
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
   
   .amountSave{
-    @extend .amount;
     background-color: transparent;
-    margin-right: 24px;
     padding: 0;
+    font-family: Roboto;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    color: #407bff;
+  }
+
+
+ @media (min-width: 768px) {
+  .conteiner {
+    width: 656px;
   }
   
-  .conteiner{
-    width: 592px;
+  .glass {
+    max-width: 254px;
   }
+
+  .input {
+    max-width: 544px;
+    width: 100%;
+  }
+
+  .buttonSaveSec {
+    flex-direction: row;
+    justify-content: right;
+  }
+
+ }
+
+ @media screen and (min-width: 1440px) {
+  .conteiner {
+    width: 544px;
+  }
+  
+ }

@@ -5,9 +5,14 @@ import Modal from "../Modal/Modal";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
 
 const DeleteWaterModal = ({ isOpen, onClose, entryId }) => {
+
+  const handleCloseModal = () => {
+    onClose()
+  }
+  
   return (
     <Modal modalTitle="Delete entry" onClose={onClose}>
-      <div>
+      <div className={styles.container}>
         <p className={styles.text}>
           Are you sure you want to delete the entry?
         </p>
@@ -18,6 +23,7 @@ const DeleteWaterModal = ({ isOpen, onClose, entryId }) => {
             backgroundColor="rgba(215, 227, 255, 1)"
           />
           <ButtonComponent
+            onClick={handleCloseModal}
             text="Delete"
             color="rgba(255, 255, 255, 1)"
             backgroundColor="rgba(239, 80, 80, 1)"

@@ -1,36 +1,26 @@
-/* .modal {
-  position: relative;
-  width: 280px;
+.modal {
   max-height: 80vh;
   background-color: white;
   border-radius: 10px;
-  padding-bottom: 32px;
-  padding-left: 12px;
-  padding-right: 12px;
-  z-index: 1000;
-  overflow-y: auto;
+  max-width: 320px;
+  width: 100%;
+}
+
+.label {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
 }
 
 .formGroup input[name="email"] {
   margin-bottom: 24px;
 }
 
-@media screen and (min-width: 768px) {
-  .modal {
-    padding-left: 24px;
-    padding-right: 24px;
-    display: flex;
-    flex-direction: column;
-    width: 704px;
-    max-height: 80vh;
-  }
-}
-
 .modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
 }
 
 .modalHeader h2 {
@@ -55,7 +45,7 @@
 }
 
 .formGroup input::placeholder {
-  color: grey;
+  color: #9EBBFF;
 }
 
 .formGroup button {
@@ -67,6 +57,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.outdatedPassword {
+  margin-bottom: 8px;
 }
 
 .avatarPlaceholder {
@@ -85,51 +79,34 @@
 .gender {
   display: flex;
   gap: 30px;
-  padding-bottom: 52px;
-  margin-top: 4px;
 }
 
 .inputWrap {
   position: relative;
-  width: 256px;
 }
 
 .input {
   border-radius: 4px;
   background-color: white;
-  width: 256px;
   padding: 10px;
-  border: 1px solid lightgray;
+  border: 1px solid #D7E3FF;
   color: gray;
-}
-
-@media screen and (min-width: 768px) {
-  .input {
-    width: 392px;
-  }
-  .inputWrap {
-    width: 392px;
-  }
+  width: 100%;
+  color: #407BFF;
 }
 
 .saveBtn {
   border: none;
-  background-color: blue;
+  background-color: #407BFF;
   border-radius: 10px;
-  width: 256px;
-  height: 44px;
   color: white;
+  width: 100%;
   margin-top: 24px;
+  margin-bottom: 32px;
 }
 
 .saveBtn:hover {
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.2);
-}
-
-@media screen and (min-width: 768px) {
-  .saveBtn {
-    width: 160px;
-  }
 }
 
 .contBtn {
@@ -140,7 +117,7 @@
 .uploadButton {
   width: 134px;
   height: 18px;
-  color: blue;
+  color: #407BFF;
   font-size: 14px;
   line-height: 1.3;
   font-weight: 500;
@@ -188,13 +165,46 @@
   color: red;
 }
 
+@media screen and (min-width: 768px) {
+  .modal {
+    max-width: 656px;
+  }
+
+  .formGroup input[name="email"],
+  .formGroup input[name="userName"],
+  .formGroup input[name="currentPassword"],
+  .formGroup input[name="newPassword"],
+  .formGroup .input[name="confirmNewPassword"] {
+    max-width: 392px;
+    width: 100%;
+  }
+
+  .saveBtn {
+    max-width: 160px;
+  }
+
+}
+
 @media screen and (min-width: 1440px) {
   .modal {
-    width: 1008px;
-  }
-  .inputGroup {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-bottom: 24px;
-  }
-} */
+      max-width: 1008px;
+    }
+    
+    .inputGroup {
+      display: flex;
+      gap: 24px;
+    }
+
+    .input1, .input2 {
+      max-width: 392px;
+      width: 100%;
+    }
+
+    .gender {
+      margin-bottom: 42px;
+    }
+
+    .saveBtn {
+    margin-bottom: 0;
+    }
+}

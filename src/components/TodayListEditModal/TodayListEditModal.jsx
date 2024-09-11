@@ -1,4 +1,4 @@
-import style from "./TodayListEditModal.module.scss";
+import style from "./TodayListEditModal.module.css";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import IconComponent from "../IconComponent/IconComponent";
@@ -55,9 +55,8 @@ export default function TodayListEditModal({ onSave, onClose }) {
             height="36"
             fillColor="#407BFF"
           />
-
-          <span className={style.number}>{amount} ml</span>
-          <span className={style.number}>{currentTime}</span>
+            <span className={style.number}>{amount} ml</span>
+            <span className={style.numberTime}>{currentTime}</span>
         </div>
         <p className={style.large_text}>Correct entered data:</p>
         <p className={style.small_text}>Amount of water:</p>
@@ -103,7 +102,7 @@ export default function TodayListEditModal({ onSave, onClose }) {
 
         <div className={style.buttonSaveSec}>
           <span className={style.amountSave}>{amount} ml</span>
-          <ButtonComponent text="Save" onClick={handleSave} />
+          <ButtonComponent width="100%" text="Save" onClick={handleSave} />
         </div>
       </div>
     </Modal>
