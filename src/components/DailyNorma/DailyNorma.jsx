@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 
 export default function DailyNorma() {
+   
   const [modalIsOpen, setModalIsOpen] = useState(false);
   
 
@@ -16,18 +17,20 @@ export default function DailyNorma() {
   const handleCloseModal = () => {
     setModalIsOpen(false);
   };
-  const dailyNorma = useSelector(selectUserWaterAmount)
+ 
 
     return (
         <div className={css.container}>
           <div className={css.waterDailyContainer}>
             <p className={css.waterDailyText}>My daily norma</p>
             <div className={css.dailyNormaContainer}>
-              <h2 className={css.waterDailyTitle}>{dailyNorma ? dailyNorma : 0}L</h2>
+              <h2 className={css.waterDailyTitle}>1.5L</h2>
               <button type="button" className={css.editbutton} onClick={handleOpenModal}>Edit</button>
             </div>
             <DailyNormaModal
-              isOpen={modalIsOpen} onClose={handleCloseModal}  setIsOpen={setModalIsOpen}/>
+              closeModal={handleCloseModal}
+            isOpen={modalIsOpen}  onClose={handleCloseModal} setIsOpen={setModalIsOpen}/>
+          
           </div>
         </div>
     )

@@ -19,7 +19,7 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen }) {
   const [consumedWater, setConsumedWater] = useState(0);
 
   const dailyNorma = useSelector(selectUserWaterAmount);
-
+console.log(consumedWater)
   useEffect(() => {
     if (isOpen) {
       dispatch(fetchUser());
@@ -52,9 +52,7 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen }) {
   };
   const handleSave = async () => {
     const obj = {
-      gender: gender === "For man" ? "man" : "woman",
-      weight: weightInKg,
-      time: activityInHours,
+      waterAmount: Number(consumedWater),
     };
     console.log(obj);
     dispatch(updateUserAmountOfWater(obj));
