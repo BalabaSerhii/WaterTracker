@@ -1,21 +1,37 @@
 import React from 'react';
 import css from './WaterListItem.module.css';
 import { deleteWater } from '../../redux/water/operations';
-import { useDispatch} from 'react-redux';
-export default function WaterListItem({ day }) {
-    const date = new Date(day.createdAt);
-    const dispatch = useDispatch();
+import { useDispatch } from 'react-redux';
+import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
+import { useState } from 'react';
+import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
 
-    const formattedTime = date.toLocaleString("en-US", {
-  hour: 'numeric',
-  minute: 'numeric',
-  hour12: true,
-  timeZone: 'America/New_York'
-    });
+export default function WaterListItem({ day }, { openEditModal }) {
+  const date = new Date(day.createdAt);
+  const dispatch = useDispatch();
 
-    const handleDelete = () => {
+  const formattedTime = date.toLocaleString("en-US", {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+    timeZone: 'America/New_York'
+  });
+
+  const handleDelete = () => {
     dispatch(deleteWater(day._id));
   };
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  
+  const handleOpenEditModal = () => {
+    setIsEditModalOpen(true)
+  }
+
+  const [isDeleteModalOpen, setIsDeleteMpdalOpen] = useState(false)
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteMpdalOpen(true)
+  }
     
   return (
     <div className={css.container}>
@@ -28,18 +44,20 @@ export default function WaterListItem({ day }) {
           <p className={css.timeInfo}>{formattedTime}</p>
         </div>
         <div className={css.iconsContainer}>
-          <button className={css.iconsButton} type="button">
+          <button className={css.iconsButton} type="button" onClick={handleOpenEditModal}>
             <svg className={css.notebook} width={11} height={13}>
               <use href="/src/assets/img/icons.svg#icon-notebook"></use>
             </svg>
           </button>
-          <button className={css.iconsButton} type="button" onClick={handleDelete}>
+          <button className={css.iconsButton} type="button" onClick={handleOpenDeleteModal}>
             <svg className={css.trashbox} width={11} height={13}>
               <use href="/src/assets/img/icons.svg#icon-trashbox"></use>
             </svg>
           </button>
         </div>
       </div>
+      {isEditModalOpen && <TodayListEditModal />}
+      {isDeleteModalOpen && <DeleteWaterModal/>}
     </div>
   );
 }

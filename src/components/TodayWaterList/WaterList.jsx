@@ -38,7 +38,7 @@ export default function WaterList() {
           </li>
         ))
       ) : (
-        <li></li>
+        <li>No notes yet</li>
       )}
     </ul>
   );

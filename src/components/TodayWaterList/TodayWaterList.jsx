@@ -8,7 +8,8 @@ export default function TodayWaterList() {
 
   const handleOpenModal = () => {
     setIsOpen(true)
-  }
+    }
+    
     return (
         <div className={css.container}>
             <h2 className={css.title}>Today</h2>
