@@ -27,8 +27,7 @@ export default function DailyNorma() {
               <button type="button" className={css.editbutton} onClick={handleOpenModal}>Edit</button>
             </div>
             <DailyNormaModal
-              closeModal={handleCloseModal}
-              isOpen={modalIsOpen}/>
+              isOpen={modalIsOpen} onClose={handleCloseModal}  setIsOpen={setModalIsOpen}/>
           </div>
         </div>
     )

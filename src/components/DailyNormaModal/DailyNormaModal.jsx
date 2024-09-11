@@ -9,7 +9,7 @@ import {
 import { selectUserWaterAmount } from "../../redux/user/selectors";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
-export default function DailyNormaModal({ isOpen, onClose }) {
+export default function DailyNormaModal({ isOpen, onClose, setIsOpen }) {
   const dispatch = useDispatch();
 
   const [gender, setGender] = useState("For women");
@@ -65,7 +65,7 @@ export default function DailyNormaModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <Modal modalTitle="My daily norma" onClose={onClose}>
+    <Modal modalTitle="My daily norma" onClose={onClose} setIsOpen={setIsOpen} isOpen={isOpen}>
       <div className={css.formula_div}>
         <p>
           {" "}

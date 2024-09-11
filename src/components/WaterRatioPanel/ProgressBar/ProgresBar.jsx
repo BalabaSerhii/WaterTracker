@@ -2,55 +2,38 @@ import css from "./ProgressBar.module.css"
 import { Line } from 'rc-progress';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTodayWaterAmount } from '../../../redux/water/selectors';
+import { selectTodayWater, selectTodayWaterAmount } from '../../../redux/water/selectors';
 import { selectUserWaterAmount } from "../../../redux/user/selectors"
 import { getTodayWater } from '../../../redux/water/operations';
 import TodayListModal from "../../TodayListModal/TodayListModal"
 
 const ProgressBar = () => {
-    const dailyAmount = useSelector(selectTodayWaterAmount);
-  const dailyNorma = useSelector( selectUserWaterAmount );
   const dispatch = useDispatch();
-
+  const water = useSelector(selectTodayWater)
+  console.log(water)
     useEffect(() => {
     dispatch(getTodayWater());
   }, [dispatch]);
 
 
-    let value = Math.round(dailyAmount / (dailyNorma * 10));
-  let percent = value > 100 ? 100 : value;
-  useEffect(() => {
-    if (dailyNorma > 0) {
-      value = Math.round(dailyAmount / (dailyNorma * 10));
-      percent = value > 100 ? 100 : value;
-    }
-  }, [dailyAmount, dailyNorma]);
+  const [isOpen, setIsOpen] = useState(false)
 
-
-  
-
-   const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalIsOpen(false);
-  };
+     const handleOpenModal = () => setIsOpen(true);
+     const handleCloseModal = () => setIsOpen(false);
+    
     return (
 
         <div className={css.progressConatiner}>
              <div className={css.progressContainer}>
       <div className={css.progressBarWrapper}>
        <Line
-         percent={percent}
+         percent={water.WaterProcent}
           strokeColor="#9EBBFF"
           trailColor="#D7E3FF"
           className={css.progressBarLine}
         />
        <div
-          style={{ left: `calc(${percent}% - 0px)` }}
+          style={{ left: `calc(${water.WaterProcent}% - 0px)` }}
           className={css.progressCircle}
         />
       </div>
@@ -69,6 +52,7 @@ const ProgressBar = () => {
                     </svg>
         Add water
           </button>
+          {isOpen && <TodayListModal isOpen={isOpen} onClose={handleCloseModal}  setIsOpen={setIsOpen}/>}
     </div>
   </div>
     )
