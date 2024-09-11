@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
 import css from './WaterListItem.module.css';
-import { deleteWater } from '../../redux/water/operations';
-import { useDispatch, useSelector } from 'react-redux';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
 import { selectUserData } from '../../redux/user/selectors';
 
 export default function WaterListItem({ day }) {
   const date = new Date(day.createdAt);
-  const dispatch = useDispatch();
-  const user = useSelector(selectUserData)
-  
-  const formattedTime = date.toLocaleString("en-US", {
+
+  const formattedTime = date.toLocaleString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
-    timeZone: 'America/New_York'
+    timeZone: 'America/New_York',
   });
-  const handleDelete = () => {
-    dispatch(deleteWater(day._id));
-  };
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -40,25 +33,39 @@ export default function WaterListItem({ day }) {
           <p className={css.timeInfo}>{formattedTime}</p>
         </div>
         <div className={css.iconsContainer}>
-          <button className={css.iconsButton} type="button" onClick={handleOpenEditModal}>
+          <button
+            className={css.iconsButton}
+            type="button"
+            onClick={handleOpenEditModal}
+          >
             <svg className={css.notebook} width={11} height={13}>
               <use href="/src/assets/img/icons.svg#icon-notebook"></use>
             </svg>
           </button>
-          <button className={css.iconsButton} type="button" onClick={handleOpenDeleteModal}>
+          <button
+            className={css.iconsButton}
+            type="button"
+            onClick={handleOpenDeleteModal}
+          >
             <svg className={css.trashbox} width={11} height={13}>
               <use href="/src/assets/img/icons.svg#icon-trashbox"></use>
             </svg>
           </button>
         </div>
       </div>
-      {isEditModalOpen && <TodayListEditModal isOpen={isEditModalOpen} onClose={handleCloseEditModal}  setIsOpen={setIsEditModalOpen}  />}
+      {isEditModalOpen && (
+        <TodayListEditModal
+          isOpen={isEditModalOpen}
+          onClose={handleCloseEditModal}
+          setIsOpen={setIsEditModalOpen}
+        />
+      )}
       {isDeleteModalOpen && (
         <DeleteWaterModal
           isOpen={isDeleteModalOpen}
           onClose={handleCloseDeleteModal}
           entryId={day._id}
-          setIsOpen={setIsDeleteModalOpen}
+          setIsOpen={setIsEditModalOpen}
         />
       )}
     </div>
