@@ -72,7 +72,7 @@ const waterSlice = createSlice({
       .addCase(patchWater.pending, handlePending)
       .addCase(patchWater.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.todayWater = state.todayWater.map((item) => {
+        state.todayWater = state.todayWater.data.map((item) => {
           if (item._id === action.payload._id) {
             return { ...item, ...action.payload };
           }

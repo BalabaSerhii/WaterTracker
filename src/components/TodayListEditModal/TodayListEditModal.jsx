@@ -1,21 +1,52 @@
 import style from "./TodayListEditModal.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import IconComponent from "../IconComponent/IconComponent";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
-import icon from '../../assets/img/icons.svg'
+import { useDispatch } from "react-redux";
+import { patchWater } from "../../redux/water/operations";
 
-export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen }) {
+export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
   const [amount, setAmount] = useState(50);
   const [inputAmount, setInputAmount] = useState("50");
-  const [currentTime, setCurrentTime] = useState(
-    new Date().toTimeString().substring(0, 5)
-  );
+  const [currentTime, setCurrentTime] = useState(() => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  });
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const formatCurrentTime = () => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    };
+    setCurrentTime(formatCurrentTime());
+  }, []);
 
   const handleSave = () => {
-    onSave({ amount, time: currentTime });
-    onClose();
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    const isoDateTime = `${formattedDate}T${currentTime}:00`; // Додаємо секунди до ISO формату
+    console.log(isoDateTime);
+
+    dispatch(patchWater({
+      id: id, 
+      patchedData: { 
+        waterVolume: amount,
+        date: isoDateTime,  
+      }
+    }))
+    .then(() => {
+      onClose();
+    })
+    .catch((error) => {
+      console.error("Error updating water volume:", error);
+    });
   };
 
   const handleTimeChange = (event) => {
@@ -23,7 +54,7 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
   };
 
   const handleInputAmountChange = (event) => {
-    const value = event.target.value.replace(/\D/g, ""); // Убираем все нечисловые символы
+    const value = event.target.value.replace(/\D/g, ""); 
     let numericValue = parseInt(value, 10);
 
     if (numericValue > 5000) {
@@ -39,9 +70,9 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
 
   const handleAmountAdjustment = (adjustment) => {
     setAmount((prevAmount) => {
-      const newAmount = Math.max(0, Math.min(5000, prevAmount + adjustment)); // Ограничиваем от 0 до 5000
-      setInputAmount(newAmount.toString()); // Синхронизируем значение с инпутом
-      setError(null); // Убираем ошибку при изменении с кнопок
+      const newAmount = Math.max(0, Math.min(5000, prevAmount + adjustment));
+      setInputAmount(newAmount.toString());
+      setError(null);
       return newAmount;
     });
   };
@@ -56,8 +87,8 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
             height="36"
             fillColor="#407BFF"
           />
-            <span className={style.number}>{amount} ml</span>
-            <span className={style.numberTime}>{currentTime}</span>
+          <span className={style.number}>{amount} ml</span>
+          <span className={style.numberTime}>{currentTime}</span>
         </div>
         <p className={style.large_text}>Correct entered data:</p>
         <p className={style.small_text}>Amount of water:</p>
@@ -67,8 +98,8 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
             onClick={() => handleAmountAdjustment(-50)}
             disabled={amount <= 0}
           >
-            <svg width="24" height="24" fill=" #407bff">
-              <use href={`${icon}#icon-minus`}></use>
+            <svg width="24" height="24" fill="#407bff">
+              <use href="/src/assets/img/icons.svg#icon-minus"></use>
             </svg>
           </button>
           <span className={style.amount}>{amount} ml</span>
@@ -77,8 +108,8 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
             onClick={() => handleAmountAdjustment(50)}
             disabled={amount >= 5000}
           >
-            <svg width="24" height="24" stroke=" #407bff">
-              <use href={`${icon}#icon-plus`}></use>
+            <svg width="24" height="24" stroke="#407bff">
+              <use href="/src/assets/img/icons.svg#icon-plus"></use>
             </svg>
           </button>
         </div>
@@ -109,3 +140,4 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
     </Modal>
   );
 }
+  

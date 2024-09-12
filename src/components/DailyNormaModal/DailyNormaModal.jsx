@@ -6,20 +6,18 @@ import {
   fetchUser,
   updateUserAmountOfWater,
 } from "../../redux/user/operations";
-import { selectUserWaterAmount } from "../../redux/user/selectors";
+import { selectUserWaterAmount,selectUserData } from "../../redux/user/selectors";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
-export default function DailyNormaModal({ isOpen, onClose, setIsOpen }) {
+export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdate }) {
   const dispatch = useDispatch();
-
+  const userData = useSelector(selectUserData)
   const [gender, setGender] = useState("For women");
   const [weight, setWeight] = useState(0);
   const [activityTime, setActivityTime] = useState(0);
   const [requiredWater, setRequiredWater] = useState(1.8);
   const [consumedWater, setConsumedWater] = useState(0);
 
-  const dailyNorma = useSelector(selectUserWaterAmount);
-console.log(consumedWater)
   useEffect(() => {
     if (isOpen) {
       dispatch(fetchUser());
@@ -54,9 +52,9 @@ console.log(consumedWater)
     const obj = {
       waterAmount: Number(consumedWater),
     };
-    console.log(obj);
-    dispatch(updateUserAmountOfWater(obj));
-
+    dispatch(updateUserAmountOfWater(obj)).then(() => {
+      dispatch(fetchUser());
+    });
     onClose();
   };
 
