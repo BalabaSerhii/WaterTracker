@@ -8,10 +8,15 @@ import css from './GoogleButton.module.css';
 
 const GoogleButton = () => {
 
-  const handleGoogleLogin = () => {
-    const authUrl = `https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=1023602385270-fvjc183aqggcs1q49l8090rtjqg2nvus.apps.googleusercontent.com&redirect_uri=http://localhost:5173/home&scope=email profile`;
-    window.location.href = authUrl;
-  };
+const handleGoogleLogin = () => {
+  window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?' +
+    'client_id=YOUR_CLIENT_ID&' +
+    'redirect_uri=https://project-water-bac.onrender.com/auth/google/callback&' +
+    'scope=email profile&' +
+    'response_type=code&' +
+    'access_type=offline&' +
+    'include_granted_scopes=true';
+};
 
   return (
     <button onClick={handleGoogleLogin} className={css.google_button}>
