@@ -8,7 +8,6 @@ import css from './WaterList.module.css';
 export default function WaterList() {
   const dayArr = useSelector(selectTodayWater) || [];
   const dispatch = useDispatch();
-  // const dayArr = useMemo(() => day.data || [], [day]);
 
   const obj = useMemo(() => {
     const getTodayDate = () => {
@@ -18,7 +17,7 @@ export default function WaterList() {
       const day = String(today.getDate()).padStart(2, '0');
       return `${year}-${month}-${day}`;
     };
-
+console.log(dayArr)
     return {
       date: getTodayDate(),
     };
@@ -26,13 +25,13 @@ export default function WaterList() {
 
   useEffect(() => {
     dispatch(getTodayWater(obj));
-  }, [dispatch, dayArr]);
+  }, [dispatch, obj, dayArr]);
 
   return (
     <ul className={css.list}>
       {dayArr.length > 0 ? (
-        dayArr.map(d => (
-          <li key={d._id}>
+        dayArr.map((d, index) => (
+          <li key={d._id || index}> 
             <WaterListItem day={d} />
           </li>
         ))

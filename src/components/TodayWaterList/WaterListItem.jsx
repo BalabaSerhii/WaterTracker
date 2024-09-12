@@ -2,17 +2,24 @@ import React, { useState } from 'react';
 import css from './WaterListItem.module.css';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
-import { selectUserData } from '../../redux/user/selectors';
 
-export default function WaterListItem({ day }) {
-  const date = new Date(day.createdAt);
+function formatTime(dateString) {
+  const date = new Date(dateString);
 
-  const formattedTime = date.toLocaleString('en-US', {
+  // Форматування часу у форматі `6:30 AM` або `6:30 PM`
+  const options = {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
-    timeZone: 'America/New_York',
-  });
+    timeZone: 'Europe/Kyiv' // або будь-яка інша ваша зона
+  };
+
+  return date.toLocaleString('en-US', options);
+}
+
+export default function WaterListItem({ day }) {
+  // Форматуємо час для відображення
+  const formattedTime = formatTime(day.date);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -58,6 +65,7 @@ export default function WaterListItem({ day }) {
           isOpen={isEditModalOpen}
           onClose={handleCloseEditModal}
           setIsOpen={setIsEditModalOpen}
+          id={day._id}
         />
       )}
       {isDeleteModalOpen && (

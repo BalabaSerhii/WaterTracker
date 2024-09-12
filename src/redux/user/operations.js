@@ -5,7 +5,6 @@ export const fetchUser = createAsyncThunk(
   "users/fetchUser",
   async (_, { getState }) => {
     const token = getState().auth.accessToken;
-    console.log(token);
     const res = await axios.get("/users/userInfo", {
       headers: { Authorization: `Bearer ${token}` },
     });

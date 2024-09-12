@@ -7,7 +7,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 
 // Селектор для данных пользователя
-export const selectUserData = (state) => state.users.data;
+export const selectUserData = (state) => state.users.data?.data;
 
 // Селекторы для загрузки и ошибок общей информации пользователя
 export const selectIsLoadingUserInfo = (state) =>

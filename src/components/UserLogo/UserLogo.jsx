@@ -7,16 +7,19 @@ import SettingModal from "../SettingModal/SettingModal";
 import UserLogoModal from "../UserLogoModal/UserLogoModal";
 
 import css from "./UserLogo.module.css";
+import { use } from "i18next";
 
 const UserLogo = () => {
   
   const dispatch = useDispatch();
   const user = useSelector(selectUserData);
+
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
   const [isUserLogoModalOpen, setIsUserLogoModalOpen] = useState(false);
   const [anchorPosition, setAnchorPosition] = useState(null);
   const buttonRef = useRef(null);
+
 
   const handleCloseLogoutModal = () => {
     setIsLogoutModalOpen(false);
@@ -58,6 +61,7 @@ const UserLogo = () => {
     }
     return "?";
   };
+  
 
 const handleToggleModal = () => {
     setIsUserLogoModalOpen(prevState => !prevState);

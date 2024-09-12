@@ -111,7 +111,7 @@ export const patchWater = createAsyncThunk(
 );
 
 export const deleteWater = createAsyncThunk(
-  'water/delWater',
+  'water/delWaterda',
   async (id, { getState }) => {
     try {
       const accessToken = getState().auth.accessToken;
