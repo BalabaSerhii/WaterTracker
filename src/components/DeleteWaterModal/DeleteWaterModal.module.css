@@ -1,24 +1,41 @@
-/* .div {
-  @include mobile {
-    flex-direction: column-reverse;
-  }
-
-  @include tablet {
-    flex-direction: row;
-    justify-content: end;
-    width: 592px;
-  }
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 24px;
+  width: 592px;
+}
+
+.div {
+  display: flex;
+  flex-direction: column-reverse;
   gap: 24px;
 }
+
 .text {
-  font-family: Roboto;
   font-size: 18px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 24px;
   text-align: left;
-  color: #2f2f2f;
-  margin-bottom: 24px;
-} */
+}
+
+@media screen and (min-width: 768px) {
+  .buttonContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 24px;
+  }
+  .div {
+    flex-direction: row;
+    justify-content: right;
+  }
+}
+@media screen and (max-width: 766px) {
+  .buttonContainer {
+    flex-direction: column;
+    display: flex;
+    gap: 24px;
+  }
+}
+.modal {
+  background-color: red !important ;
+}

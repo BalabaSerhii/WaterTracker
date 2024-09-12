@@ -1,36 +1,28 @@
-/* .modal {
-  position: relative;
-  width: 280px;
+.modal {
   max-height: 80vh;
   background-color: white;
   border-radius: 10px;
-  padding-bottom: 32px;
-  padding-left: 12px;
-  padding-right: 12px;
-  z-index: 1000;
-  overflow-y: auto;
+  max-width: 320px;
+  width: 100%;
 }
 
-.formGroup input[name="email"] {
+.label {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  /* margin-bottom: 8px; */
+  margin-top: 8px;
+}
+
+.formGroup input[name='email'] {
   margin-bottom: 24px;
-}
-
-@media screen and (min-width: 768px) {
-  .modal {
-    padding-left: 24px;
-    padding-right: 24px;
-    display: flex;
-    flex-direction: column;
-    width: 704px;
-    max-height: 80vh;
-  }
 }
 
 .modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
 }
 
 .modalHeader h2 {
@@ -39,13 +31,17 @@
   font-weight: bold;
 }
 
+.svg {
+  fill: none;
+}
+
 .formGroup .error {
   border-color: red;
 }
 
-.formGroup input[name="userName"],
-.formGroup input[name="currentPassword"],
-.formGroup input[name="newPassword"] {
+.formGroup input[name='userName'],
+.formGroup input[name='currentPassword'],
+.formGroup input[name='newPassword'] {
   margin-bottom: 24px;
 }
 
@@ -54,12 +50,8 @@
   margin-bottom: 8px;
 }
 
-.formGroup input::placeholder {
-  color: grey;
-}
-
-.formGroup button {
-  margin-top: 8px;
+input::placeholder {
+  color: #9ebbff;
 }
 
 .photoUploadBox {
@@ -67,6 +59,10 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.outdatedPassword {
+  margin-bottom: 8px;
 }
 
 .avatarPlaceholder {
@@ -85,51 +81,35 @@
 .gender {
   display: flex;
   gap: 30px;
-  padding-bottom: 52px;
-  margin-top: 4px;
 }
 
 .inputWrap {
   position: relative;
-  width: 256px;
 }
 
 .input {
   border-radius: 4px;
   background-color: white;
-  width: 256px;
   padding: 10px;
-  border: 1px solid lightgray;
+  border: 1px solid #d7e3ff;
   color: gray;
-}
-
-@media screen and (min-width: 768px) {
-  .input {
-    width: 392px;
-  }
-  .inputWrap {
-    width: 392px;
-  }
+  width: 100%;
+  color: #407bff;
+  margin-top: 8px;
 }
 
 .saveBtn {
   border: none;
-  background-color: blue;
+  background-color: #407bff;
   border-radius: 10px;
-  width: 256px;
-  height: 44px;
   color: white;
+  width: 100%;
   margin-top: 24px;
+  margin-bottom: 32px;
 }
 
 .saveBtn:hover {
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.2);
-}
-
-@media screen and (min-width: 768px) {
-  .saveBtn {
-    width: 160px;
-  }
 }
 
 .contBtn {
@@ -140,7 +120,7 @@
 .uploadButton {
   width: 134px;
   height: 18px;
-  color: blue;
+  color: #407bff;
   font-size: 14px;
   line-height: 1.3;
   font-weight: 500;
@@ -152,6 +132,7 @@
   padding: 0;
   border: none;
   background: none;
+  cursor: pointer;
 }
 
 .uploadBtnGroup {
@@ -161,7 +142,7 @@
 
 .buttonSvg {
   position: absolute;
-  top: 12px;
+  top: 18px;
   right: 10px;
   background: none;
   border: none;
@@ -187,14 +168,147 @@
   border: 2px solid red;
   color: red;
 }
+.passText {
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.labelPhoto {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.labelGender {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.radioGroup {
+  padding-right: 24px;
+}
+
+.YourName {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 767px) {
+  .input {
+    margin-bottom: 12px;
+    margin-top: 8px;
+  }
+
+  .photoSection {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    margin-top: 8px;
+  }
+  .radioGroup {
+    margin-bottom: 24px;
+    margin-top: 12px;
+  }
+  .labelInput {
+    margin-right: 24px;
+    margin-top: 54px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1440px) {
+  .modal {
+    max-width: 704px;
+  }
+  .input {
+    margin-bottom: 12px;
+    margin-top: 8px;
+    width: 392px;
+  }
+
+  .photoSection {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    margin-top: 8px;
+  }
+  .radioGroup {
+    margin-bottom: 24px;
+    margin-top: 12px;
+  }
+  .labelInput {
+    margin-right: 24px;
+    margin-top: 54px;
+  }
+
+  .buttonContainer {
+    max-width: 160px;
+    float: right;
+  }
+  .settingContainer {
+    display: table-caption;
+  }
+}
 
 @media screen and (min-width: 1440px) {
-  .modal {
-    width: 1008px;
-  }
-  .inputGroup {
+  .settingContainer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; 
+    grid-gap: 24px; 
+
+    min-width: 1008px;
     margin-bottom: 24px;
+    align-items: end;
   }
-} */
+  .photoSection {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    margin-top: 8px;
+    justify-content: flex-start;
+  }
+ 
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .photoSection {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .radioGroup {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .inputWrap {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .input {
+    flex: 1;
+    padding-right: 40px;
+  }
+
+  .buttonSvg {
+    position: absolute;
+    right: 8px;
+    top: 59%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+  }
+
+  .buttonContainer {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
