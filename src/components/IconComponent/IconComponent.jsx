@@ -1,6 +1,6 @@
 import icon from '../../assets/img/icons.svg'
-
-const IconComponent = ({ id, width, height, className = "", fillColor }) => {
+import css from './IconComponent.module.css'
+const IconComponent = ({ id, width, height, className = "", fillColor, stroke: strokeCollor }) => {
     return (
       <svg
         className={className}
@@ -10,7 +10,7 @@ const IconComponent = ({ id, width, height, className = "", fillColor }) => {
         aria-hidden="true"
       >
         <use
-          style={{ fill: fillColor }}
+          className={css.stroke}
           href={`${icon}#icon-${id}`}
         />
       </svg>

@@ -29,6 +29,10 @@
   font-weight: bold;
 }
 
+.svg {
+  fill: none;
+}
+
 .formGroup .error {
   border-color: red;
 }
@@ -46,10 +50,6 @@
 
 .formGroup input::placeholder {
   color: #9EBBFF;
-}
-
-.formGroup button {
-  margin-top: 8px;
 }
 
 .photoUploadBox {
