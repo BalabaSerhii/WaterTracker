@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import css from './WaterListItem.module.css';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
+import { selectUserData } from '../../redux/user/selectors';
+import icon from '../../assets/img/icons.svg'
 
 function formatTime(dateString) {
   const date = new Date(dateString);
@@ -34,7 +36,7 @@ export default function WaterListItem({ day }) {
       <div className={css.operationContainer}>
         <div className={css.amountInfoContainer}>
           <svg className={css.iconWaterGlass} width={36} height={36}>
-            <use href="/src/assets/img/icons.svg#icon-glass"></use>
+            <use href={`${icon}#icon-glass`}></use>
           </svg>
           <p className={css.amountInfo}>{day.waterVolume} ml</p>
           <p className={css.timeInfo}>{formattedTime}</p>
@@ -46,7 +48,7 @@ export default function WaterListItem({ day }) {
             onClick={handleOpenEditModal}
           >
             <svg className={css.notebook} width={11} height={13}>
-              <use href="/src/assets/img/icons.svg#icon-notebook"></use>
+              <use href={`${icon}#icon-notebook`}></use>
             </svg>
           </button>
           <button
@@ -55,7 +57,7 @@ export default function WaterListItem({ day }) {
             onClick={handleOpenDeleteModal}
           >
             <svg className={css.trashbox} width={11} height={13}>
-              <use href="/src/assets/img/icons.svg#icon-trashbox"></use>
+              <use href={`${icon}#icon-trashbox`}></use>
             </svg>
           </button>
         </div>

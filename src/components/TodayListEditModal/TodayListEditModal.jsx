@@ -140,3 +140,4 @@ export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
     </Modal>
   );
 }
+  

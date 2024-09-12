@@ -2,6 +2,7 @@ import css from "./Logo.module.css";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../redux/auth/selectors";
 import { useNavigate } from "react-router-dom";
+import icon from '../../assets/img/icons.svg'
 
 const Logo = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -19,7 +20,7 @@ const Logo = () => {
     <nav className={css.nav}>
       <button className={css.title} onClick={handleWaterTrackerClick}>
         <svg className={css.icon}>
-          <use href="../src/assets/img/icons.svg#icon-logo" />
+          <use href={`${icon}#icon-logo`} />
         </svg>
       </button>
     </nav>

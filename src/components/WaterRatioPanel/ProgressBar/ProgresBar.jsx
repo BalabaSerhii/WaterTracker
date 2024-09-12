@@ -6,6 +6,7 @@ import { selectTodayWaterPercent } from '../../../redux/water/selectors';
 import { selectUserWaterAmount } from '../../../redux/user/selectors';
 import { getTodayWater } from '../../../redux/water/operations';
 import TodayListModal from '../../TodayListModal/TodayListModal';
+import icon from '../../../assets/img/icons.svg'
 
 const ProgressBar = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,7 @@ const ProgressBar = () => {
           <svg className={css.buttonIcon} width="18" height="18px">
             <use
               className={css.strokePlus}
-              href="/src/assets/img/icons.svg#icon-circle-plus"
+              href={`${icon}#icon-circle-plus`}
             ></use>
           </svg>
           Add water

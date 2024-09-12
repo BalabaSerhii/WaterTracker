@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { selectUserData, selectUserInfo } from '../../redux/user/selectors';
 
 export default function HomePage() {
-
+  
   return (
     <div className={css.container}>
           <div>
