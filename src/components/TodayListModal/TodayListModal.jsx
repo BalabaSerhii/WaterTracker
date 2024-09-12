@@ -5,6 +5,7 @@ import { postWater } from '../../redux/water/operations';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData } from '../../redux/user/selectors';
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
+import icon from '../../assets/img/icons.svg'
 
 export default function TodayListModal({ onClose, isOpen, setIsOpen }) {
   1;
@@ -62,7 +63,7 @@ export default function TodayListModal({ onClose, isOpen, setIsOpen }) {
             onClick={() => handleAmountAdjustment(-50)}
           >
             <svg width="24" height="24" fill=" #407bff">
-              <use href="/src/assets/img/icons.svg#icon-minus"></use>
+              <use href={`${icon}#icon-minus`}></use>
             </svg>
           </button>
           <span className={css.amount}>{amount} ml</span>
@@ -71,7 +72,7 @@ export default function TodayListModal({ onClose, isOpen, setIsOpen }) {
             onClick={() => handleAmountAdjustment(50)}
           >
             <svg width="24" height="24" stroke=" #407bff">
-              <use href="/src/assets/img/icons.svg#icon-plus"></use>
+              <use href={`${icon}#icon-plus`}></use>
             </svg>
           </button>
         </div>

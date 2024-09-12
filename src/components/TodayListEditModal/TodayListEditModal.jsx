@@ -3,6 +3,7 @@ import { useState } from "react";
 import Modal from "../Modal/Modal";
 import IconComponent from "../IconComponent/IconComponent";
 import ButtonComponent from "../ButtonComponent/ButtonComponent";
+import icon from '../../assets/img/icons.svg'
 
 export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen }) {
   const [amount, setAmount] = useState(50);
@@ -67,7 +68,7 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
             disabled={amount <= 0}
           >
             <svg width="24" height="24" fill=" #407bff">
-              <use href="/src/assets/img/icons.svg#icon-minus"></use>
+              <use href={`${icon}#icon-minus`}></use>
             </svg>
           </button>
           <span className={style.amount}>{amount} ml</span>
@@ -77,7 +78,7 @@ export default function TodayListEditModal({ onSave, onClose, isOpen, setIsOpen 
             disabled={amount >= 5000}
           >
             <svg width="24" height="24" stroke=" #407bff">
-              <use href="/src/assets/img/icons.svg#icon-plus"></use>
+              <use href={`${icon}#icon-plus`}></use>
             </svg>
           </button>
         </div>

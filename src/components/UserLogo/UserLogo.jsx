@@ -5,7 +5,7 @@ import { logOut } from "../../redux/auth/operations";
 import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
 import SettingModal from "../SettingModal/SettingModal";
 import UserLogoModal from "../UserLogoModal/UserLogoModal";
-
+import icon from '../../assets/img/icons.svg'
 import css from "./UserLogo.module.css";
 
 const UserLogo = () => {
@@ -87,7 +87,7 @@ const handleToggleModal = () => {
           )}
         </button>
         <svg className={css.icon} onClick={handleToggleModal}>
-          <use href="/src/assets/img/icons.svg#icon-arrow-down" />
+          <use href={`${icon}#icon-arrow-down`} />
         </svg>
       </div>
 

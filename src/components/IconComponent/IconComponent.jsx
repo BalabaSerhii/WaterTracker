@@ -1,3 +1,5 @@
+import icon from '../../assets/img/icons.svg'
+
 const IconComponent = ({ id, width, height, className = "", fillColor }) => {
     return (
       <svg
@@ -9,7 +11,7 @@ const IconComponent = ({ id, width, height, className = "", fillColor }) => {
       >
         <use
           style={{ fill: fillColor }}
-          xlinkHref={`/src/assets/img/icons.svg#icon-${id}`}
+          href={`${icon}#icon-${id}`}
         />
       </svg>
     );
