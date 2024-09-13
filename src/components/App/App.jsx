@@ -42,11 +42,11 @@ export default function App() {
             <Route path="/" />
             <Route path="/welcome" element={<WelcomePage />}></Route>
             <Route path="/signin" element={<RestrictedRoute component={<SignInPage/> } redirectTo="/home"/>}></Route>
-            <Route path="/signup" element={<RestrictedRoute component={<SignUpPage/> } redirectTo="/singin"/>}></Route>
+            <Route path="/signup" element={<RestrictedRoute component={<SignUpPage/> } redirectTo="/signin"/>}></Route>
             <Route
               path="/home"
               element={
-                <PrivateRoute component={<HomePage />} redirectTo="/singin" />
+                <PrivateRoute component={<HomePage />} redirectTo="/signin" />
               }
             ></Route>
           
