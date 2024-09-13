@@ -9,6 +9,7 @@ export default function Modal({ modalTitle, onClose, children, isOpen, setIsOpen
     if (onClose) onClose();
   };
 
+
   useEffect(() => {
     // if (isOpen) {
     //   document.body.style.overflow = "hidden"; // Disable body scroll when modal is open
@@ -48,6 +49,49 @@ export default function Modal({ modalTitle, onClose, children, isOpen, setIsOpen
     document.body
   );
 }
+// export default function Modal({ modalTitle, children, onClose }) {
+//   useEffect(() => {
+//     document.body.style.overflow = 'hidden';
+
+//     const handleKeyDown = ({ key }) => {
+//       if (key === 'Escape') {
+//         onClose(); // Закрыть модалку при нажатии на Escape
+//       }
+//     };
+
+//     document.addEventListener('keydown', handleKeyDown);
+
+//     return () => {
+//       document.body.style.overflow = 'auto';
+//       document.removeEventListener('keydown', handleKeyDown);
+//     };
+//   }, [onClose]);
+
+//   return ReactDOM.createPortal(
+//     <div
+//       className={styles.modalWrapper}
+//       onClick={onClose} // Закрываем модалку при клике вне неё
+//     >
+//       <div className={styles.modal} onClick={e => e.stopPropagation()}>
+//         <div className={styles.modalTop}>
+//           <h3>{modalTitle}</h3>
+//           <button onClick={onClose}>
+//             {' '}
+//             {/* Закрываем модалку при клике на кнопку */}
+//             <svg className={styles.svg} width={20} height={20}>
+//               <use
+//                 className={styles.use}
+//                 href="/src/assets/img/icons.svg#icon-cross"
+//               ></use>
+//             </svg>
+//           </button>
+//         </div>
+//         <div className={styles.modalContent}>{children}</div>
+//       </div>
+//     </div>,
+//     document.body
+//   );
+// }
 
 Modal.propTypes = {
   modalTitle: PropTypes.string.isRequired,

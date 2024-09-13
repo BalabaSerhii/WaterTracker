@@ -1,32 +1,26 @@
-import css from "./UserLogoutModal.module.css";
-import Modal from "../Modal/Modal";
-import { useDispatch } from "react-redux";
-import { logOut } from "../../redux/auth/operations";
-// import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
+import { useState } from 'react';
+import css from './UserLogoutModal.module.css';
+import Modal from '../Modal/Modal';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../redux/auth/operations';
 
-export default function UserLogoutModal({ onClose }) {
+export default function UserLogoutModal({ onClose, isOpen, setIsOpen }) {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
-    console.log("logout");
+    console.log('logout');
   };
 
   return (
-    <Modal modalTitle="Log out" onClose={onClose}>
+    <Modal
+      modalTitle="Log out"
+      onClose={onClose}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+    >
       <div>
         <p className={css.text}>Do you really want to leave?</p>
         <div className={css.div}>
-          {/* <ButtonComponent
-
-            text="Cancel"
-            color="#407BFF"
-            backgroundColor="#D7E3FF"
-          />
-          <ButtonComponent
-            text="Log out"
-            color="#FFFFFF"
-            backgroundColor="#EF5050"   
-          /> */}
           <button onClick={onClose}>Cancel</button>
           <button onClick={handleLogout}>Log out</button>
         </div>

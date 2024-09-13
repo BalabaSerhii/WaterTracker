@@ -1,252 +1,333 @@
-import { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as yup from "yup";
-import IconComponent from "../IconComponent/IconComponent";
-import css from "./SettingModal.module.css";
-import Modal from "../Modal/Modal";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import Modal from '../Modal/Modal';
+import styles from './SettingModal.module.css';
+import IconComponent from '../IconComponent/IconComponent';
+import defaultAvatar from '../../assets/img/desc/User.png';
+import ButtonComponent from '../ButtonComponent/ButtonComponent';
+import { selectUserData } from '../../redux/user/selectors';
+import { updateUserInfo, updateUserPhoto } from '../../redux/user/operations';
 
-export default function SettingModal({onClose, isOpen, setIsOpen}) {
-    
-    let userData = []
-    let ShowCurrentPassword = []
-    let showNewPassword = []
-    let showConfirmNewPassword = []
-    let userSchema = []
-    let handleSubmit = []
-    let preview = []
-    let handleButtonClick = []
+const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUserData);
 
-    
-    return (
-        <Modal modalTitle="Setting" onClose={onClose} isOpen={isOpen} setIsOpen={setIsOpen}>
-            <div className={css.modal} onClick={(e) => e.stopPropagation()}>
-                <div className={css.modalContent}>
-                    <Formik
-                        initialValues={{
-                            gender: userData.gender || "woman",
-                            userName: userData.userName || "",
-                            email: userData.email || "",
-                            currentPassword: "",
-                            newPassword: "",
-                            confirmNewPassword: "",
-                        }}
-                        validationSchema={userSchema}
-                        onSubmit={handleSubmit}
-                    >
-                        {({ errors, touched, setFieldValue }) => (
-                            <Form>
-                                <label className={css.label}>Your photo</label>
-                                <div className={css.photoUploadBox}>
-                                    <div className={css.photoUploadContainer}>
-                                        {preview ? (
-                                            <div className={css.avatarPreviewWrapper}>
-                                                <img
-                                                    src={preview}
-                                                    alt="Avatar Preview"
-                                                    className={css.avatar}
-                                                />
-                                            </div>
-                                        ) : (
-                                            getAvatarContent()
-                                        )}
-                                    </div>
+  const defaultUser = {
+    photo: '',
+    gender: 'woman',
+    name: '',
+    email: '',
+    password: '',
+    newPassword: '',
+    confirmPassword: '',
+  };
 
-                                    <button
-                                        type="button"
-                                        aria-label="Upload"
-                                        className={css.uploadButton}
-                                        onClick={handleButtonClick}
-                                    >
-                                        <input
-                                            type="file"
-                                            name="avatar"
-                                            id="fileInput"
-                                            accept="image/png, image/jpeg"
-                                            hidden
-                                            onChange={(e) => handleAvatarChange(e, setFieldValue)}
-                                        />
-                                        <ErrorMessage
-                                            name="avatar"
-                                            component="p"
-                                            className={css.error}
-                                        />
-                                        <IconComponent id="arrow-up" width={16} height={16} />
-                                        Upload a photo
-                                    </button>
-                                </div>
+  const [userData, setUserData] = useState(user || defaultUser);
+  const [initialUserData, setInitialUserData] = useState(user || defaultUser);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [isSaveDisabled, setIsSaveDisabled] = useState(true);
 
-                                <div className={css.inputGroup}>
-                                    <div className={css.input1}>
-                                        <div className={css.formGroup}>
-                                            <label className={css.label}>Your gender identity</label>
-                                            <div className={css.gender}>
-                                                <label>
-                                                    <Field type="radio" name="gender" value="Woman" /> Woman
-                                                </label>
-                                                <label>
-                                                    <Field type="radio" name="gender" value="Man" /> Man
-                                                </label>
-                                                <ErrorMessage
-                                                    name="gender"
-                                                    component="p"
-                                                    className={css.error}
-                                                />
-                                            </div>
-                                        </div>
+  useEffect(() => {
+    if (user && user.email) {
+      const email = user.email;
+      const nameFromEmail = email.split('@')[0];
 
-                                        <div className={css.formGroup}>
-                                            <label className={css.label}>Your name</label>
-                                            <Field
-                                                className={css.input}
-                                                type="text"
-                                                name="userName"
-                                                placeholder="Enter your name"
-                                            />
-                                            <ErrorMessage
-                                                name="userName"
-                                                component="div"
-                                                className={css.error}
-                                            />
-                                        </div>
+      const updatedUser = {
+        ...user,
+        email: user.email,
+        name: user.name || nameFromEmail,
+        photo: user.photo || defaultAvatar,
+        gender: user.gender || 'woman',
+      };
 
-                                        <div className={css.formGroup}>
-                                            <label className={css.label}>E-mail</label>
-                                            <Field
-                                                className={`${css.input} ${errors.email && touched.email ? css.inputError : ""
-                                                    }`}
-                                                type="email"
-                                                name="email"
-                                                placeholder="Enter your email"
-                                            />
-                                            <ErrorMessage
-                                                name="email"
-                                                component="div"
-                                                className={`${css.error} ${css.errorMessageEmail}`}
-                                            />
-                                        </div>
-                                    </div>
+      setUserData(updatedUser);
+      setInitialUserData(updatedUser);
+    }
+  }, [user]);
 
-                                    <div className={css.input2}>
-                                        <div className={css.formGroup}>
-                                            <label className={css.label}>Password</label>
-                                            <p className={css.outdatedPassword}>Outdated password:</p>
-                                            <div className={css.inputWrap}>
-                                                <Field
-                                                    className={`${css.input} ${errors.currentPassword && touched.currentPassword
-                                                            ? css.inputError
-                                                            : ""
-                                                        }`}
-                                                    type={ShowCurrentPassword ? "text" : "password"}
-                                                    name="currentPassword"
-                                                    placeholder="Password"
-                                                />
-                                                <button
-                                                    className={css.buttonSvg}
-                                                    aria-label="Show password"
-                                                    type="button"
-                                                    onClick={() =>
-                                                        setShowCurrentPassword(!ShowCurrentPassword)
-                                                    }
-                                                >
-                                                    <IconComponent
-                                                        className={css.svg}
-                                                        id={ShowCurrentPassword ? `close-eye` : `open-eye`}
-                                                        width={16}
-                                                        height={16}
-                                                    />
-                                                </button>
-                                            </div>
-                                            <ErrorMessage
-                                                name="currentPassword"
-                                                component="div"
-                                                className={css.error}
-                                            />
-                                        </div>
+  useEffect(() => {
+    const isDataChanged =
+      JSON.stringify(userData) !== JSON.stringify(initialUserData);
+    setIsSaveDisabled(!isDataChanged);
+  }, [userData, initialUserData]);
 
-                                        <div className={css.formGroup}>
-                                            <label>New Password:</label>
-                                            <div className={css.inputWrap}>
-                                                <Field
-                                                    className={`${css.input} ${errors.newPassword && touched.newPassword
-                                                            ? css.inputError
-                                                            : ""
-                                                        }`}
-                                                    type={showNewPassword ? `text` : `password`}
-                                                    name="newPassword"
-                                                    placeholder="Password"
-                                                />
-                                                <button
-                                                    className={css.buttonSvg}
-                                                    aria-label="Show password"
-                                                    type="button"
-                                                    onClick={() => setShowNewPassword(!showNewPassword)}
-                                                >
-                                                    <IconComponent
-                                                        className={css.svg}
-                                                        id={showNewPassword ? `close-eye` : `open-eye`}
-                                                        width={16}
-                                                        height={16}
-                                                    />
-                                                </button>
-                                            </div>
-                                            <ErrorMessage
-                                                name="newPassword"
-                                                component="div"
-                                                className={css.error}
-                                            />
-                                        </div>
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setUserData(prevData => ({ ...prevData, [name]: value }));
+  };
 
-                                        <div className={css.formGroup}>
-                                            <label>Repeat new password:</label>
-                                            <div className={css.inputWrap}>
-                                                <Field
-                                                    className={`${css.input} ${errors.confirmNewPassword &&
-                                                            touched.confirmNewPassword
-                                                            ? css.inputError
-                                                            : ""
-                                                        }`}
-                                                    type={showConfirmNewPassword ? "text" : "password"}
-                                                    name="confirmNewPassword"
-                                                    placeholder="Password"
-                                                />
-                                                <button
-                                                    className={css.buttonSvg}
-                                                    aria-label="Show password"
-                                                    type="button"
-                                                    onClick={() =>
-                                                        setShowConfirmNewPassword(!showConfirmNewPassword)
-                                                    }
-                                                >
-                                                    <IconComponent
-                                                        className={css.svg}
-                                                        id={showConfirmNewPassword ? `close-eye` : `open-eye`}
-                                                        width={16}
-                                                        height={16}
-                                                    />
-                                                </button>
-                                            </div>
-                                            <ErrorMessage
-                                                name="confirmNewPassword"
-                                                component="div"
-                                                className={`${css.error} ${css.errorMessage}`}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={css.contBtn}>
-                                    <button
-                                        className={css.saveBtn}
-                                        type="submit"
-                                        aria-label="Submit"
-                                    >
-                                        Save
-                                    </button>
-                                </div>
-                            </Form>
-                        )}
-                    </Formik>
-                </div>
+  const handlePhotoChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUserData(prevData => ({ ...prevData, photo: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const updateUserAvatar = async photo => {
+    const formData = new FormData();
+    formData.append('photo', photo);
+
+    try {
+      const response = await axios.patch('/users/avatar', formData, {
+        headers: {
+          Authorization: `Bearer YOUR_ACCESS_TOKEN`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 200) {
+        return response.data.data;
+      } else {
+        throw new Error('Failed to update avatar.');
+      }
+    } catch (error) {
+      console.error('Error updating avatar:', error.message);
+      throw error;
+    }
+  };
+
+  const handleSave = async () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    if (
+      userData.newPassword &&
+      userData.newPassword !== userData.confirmPassword
+    ) {
+      setErrorMessage('Passwords do not match!');
+      return;
+    }
+
+    try {
+      if (userData.newPassword) {
+        await axios.patch('/users/update-password', {
+          currentPassword: userData.password,
+          newPassword: userData.newPassword,
+        });
+        setSuccessMessage('Password updated successfully!');
+      }
+
+      if (userData.photo && userData.photo !== defaultAvatar) {
+        const updatedPhotoLink = await updateUserAvatar(userData.photo);
+        setUserData(prev => ({ ...prev, photo: updatedPhotoLink }));
+        setSuccessMessage('Avatar updated successfully!');
+      }
+
+      dispatch(updateUserInfo(userData));
+      onClose();
+    } catch (error) {
+      setErrorMessage('Failed to update user information.');
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <Modal
+        modalTitle="Setting"
+        onClose={onClose}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      >
+        <div className={styles.settingContainer}>
+          <div>
+            <div className={styles.section}>
+              <label htmlFor="photo" className={styles.labelPhoto}>
+                Your photo
+              </label>
+              <div className={styles.photoSection}>
+                <img
+                  src={userData.photo || defaultAvatar}
+                  alt="user avatar"
+                  className={styles.avatar}
+                  onClick={() => document.getElementById('photo').click()}
+                  style={{ cursor: 'pointer' }}
+                />
+                <button
+                  className={styles.uploadButton}
+                  onClick={() => document.getElementById('photo').click()}
+                >
+                  <IconComponent id="upload" width="16" height="16" />
+                  Upload a photo
+                </button>
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  className={styles.hiddenInput}
+                  onChange={handlePhotoChange}
+                  style={{ display: 'none' }}
+                />
+              </div>
             </div>
-        </Modal>
-    );
-}
+
+            <div className={styles.section}>
+              <label className={styles.labelGender}>Your gender identity</label>
+              <div className={styles.radioGroup}>
+                <label className={styles.labelInput}>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="woman"
+                    checked={userData.gender === 'woman'}
+                    onChange={handleChange}
+                  />
+                  Woman
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="man"
+                    checked={userData.gender === 'man'}
+                    onChange={handleChange}
+                  />
+                  Man
+                </label>
+              </div>
+            </div>
+
+            <div className={styles.section}>
+              <label htmlFor="name" className={styles.YourName}>
+                Your name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={userData.name}
+                onChange={handleChange}
+                className={styles.input}
+              />
+            </div>
+
+            <div className={styles.section}>
+              <label htmlFor="email">E-mail</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={userData.email}
+                onChange={handleChange}
+                className={styles.input}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className={styles.section}>
+              <p className={styles.passText}>Password</p>
+              <label htmlFor="password">Outdated password:</label>
+              <div className={styles.inputWrap}>
+                <input
+                  type={showCurrentPassword ? 'text' : 'password'}
+                  id="password"
+                  name="password"
+                  value={userData.password}
+                  onChange={handleChange}
+                  className={styles.input}
+                  placeholder="Password"
+                />
+                <button
+                  className={styles.buttonSvg}
+                  aria-label="Show password"
+                  type="button"
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                >
+                  <IconComponent
+                    className={styles.svg}
+                    id={showCurrentPassword ? `open-eye` : `close-eye`}
+                    width={16}
+                    height={16}
+                  />
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.section}>
+              <label htmlFor="newPassword">New Password</label>
+              <div className={styles.inputWrap}>
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  id="newPassword"
+                  name="newPassword"
+                  value={userData.newPassword}
+                  onChange={handleChange}
+                  className={styles.input}
+                  placeholder="Password"
+                />
+                <button
+                  className={styles.buttonSvg}
+                  aria-label="Show password"
+                  type="button"
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                >
+                  <IconComponent
+                    className={styles.svg}
+                    id={showNewPassword ? `open-eye` : `close-eye`}
+                    width={16}
+                    height={16}
+                  />
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.section}>
+              <label htmlFor="confirmPassword">Repeat new password</label>
+              <div className={styles.inputWrap}>
+                <input
+                  type={showConfirmNewPassword ? 'text' : 'password'}
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={userData.confirmPassword}
+                  onChange={handleChange}
+                  className={styles.input}
+                  placeholder="Password"
+                />
+                <button
+                  className={styles.buttonSvg}
+                  aria-label="Show password"
+                  type="button"
+                  onClick={() =>
+                    setShowConfirmNewPassword(!showConfirmNewPassword)
+                  }
+                >
+                  <IconComponent
+                    className={styles.svg}
+                    id={showConfirmNewPassword ? `open-eye` : `close-eye`}
+                    width={16}
+                    height={16}
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+        {successMessage && (
+          <div className={styles.success}>{successMessage}</div>
+        )}
+
+        <div className={styles.buttonContainer}>
+          <ButtonComponent
+            text="Save"
+            onClick={handleSave}
+            width="256px"
+            height="44px"
+          />
+        </div>
+      </Modal>
+    </div>
+  );
+};
+
+export default SettingModal;
