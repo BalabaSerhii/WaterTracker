@@ -10,11 +10,11 @@ export default function Modal({ modalTitle, onClose, children, isOpen, setIsOpen
   };
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"; // Disable body scroll when modal is open
-    } else {
-      document.body.style.overflow = "auto"; // Restore body scroll when modal is closed
-    }
+    // if (isOpen) {
+    //   document.body.style.overflow = "hidden"; // Disable body scroll when modal is open
+    // } else {
+    //   document.body.style.overflow = "auto"; // Restore body scroll when modal is closed
+    // }
 
     const handleKeyDown = ({ key }) => {
       if (key === "Escape") {

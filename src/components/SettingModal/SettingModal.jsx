@@ -5,7 +5,7 @@ import IconComponent from "../IconComponent/IconComponent";
 import css from "./SettingModal.module.css";
 import Modal from "../Modal/Modal";
 
-export default function SettingModal() {
+export default function SettingModal({onClose, isOpen, setIsOpen}) {
     
     let userData = []
     let ShowCurrentPassword = []
@@ -18,7 +18,7 @@ export default function SettingModal() {
 
     
     return (
-        <Modal modalTitle="Setting">
+        <Modal modalTitle="Setting" onClose={onClose} isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className={css.modal} onClick={(e) => e.stopPropagation()}>
                 <div className={css.modalContent}>
                     <Formik
@@ -149,7 +149,8 @@ export default function SettingModal() {
                                                     }
                                                 >
                                                     <IconComponent
-                                                        id={ShowCurrentPassword ? "eye" : "eye-slash"}
+                                                        className={css.svg}
+                                                        id={ShowCurrentPassword ? `close-eye` : `open-eye`}
                                                         width={16}
                                                         height={16}
                                                     />
@@ -170,7 +171,7 @@ export default function SettingModal() {
                                                             ? css.inputError
                                                             : ""
                                                         }`}
-                                                    type={showNewPassword ? "text" : "password"}
+                                                    type={showNewPassword ? `text` : `password`}
                                                     name="newPassword"
                                                     placeholder="Password"
                                                 />
@@ -181,7 +182,8 @@ export default function SettingModal() {
                                                     onClick={() => setShowNewPassword(!showNewPassword)}
                                                 >
                                                     <IconComponent
-                                                        id={showNewPassword ? "eye" : "eye-slash"}
+                                                        className={css.svg}
+                                                        id={showNewPassword ? `close-eye` : `open-eye`}
                                                         width={16}
                                                         height={16}
                                                     />
@@ -216,7 +218,8 @@ export default function SettingModal() {
                                                     }
                                                 >
                                                     <IconComponent
-                                                        id={showConfirmNewPassword ? "eye" : "eye-slash"}
+                                                        className={css.svg}
+                                                        id={showConfirmNewPassword ? `close-eye` : `open-eye`}
                                                         width={16}
                                                         height={16}
                                                     />

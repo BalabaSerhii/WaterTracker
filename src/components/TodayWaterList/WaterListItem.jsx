@@ -3,16 +3,25 @@ import css from './WaterListItem.module.css';
 import TodayListEditModal from '../TodayListEditModal/TodayListEditModal';
 import DeleteWaterModal from '../DeleteWaterModal/DeleteWaterModal';
 import { selectUserData } from '../../redux/user/selectors';
+import icon from '../../assets/img/icons.svg'
 
-export default function WaterListItem({ day }) {
-  const date = new Date(day.createdAt);
+function formatTime(dateString) {
+  const date = new Date(dateString);
 
-  const formattedTime = date.toLocaleString('en-US', {
+  // Форматування часу у форматі `6:30 AM` або `6:30 PM`
+  const options = {
     hour: 'numeric',
     minute: 'numeric',
     hour12: true,
-    timeZone: 'America/New_York',
-  });
+    timeZone: 'Europe/Kyiv' // або будь-яка інша ваша зона
+  };
+
+  return date.toLocaleString('en-US', options);
+}
+
+export default function WaterListItem({ day }) {
+  // Форматуємо час для відображення
+  const formattedTime = formatTime(day.date);
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -27,7 +36,7 @@ export default function WaterListItem({ day }) {
       <div className={css.operationContainer}>
         <div className={css.amountInfoContainer}>
           <svg className={css.iconWaterGlass} width={36} height={36}>
-            <use href="/src/assets/img/icons.svg#icon-glass"></use>
+            <use href={`${icon}#icon-glass`}></use>
           </svg>
           <p className={css.amountInfo}>{day.waterVolume} ml</p>
           <p className={css.timeInfo}>{formattedTime}</p>
@@ -39,7 +48,7 @@ export default function WaterListItem({ day }) {
             onClick={handleOpenEditModal}
           >
             <svg className={css.notebook} width={11} height={13}>
-              <use href="/src/assets/img/icons.svg#icon-notebook"></use>
+              <use href={`${icon}#icon-notebook`}></use>
             </svg>
           </button>
           <button
@@ -48,7 +57,7 @@ export default function WaterListItem({ day }) {
             onClick={handleOpenDeleteModal}
           >
             <svg className={css.trashbox} width={11} height={13}>
-              <use href="/src/assets/img/icons.svg#icon-trashbox"></use>
+              <use href={`${icon}#icon-trashbox`}></use>
             </svg>
           </button>
         </div>
@@ -58,6 +67,7 @@ export default function WaterListItem({ day }) {
           isOpen={isEditModalOpen}
           onClose={handleCloseEditModal}
           setIsOpen={setIsEditModalOpen}
+          id={day._id}
         />
       )}
       {isDeleteModalOpen && (

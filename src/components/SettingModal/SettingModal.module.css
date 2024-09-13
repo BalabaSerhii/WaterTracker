@@ -29,6 +29,10 @@
   font-weight: bold;
 }
 
+.svg {
+  fill: none;
+}
+
 .formGroup .error {
   border-color: red;
 }
@@ -46,10 +50,6 @@
 
 .formGroup input::placeholder {
   color: #9EBBFF;
-}
-
-.formGroup button {
-  margin-top: 8px;
 }
 
 .photoUploadBox {
@@ -187,7 +187,11 @@
 
 @media screen and (min-width: 1440px) {
   .modal {
-      max-width: 1008px;
+    max-width: 1008px;
+    }
+
+    .modalContent{ 
+      width: 1008px;
     }
     
     .inputGroup {
