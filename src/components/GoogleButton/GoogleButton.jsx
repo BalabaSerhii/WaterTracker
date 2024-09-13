@@ -10,7 +10,7 @@ const GoogleButton = () => {
 
   const handleGoogleLogin = () => {
   const clientId = '1023602385270-fvjc183aqggcs1q49l8090rtjqg2nvus.apps.googleusercontent.com';
-  const redirectUri = 'https://water-tracker-project-8.vercel.app/auth/google/callback';
+  const redirectUri = 'https://water-tracker-project-8.vercel.app/home';
   const scope = 'email profile';
   const responseType = 'code';
   const accessType = 'offline';
