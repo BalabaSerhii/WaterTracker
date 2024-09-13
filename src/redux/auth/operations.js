@@ -24,6 +24,19 @@ export const register = createAsyncThunk(
   }
 );
 
+export const logInGoogle = createAsyncThunk(
+  "auth/google-login",
+  async (code, thunkAPI) => {
+    try {
+      const response = await axios.post("/auth/google-login", { code });
+      setAuthHeader(response.data.accessToken);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const logIn = createAsyncThunk(
   'auth/login',
   async (userInfo, thunkAPI) => {
