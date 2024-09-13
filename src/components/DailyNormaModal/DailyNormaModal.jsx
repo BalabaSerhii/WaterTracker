@@ -6,19 +6,17 @@ import {
   fetchUser,
   updateUserAmountOfWater,
 } from "../../redux/user/operations";
-import { selectUserWaterAmount } from "../../redux/user/selectors";
+import { selectUserWaterAmount,selectUserData } from "../../redux/user/selectors";
 // import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
 
-export default function DailyNormaModal({ isOpen, onClose }) {
+export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdate }) {
   const dispatch = useDispatch();
-
+  const userData = useSelector(selectUserData)
   const [gender, setGender] = useState("For women");
   const [weight, setWeight] = useState(0);
   const [activityTime, setActivityTime] = useState(0);
   const [requiredWater, setRequiredWater] = useState(1.8);
   const [consumedWater, setConsumedWater] = useState(0);
-
-  const dailyNorma = useSelector(selectUserWaterAmount);
 
   useEffect(() => {
     if (isOpen) {
@@ -52,20 +50,18 @@ export default function DailyNormaModal({ isOpen, onClose }) {
   };
   const handleSave = async () => {
     const obj = {
-      gender: gender === "For man" ? "man" : "woman",
-      weight: weightInKg,
-      time: activityInHours,
+      waterAmount: Number(consumedWater),
     };
-    console.log(obj);
-    dispatch(updateUserAmountOfWater(obj));
-
+    dispatch(updateUserAmountOfWater(obj)).then(() => {
+      dispatch(fetchUser());
+    });
     onClose();
   };
 
   if (!isOpen) return null;
 
   return (
-    <Modal modalTitle="My daily norma" onClose={onClose}>
+    <Modal modalTitle="My daily norma" onClose={onClose} setIsOpen={setIsOpen} isOpen={isOpen}>
       <div className={css.formula_div}>
         <p>
           {" "}

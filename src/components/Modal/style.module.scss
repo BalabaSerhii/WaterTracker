@@ -14,9 +14,10 @@
   @include tablet {
     max-width: 704px;
     padding: 32px 24px;
+    width: 100%;
   }
   @include desktop {
-    max-width: 1008px;
+    max-width: max-content;
   }
 }
 
@@ -44,6 +45,4 @@
     border: transparent;
   }
 
-
   }
-

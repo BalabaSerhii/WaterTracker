@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import css from "./UserLogoModal.module.css";
 import SettingModal from "../SettingModal/SettingModal";
 import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
+import icon from '../../assets/img/icons.svg'
 
 const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
   const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
@@ -46,15 +47,15 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
         <div className={css.buttons}>
           <div className={css.buttonsSettings}>
             <svg className={css.buttonsSettingsImg}>
-              <use href="/src/assets/img/icons.svg#icon-settings" />
+              <use href={`${icon}#icon-settings`} />
             </svg>
             <button className={css.settingsButton} onClick={handleOpenSettings}>
               Settings
             </button>
           </div>
           <div className={css.buttonsLogout}>
-            <svg className={css.buttonsLogout}>
-              <use href="/src/assets/img/icons.svg#icon-logout" />
+            <svg className={css.buttonsLogoutImg}>
+              <use href={`${icon}#icon-logout`} />
             </svg>
             <button className={css.logoutButton} onClick={handleOpenLogout}>
               Logout

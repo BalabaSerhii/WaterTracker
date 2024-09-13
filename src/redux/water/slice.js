@@ -51,7 +51,7 @@ const waterSlice = createSlice({
 
       .addCase(postWater.pending, handlePending)
       .addCase(postWater.fulfilled, (state, action) => {
-        state.todayWater.push(action.payload);
+        state.todayWater.data.push(action.payload);
         state.isLoading = false;
       })
       .addCase(postWater.rejected, handleRejected)
@@ -72,7 +72,7 @@ const waterSlice = createSlice({
       .addCase(patchWater.pending, handlePending)
       .addCase(patchWater.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.todayWater = state.todayWater.map((item) => {
+        state.todayWater = state.todayWater.data.map((item) => {
           if (item._id === action.payload._id) {
             return { ...item, ...action.payload };
           }

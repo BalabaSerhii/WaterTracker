@@ -80,8 +80,6 @@
   z-index: 998;
   transition: 0.5s;
   @include flex-center;
-  opacity: 0;
-  &.visible {
-    opacity: 1;
-  }
+
+
 }

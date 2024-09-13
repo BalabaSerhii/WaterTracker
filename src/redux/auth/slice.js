@@ -1,8 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { register, logIn, logOut, refreshUser } from "./operations";
+import { createSlice } from '@reduxjs/toolkit';
+import { register, logIn, logOut, refreshUser } from './operations';
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState: {
     accessToken: null,
     isLoggedIn: false,
@@ -10,9 +10,9 @@ const authSlice = createSlice({
     isError: false,
     isRefreshing: false,
   },
-  extraReducers: (builder) =>
+  extraReducers: builder =>
     builder
-      .addCase(register.pending, (state) => {
+      .addCase(register.pending, state => {
         state.isLoading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
@@ -20,11 +20,11 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isLoggedIn = true;
       })
-      .addCase(register.rejected, (state) => {
+      .addCase(register.rejected, state => {
         state.isError = true;
         state.isLoggedIn = false;
       })
-      .addCase(logIn.pending, (state) => {
+      .addCase(logIn.pending, state => {
         state.isLoading = true;
       })
       .addCase(logIn.fulfilled, (state, action) => {
@@ -32,17 +32,17 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.isLoading = false;
         state.isError = false;
-        console.log(action.payload.data.accessToken);
+        state.isRefreshing = false;
       })
-      .addCase(logIn.rejected, (state) => {
+      .addCase(logIn.rejected, state => {
         state.isError = true;
         state.isLoggedIn = false;
       })
-      .addCase(logOut.pending, (state) => {
+      .addCase(logOut.pending, state => {
         state.isLoading = true;
         state.isError = false;
       })
-      .addCase(logOut.fulfilled, (state) => {
+      .addCase(logOut.fulfilled, state => {
         state.accessToken = null;
         state.isLoggedIn = false;
         state.isError = false;
@@ -51,15 +51,15 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = action.payload;
       })
-      .addCase(refreshUser.pending, (state) => {
+      .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.accessToken = action.payload.data.accessToken;
+        state.accessToken = action.payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.rejected, (state) => {
+      .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       }),
 });
