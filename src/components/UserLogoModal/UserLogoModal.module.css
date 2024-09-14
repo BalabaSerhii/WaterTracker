@@ -41,7 +41,7 @@
   border-radius: 5px;
   padding: 16px;
   z-index: 1000;
-  filter: drop-shadow(2px 4px 6px #407BFF20);
+  filter: drop-shadow(2px 4px 6px #407bff20);
 }
 .buttonsSettings,
 .buttonsLogout {
@@ -49,7 +49,7 @@
   justify-content: space-between;
   align-items: center;
   fill: none;
-  stroke: #407BFF;
+  stroke: #407bff;
 }
 
 .buttonsSettingsImg,
@@ -62,4 +62,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.hiddenModal {
+  display: none;
 }

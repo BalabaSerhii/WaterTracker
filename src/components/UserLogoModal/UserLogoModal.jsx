@@ -1,49 +1,64 @@
-import { useEffect, useRef, useState } from "react";
-import css from "./UserLogoModal.module.css";
-import SettingModal from "../SettingModal/SettingModal";
-import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
-import icon from '../../assets/img/icons.svg'
+import React, { useEffect, useRef, useState } from 'react';
+import css from './UserLogoModal.module.css';
+import SettingModal from '../SettingModal/SettingModal';
+import UserLogoutModal from '../UserLogoutModal/UserLogoutModal';
+import icon from '../../assets/img/icons.svg';
 
 const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
   const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const modalRef = useRef(null);
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
-      onClose();
+      if (!isSettingModalOpen && !isLogoutModalOpen) {
+        onClose();
+      }
     }
   };
 
   const handleOpenSettings = () => {
     setIsSettingModalOpen(true);
+    setIsLogoutModalOpen(false);
   };
 
   const handleOpenLogout = () => {
     setIsLogoutModalOpen(true);
+    setIsSettingModalOpen(false);
   };
 
   const handleCloseSettings = () => {
     setIsSettingModalOpen(false);
+    if (!isLogoutModalOpen) {
+      onClose();
+    }
   };
 
   const handleCloseLogout = () => {
     setIsLogoutModalOpen(false);
+    if (!isSettingModalOpen) {
+      onClose();
+    }
   };
 
   useEffect(() => {
     if (isOpen && anchorPosition) {
       const modalElement = modalRef.current;
-      modalElement.style.top = `${anchorPosition.top}px`;
-      modalElement.style.left = `${anchorPosition.left}px`;
+      if (modalElement) {
+        modalElement.style.top = `${anchorPosition.top}px`;
+        modalElement.style.left = `${anchorPosition.left}px`;
+      }
     }
   }, [isOpen, anchorPosition]);
 
-  if (!isOpen) return null;
-
+  const isModalHidden = isSettingModalOpen || isLogoutModalOpen;
+  if (!isOpen && !isModalHidden) return null;
   return (
     <div className={css.backdrop} onClick={handleBackdropClick}>
-      <div className={css.modal} ref={modalRef}>
+      <div
+        className={`${css.modal} ${isModalHidden ? css.hiddenModal : ''}`}
+        ref={modalRef}
+      >
         <div className={css.buttons}>
           <div className={css.buttonsSettings}>
             <svg className={css.buttonsSettingsImg}>
@@ -72,14 +87,11 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
           <UserLogoutModal
             isOpen={isLogoutModalOpen}
             onClose={handleCloseLogout}
-            onLogout={() => {
-              setIsLogoutModalOpen(false);
-            }}
+            onLogout={() => setIsLogoutModalOpen(false)}
           />
         )}
       </div>
     </div>
   );
 };
-
 export default UserLogoModal;
