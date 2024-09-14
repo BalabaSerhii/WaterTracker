@@ -71,14 +71,14 @@ const handleToggleModal = () => {
     <div className={css.wrapper}>
       <div className={css.point}>
         <p className={css.user} onClick={handleCloseUserLogoModal}>
-          {user.name ? user.name : "User"}
+          {/* {user.name ? user.name : "User"} */}
         </p>
         <button
           ref={buttonRef}
           className={css.userLogoButton}
           onClick={handleUserLogoClick}
         >
-          {user.photo ? (
+          {/* {user.photo ? (
             <img
               src={user.photo}
               alt={`${user.name}'s avatar`}
@@ -88,7 +88,7 @@ const handleToggleModal = () => {
             <span className={css.userInitial}>
               {user.name ? user.name : getUserInitial()}
             </span>
-          )}
+          )} */}
         </button>
         <svg className={css.icon} onClick={handleToggleModal}>
           <use href={`${icon}#icon-arrow-down`} />

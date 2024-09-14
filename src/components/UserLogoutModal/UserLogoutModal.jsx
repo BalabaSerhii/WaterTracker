@@ -8,7 +8,7 @@ export default function UserLogoutModal({ onClose, isOpen, setIsOpen }) {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
-    console.log('logout');
+    localStorage.removeItem('persist:auth');
   };
 
   return (
