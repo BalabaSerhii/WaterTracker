@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from "react";
-import css from "./UserLogoModal.module.css";
-import SettingModal from "../SettingModal/SettingModal";
-import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
-import icon from '../../assets/img/icons.svg'
+import { useEffect, useRef, useState } from 'react';
+import css from './UserLogoModal.module.css';
+import SettingModal from '../SettingModal/SettingModal';
+import UserLogoutModal from '../UserLogoutModal/UserLogoutModal';
+import icon from '../../assets/img/icons.svg';
 
 const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
   const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const modalRef = useRef(null);
 
-  const handleBackdropClick = (e) => {
+  const handleBackdropClick = e => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -66,6 +66,7 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
           <SettingModal
             isOpen={isSettingModalOpen}
             onClose={handleCloseSettings}
+            setIsOpen={setIsSettingModalOpen}
           />
         )}
         {isLogoutModalOpen && (

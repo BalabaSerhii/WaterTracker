@@ -83,7 +83,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
         return;
       }
 
-      // Если был изменен аватар
+     
       if (userData.photo && typeof userData.photo === 'object') {
         const formData = new FormData();
         formData.append('photo', userData.photo);
