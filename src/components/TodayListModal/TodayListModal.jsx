@@ -1,8 +1,10 @@
 import css from './TodayListModal.module.css';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Modal from '../Modal/Modal';
-import { postWater } from '../../redux/water/operations';
-import { useDispatch } from 'react-redux';
+import { getTodayWater, postWater } from '../../redux/water/operations.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectTodayWater } from '../../redux/water/selectors.js';
+import { format } from 'date-fns';
 
 
 function convertDateToISO(date) {
@@ -19,9 +21,18 @@ function convertDateToISO(date) {
 export default function TodayListModal({ onClose, isOpen, setIsOpen }) {
   const [amount, setAmount] = useState(50);
   const [currentTime, setCurrentTime] = useState(new Date());
-
+const dayArr = useSelector(selectTodayWater) || [];
   const dispatch = useDispatch();
-
+ const obj = useMemo(() => {
+    const getTodayDate = () => {
+      const today = new Date();
+      return format(today, "yyyy-MM-dd"); 
+    };
+    console.log(dayArr);
+    return {
+      date: getTodayDate(),
+    };
+  }, []);
  
 const handleTimeChange = event => {
     const time = event.target.value;
@@ -49,7 +60,7 @@ const handleTimeChange = event => {
   };
 
  
-  const handleSave = () => {
+  const handleSave = async () => {
     const isoDate = convertDateToISO(currentTime); 
     const waterData = {
       waterVolume: Number(amount),
@@ -58,6 +69,7 @@ const handleTimeChange = event => {
 
     dispatch(postWater(waterData)); 
     onClose(); 
+   await dispatch(getTodayWater(obj))
   };
 
   return (

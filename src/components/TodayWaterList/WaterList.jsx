@@ -1,31 +1,28 @@
 import React, { useEffect, useMemo } from 'react';
 import WaterListItem from './WaterListItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTodayWater } from '../../redux/water/selectors';
-import { getTodayWater } from '../../redux/water/operations';
+import { selectTodayWater } from '../../redux/water/selectors.js';
+import { getTodayWater } from '../../redux/water/operations.js';
 import css from './WaterList.module.css';
-
+import { format } from "date-fns";
 export default function WaterList() {
   const dayArr = useSelector(selectTodayWater) || [];
   const dispatch = useDispatch();
 
-  const obj = useMemo(() => {
+   const obj = useMemo(() => {
     const getTodayDate = () => {
       const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const day = String(today.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
+      return format(today, "yyyy-MM-dd"); 
     };
-console.log(dayArr)
+    console.log(dayArr);
     return {
       date: getTodayDate(),
     };
   }, []);
-
+console.log(obj)
   useEffect(() => {
     dispatch(getTodayWater(obj));
-  }, [dispatch, obj, dayArr]);
+  }, [dispatch, obj]);
 
   return (
     <ul className={css.list}>
