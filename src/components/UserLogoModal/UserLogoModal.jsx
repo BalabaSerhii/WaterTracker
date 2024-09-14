@@ -19,7 +19,7 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
 
   const handleOpenSettings = () => {
     setIsSettingModalOpen(true);
-    setIsLogoutModalOpen(false);
+    setIsLogoutModalOpen(false); 
   };
 
   const handleOpenLogout = () => {
@@ -51,8 +51,11 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
     }
   }, [isOpen, anchorPosition]);
 
+  
   const isModalHidden = isSettingModalOpen || isLogoutModalOpen;
-  if (!isOpen && !isModalHidden) return null;
+
+   if (!isOpen && !isModalHidden) return null;
+
   return (
     <div className={css.backdrop} onClick={handleBackdropClick}>
       <div
@@ -77,12 +80,14 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
             </button>
           </div>
         </div>
+
         {isSettingModalOpen && (
           <SettingModal
             isOpen={isSettingModalOpen}
             onClose={handleCloseSettings}
           />
         )}
+
         {isLogoutModalOpen && (
           <UserLogoutModal
             isOpen={isLogoutModalOpen}
@@ -94,4 +99,5 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
     </div>
   );
 };
+
 export default UserLogoModal;

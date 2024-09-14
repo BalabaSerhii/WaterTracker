@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex; /* Включає Flexbox для контейнера */
+  flex-direction: column; /* Встановлює вертикальне розташування елементів */
+  align-items: center; /* Центрує елементи по горизонталі */
+  margin: 10px;
+}
+
+/* Стилі для елементів всередині point */
+.point {
+  display: flex; /* Включає Flexbox для кожного елемента */
+  flex-direction: row; /* Розміщує елементи горизонтально */
+  align-items: center; /* Центрує елементи по вертикалі */
+  padding: 10px;
+}
+
+/* Стилі для імені користувача */
+.user {
+  padding: 10px;
+  margin-right: 10px; /* Відстань між ім'ям користувача та іконками */
+}
+
+/* Стилі для кнопок logout і settings */
+.logoutButton,
+.settingsButton {
+  background: none; /* Відсутній фон */
+  border: none; /* Відсутня обвідка */
+  color: rgb(64, 123, 255); /* Колір тексту */
+  cursor: pointer; /* Змінює курсор на pointer (рука) */
+  font-size: 16px; /* Розмір шрифту */
+  text-decoration: none; /* Відсутнє підкреслення */
+  padding: 0; /* Відсутні відступи */
+  margin-left: 5px; /* Відстань між кнопками */
+}
+
+/* Стилі при наведенні на кнопки */
+.logoutButton:hover,
+.settingsButton:hover {
+  color: rgb(255, 157, 67); /* Колір тексту при наведенні */
+  background: none; /* Відсутній фон */
+}
