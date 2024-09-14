@@ -49,7 +49,7 @@ export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
     });
   };
 
-  const handleTimeChange = (event) => {
+  const handleTimeChange = event => {
     setCurrentTime(event.target.value);
   };
 
@@ -58,11 +58,11 @@ export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
     let numericValue = parseInt(value, 10);
 
     if (numericValue > 5000) {
-      setInputAmount("5000");
+      setInputAmount('5000');
       setAmount(5000);
-      setError("The maximum amount is 5000 ml");
+      setError('The maximum amount is 5000 ml');
     } else {
-      setInputAmount(value || "0");
+      setInputAmount(value || '0');
       setAmount(numericValue || 0);
       setError(null);
     }

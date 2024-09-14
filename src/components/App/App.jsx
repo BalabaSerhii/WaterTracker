@@ -10,10 +10,16 @@ import { fetchUser } from '../../redux/user/operations';
 import { selectIsRefreshing } from '../../redux/auth/selectors';
 import { useSelector } from 'react-redux';
 
-const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
-const SignInPage = lazy(() => import('../../pages/SignInPage/SignInPage'));
-const SignUpPage = lazy(() => import('../../pages/SignUpPage/SignUpPage'));
-const WelcomePage = lazy(() => import('../../pages/WelcomePage/WelcomePage'));
+
+import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+
+
+
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
+const SignInPage = lazy(() => import("../../pages/SignInPage/SignInPage"));
+const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
+const WelcomePage = lazy(() => import("../../pages/WelcomePage/WelcomePage"));
 const NotFoundPage = lazy(() =>
   import('../../pages/NotFoundPage/NotFoundPage')
 );
@@ -35,9 +41,15 @@ export default function App() {
           <Routes>
             <Route path="/" />
             <Route path="/welcome" element={<WelcomePage />}></Route>
-            <Route path="/signin" element={<SignInPage />}></Route>
-            <Route path="/signup" element={<SignUpPage />}></Route>
-            <Route path="/home" element={<HomePage />}></Route>
+            <Route path="/signin" element={<RestrictedRoute component={<SignInPage/> } redirectTo="/home"/>}></Route>
+            <Route path="/signup" element={<RestrictedRoute component={<SignUpPage/> } redirectTo="/signin"/>}></Route>
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute component={<HomePage />} redirectTo="/signin" />
+              }
+            ></Route>
+          
             <Route path="/*" element={<NotFoundPage />}></Route>
           </Routes>
         </Suspense>
