@@ -137,7 +137,7 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdat
           <input
             className={css.input}
             type="text"
-            value={consumedWater}
+            placeholder={requiredWater}
             onChange={(e) => setConsumedWater(e.target.value)}
           />
         </div>

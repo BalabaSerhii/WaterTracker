@@ -35,7 +35,7 @@ export default function MonthStatsTable() {
   
   useEffect(() => {
     dispatch(getWaterByMonth(monthRange));
-  }, [dispatch, monthRange]);
+  }, [dispatch, monthRange, month]);
 
   const handleModal = (day) => {
     setSelectedDay(day);  
@@ -60,6 +60,8 @@ export default function MonthStatsTable() {
       document.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedDay]);
+
+  
   const dataArr = month?.data || [];
   return (
     <div className={css.container}>
