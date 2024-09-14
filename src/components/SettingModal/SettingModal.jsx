@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import Modal from '../Modal/Modal';
 import styles from './SettingModal.module.css';
 import IconComponent from '../IconComponent/IconComponent';
@@ -25,7 +24,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
 
   const [userData, setUserData] = useState(user || defaultUser);
   const [initialUserData, setInitialUserData] = useState(user || defaultUser);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [localPhotoURL, setLocalPhotoURL] = useState(null);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,34 +63,8 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
   const handlePhotoChange = e => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setUserData(prevData => ({ ...prevData, photo: reader.result }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const updateUserAvatar = async photo => {
-    const formData = new FormData();
-    formData.append('photo', photo);
-
-    try {
-      const response = await axios.patch('/users/avatar', formData, {
-        headers: {
-          Authorization: `Bearer YOUR_ACCESS_TOKEN`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      if (response.status === 200) {
-        return response.data.data;
-      } else {
-        throw new Error('Failed to update avatar.');
-      }
-    } catch (error) {
-      console.error('Error updating avatar:', error.message);
-      throw error;
+      setLocalPhotoURL(URL.createObjectURL(file)); 
+      setUserData(prevData => ({ ...prevData, photo: file })); 
     }
   };
 
@@ -99,31 +72,50 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (
-      userData.newPassword &&
-      userData.newPassword !== userData.confirmPassword
-    ) {
-      setErrorMessage('Passwords do not match!');
-      return;
-    }
-
     try {
-      if (userData.newPassword) {
-        await axios.patch('/users/update-password', {
-          currentPassword: userData.password,
-          newPassword: userData.newPassword,
+    
+      if (
+        userData.newPassword &&
+        userData.newPassword !== userData.confirmPassword
+      ) {
+        setErrorMessage('Passwords do not match!');
+        return;
+      }
+
+   
+      if (userData.photo && typeof userData.photo === 'object') {
+        const formData = new FormData();
+        formData.append('photo', userData.photo);
+
+        dispatch(updateUserPhoto(formData))
+          .then(() => {
+            setSuccessMessage('Avatar updated successfully!');
+          })
+          .catch(() => {
+            setErrorMessage('Failed to update avatar.');
+          });
+      }
+
+      
+      const updatedUserInfo = {
+        name: userData.name,
+        email: userData.email,
+        gender: userData.gender,
+        oldPassword: userData.password, 
+        password: userData.newPassword,
+      };
+
+      dispatch(updateUserInfo(updatedUserInfo))
+        .then(() => {
+          setSuccessMessage(
+            'User information and password updated successfully!'
+          );
+        })
+        .catch(error => {
+          setErrorMessage('Failed to update user information or password.');
         });
-        setSuccessMessage('Password updated successfully!');
-      }
 
-      if (userData.photo && userData.photo !== defaultAvatar) {
-        const updatedPhotoLink = await updateUserAvatar(userData.photo);
-        setUserData(prev => ({ ...prev, photo: updatedPhotoLink }));
-        setSuccessMessage('Avatar updated successfully!');
-      }
-
-      dispatch(updateUserInfo(userData));
-      onClose();
+      onClose(); 
     } catch (error) {
       setErrorMessage('Failed to update user information.');
     }
@@ -145,7 +137,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
               </label>
               <div className={styles.photoSection}>
                 <img
-                  src={userData.photo || defaultAvatar}
+                  src={localPhotoURL || userData.photo || defaultAvatar}
                   alt="user avatar"
                   className={styles.avatar}
                   onClick={() => document.getElementById('photo').click()}
@@ -310,20 +302,21 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
               </div>
             </div>
           </div>
-        </div>
 
-        {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-        {successMessage && (
-          <div className={styles.success}>{successMessage}</div>
-        )}
+          {errorMessage && <div className={styles.error}>{errorMessage}</div>}
+          {successMessage && (
+            <div className={styles.success}>{successMessage}</div>
+          )}
 
-        <div className={styles.buttonContainer}>
-          <ButtonComponent
-            text="Save"
-            onClick={handleSave}
-            width="256px"
-            height="44px"
-          />
+          <div className={styles.buttonContainer}>
+            <ButtonComponent
+              text="Save"
+              onClick={handleSave}
+              width="256px"
+              height="44px"
+              disabled={isSaveDisabled}
+            />
+          </div>
         </div>
       </Modal>
     </div>
