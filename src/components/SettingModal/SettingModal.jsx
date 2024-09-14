@@ -24,7 +24,8 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
 
   const [userData, setUserData] = useState(user || defaultUser);
   const [initialUserData, setInitialUserData] = useState(user || defaultUser);
-  const [localPhotoURL, setLocalPhotoURL] = useState(null);
+  const [localPhotoURL, setLocalPhotoURL] = useState(null); 
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -64,7 +65,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
     const file = e.target.files[0];
     if (file) {
       setLocalPhotoURL(URL.createObjectURL(file)); 
-      setUserData(prevData => ({ ...prevData, photo: file })); 
+      setUserData(prevData => ({ ...prevData, photo: file }));
     }
   };
 
@@ -73,7 +74,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
     setSuccessMessage('');
 
     try {
-    
+      
       if (
         userData.newPassword &&
         userData.newPassword !== userData.confirmPassword
@@ -82,7 +83,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
         return;
       }
 
-   
+      // Если был изменен аватар
       if (userData.photo && typeof userData.photo === 'object') {
         const formData = new FormData();
         formData.append('photo', userData.photo);
@@ -96,7 +97,6 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
           });
       }
 
-      
       const updatedUserInfo = {
         name: userData.name,
         email: userData.email,
