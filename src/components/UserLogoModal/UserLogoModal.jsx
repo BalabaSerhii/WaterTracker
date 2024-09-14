@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import css from './UserLogoModal.module.css';
 import SettingModal from '../SettingModal/SettingModal';
 import UserLogoutModal from '../UserLogoutModal/UserLogoutModal';
@@ -19,7 +19,7 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
 
   const handleOpenSettings = () => {
     setIsSettingModalOpen(true);
-    setIsLogoutModalOpen(false); 
+    setIsLogoutModalOpen(false);
   };
 
   const handleOpenLogout = () => {
@@ -51,10 +51,9 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
     }
   }, [isOpen, anchorPosition]);
 
-  
   const isModalHidden = isSettingModalOpen || isLogoutModalOpen;
 
-   if (!isOpen && !isModalHidden) return null;
+  if (!isOpen && !isModalHidden) return null;
 
   return (
     <div className={css.backdrop} onClick={handleBackdropClick}>
@@ -85,6 +84,7 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
           <SettingModal
             isOpen={isSettingModalOpen}
             onClose={handleCloseSettings}
+            setIsOpen={setIsSettingModalOpen}
           />
         )}
 

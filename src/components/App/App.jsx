@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 
 import RestrictedRoute from "../RestrictedRoute/RestrictedRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import { setIsLoggedIn } from '../../redux/auth/slice';
 
 
 
@@ -27,6 +28,29 @@ const NotFoundPage = lazy(() =>
 export default function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+
+const key = 'persist:auth';
+const value = localStorage.getItem(key);
+
+if (value) {
+  try {
+    const parsedValue = JSON.parse(value);
+    console.log(parsedValue)
+    if (parsedValue.accessToken !== 'null') {
+      dispatch(setIsLoggedIn(true));
+    } else {
+      dispatch(setIsLoggedIn(false));
+    }
+  } catch (e) {
+    console.error('Error parsing JSON from Local Storage:', e);
+    dispatch(setIsLoggedIn(false));
+  }
+} else {
+  dispatch(setIsLoggedIn(false));
+}
+
+  
+
 
   useEffect(() => {
     dispatch(fetchUser());
