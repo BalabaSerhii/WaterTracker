@@ -15,12 +15,17 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
     }
   };
 
+  
+
   const handleOpenSettings = () => {
+    
     setIsSettingModalOpen(true);
+
   };
 
   const handleOpenLogout = () => {
     setIsLogoutModalOpen(true);
+
   };
 
   const handleCloseSettings = () => {
@@ -39,11 +44,12 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
     }
   }, [isOpen, anchorPosition]);
 
-  if (!isOpen) return null;
+if (!isOpen && !isSettingModalOpen && !isLogoutModalOpen) return null;
 
   return (
     <div className={css.backdrop} onClick={handleBackdropClick}>
-      <div className={css.modal} ref={modalRef}>
+      <div  className={`${css.modal} ${isSettingModalOpen || isLogoutModalOpen ? css.hidden : ''}`} // Add a class if the settings or logout modal is open
+            ref={modalRef}>
         <div className={css.buttons}>
           <div className={css.buttonsSettings}>
             <svg className={css.buttonsSettingsImg}>
