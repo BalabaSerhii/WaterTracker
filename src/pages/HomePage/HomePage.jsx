@@ -7,9 +7,15 @@ import TodayListModal from '../../components/TodayListModal/TodayListModal';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUserData, selectUserInfo } from '../../redux/user/selectors';
+import { use } from 'i18next';
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 
 export default function HomePage() {
+
   
+
+
+
   return (
     <div className={css.container}>
           <div>
