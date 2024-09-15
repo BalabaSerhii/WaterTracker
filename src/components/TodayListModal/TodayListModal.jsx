@@ -3,16 +3,15 @@ import { useState } from 'react';
 import Modal from '../Modal/Modal';
 import { postWater } from '../../redux/water/operations';
 import { useDispatch } from 'react-redux';
-
+import icon from '../../assets/img/icons.svg';
 
 function convertDateToISO(date) {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); 
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
 
- 
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
@@ -22,42 +21,39 @@ export default function TodayListModal({ onClose, isOpen, setIsOpen }) {
 
   const dispatch = useDispatch();
 
- 
-const handleTimeChange = event => {
+  const handleTimeChange = event => {
     const time = event.target.value;
 
     if (time.length === 5) {
-        const [hours, minutes] = time.split(':');
-        const updatedTime = new Date(currentTime);
-        updatedTime.setHours(parseInt(hours, 10));
-        updatedTime.setMinutes(parseInt(minutes, 10));
+      const [hours, minutes] = time.split(':');
+      const updatedTime = new Date(currentTime);
+      updatedTime.setHours(parseInt(hours, 10));
+      updatedTime.setMinutes(parseInt(minutes, 10));
 
-        setCurrentTime(updatedTime);
+      setCurrentTime(updatedTime);
     } else {
-        console.log("Невалідний час або час ще не повністю введено");
+      console.log('Невалідний час або час ще не повністю введено');
     }
-};
-
+  };
 
   const handleInputAmountChange = event => {
     const value = event.target.value;
-    setAmount(parseInt(value, 10) || 0); 
+    setAmount(parseInt(value, 10) || 0);
   };
 
   const handleAmountAdjustment = adjustment => {
-    setAmount(prevAmount => Math.max(0, prevAmount + adjustment)); 
+    setAmount(prevAmount => Math.max(0, prevAmount + adjustment));
   };
 
- 
   const handleSave = () => {
-    const isoDate = convertDateToISO(currentTime); 
+    const isoDate = convertDateToISO(currentTime);
     const waterData = {
       waterVolume: Number(amount),
       date: isoDate,
     };
 
-    dispatch(postWater(waterData)); 
-    onClose(); 
+    dispatch(postWater(waterData));
+    onClose();
   };
 
   return (
@@ -76,7 +72,7 @@ const handleTimeChange = event => {
             onClick={() => handleAmountAdjustment(-50)}
           >
             <svg width="24" height="24" fill=" #407bff">
-              <use href="/src/assets/img/icons.svg#icon-minus"></use>
+              <use href={`${icon}#icon-minus`}></use>
             </svg>
           </button>
           <span className={css.amount}>{amount} ml</span>
@@ -85,7 +81,7 @@ const handleTimeChange = event => {
             onClick={() => handleAmountAdjustment(50)}
           >
             <svg width="24" height="24" stroke=" #407bff">
-              <use href="/src/assets/img/icons.svg#icon-plus"></use>
+              <use href={`${icon}#icon-plus`}></use>
             </svg>
           </button>
         </div>
@@ -94,16 +90,16 @@ const handleTimeChange = event => {
         <input
           className={css.input}
           type="time"
-          value={currentTime.toTimeString().substring(0, 5)} 
-          onChange={handleTimeChange} 
+          value={currentTime.toTimeString().substring(0, 5)}
+          onChange={handleTimeChange}
         />
 
         <p className={css.large_text}>Enter the value of the water used:</p>
         <input
           className={css.input}
           type="text"
-          value={amount} 
-          onChange={handleInputAmountChange} 
+          value={amount}
+          onChange={handleInputAmountChange}
         />
 
         <div className={css.buttonSaveContainer}>
