@@ -14,8 +14,19 @@
     column-gap: 26px;
 }
 
+
+
 .orangeBorder {
     border: 1px solid #FF9D43;
+}
+
+@media screen and (max-width: 767px) {
+
+    .modal {
+        transform: translate(-2%, -101%);
+        margin-top: -675px;
+    }
+
 }
 
 
@@ -31,6 +42,18 @@
         column-gap: 34px;
         padding-bottom: 40px;
     }
+    .modal {
+        border-radius: 10px;
+        background-color: #ffffff;
+        width: 282px;
+        position: absolute;
+        right: 100%;
+        top: 0;
+        transform: translate(6%, -101%);
+        transform: translate(-104%, -101%);
+        z-index: 1000;
+        margin-top: 22px;
+    }
 
 }
 
@@ -43,5 +66,10 @@
 
     .calendar {
         column-gap: 22px;
+    }
+    .modal {
+        left: 100%;
+        top: 0;
+        transform: translate(-105%, -101%);
     }
 }
