@@ -24,7 +24,7 @@ export const updateUserInfo = createAsyncThunk(
   async (newUserData, { getState }) => {
     const token = getState().auth.accessToken;
 
-    const res = await axios.patch("/users/", newUserData, {
+    const res = await axios.patch("/users", newUserData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
