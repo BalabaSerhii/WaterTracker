@@ -7,6 +7,7 @@ import icon from '../../assets/img/icons.svg';
 const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
   const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(true);
   const modalRef = useRef(null);
 
   const handleBackdropClick = e => {
@@ -20,20 +21,24 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
   const handleOpenSettings = () => {
     
     setIsSettingModalOpen(true);
+      setIsModalVisible(false);
 
   };
 
   const handleOpenLogout = () => {
     setIsLogoutModalOpen(true);
+      setIsModalVisible(false);
 
   };
 
   const handleCloseSettings = () => {
     setIsSettingModalOpen(false);
+     setIsModalVisible(false);
   };
 
   const handleCloseLogout = () => {
     setIsLogoutModalOpen(false);
+     setIsModalVisible(false);
   };
 
   useEffect(() => {
@@ -44,30 +49,38 @@ const UserLogoModal = ({ isOpen, onClose, anchorPosition }) => {
     }
   }, [isOpen, anchorPosition]);
 
-if (!isOpen && !isSettingModalOpen && !isLogoutModalOpen) return null;
+if (!isOpen)  return null;
 
   return (
-    <div className={css.backdrop} onClick={handleBackdropClick}>
-      <div  className={`${css.modal} ${isSettingModalOpen || isLogoutModalOpen ? css.hidden : ''}`} // Add a class if the settings or logout modal is open
-            ref={modalRef}>
-        <div className={css.buttons}>
-          <div className={css.buttonsSettings}>
-            <svg className={css.buttonsSettingsImg}>
-              <use href={`${icon}#icon-settings`} />
-            </svg>
-            <button className={css.settingsButton} onClick={handleOpenSettings}>
-              Settings
-            </button>
-          </div>
-          <div className={css.buttonsLogout}>
-            <svg className={css.buttonsLogoutImg}>
-              <use href={`${icon}#icon-logout`} />
-            </svg>
-            <button className={css.logoutButton} onClick={handleOpenLogout}>
-              Logout
-            </button>
+ <div className={css.backdrop} onClick={handleBackdropClick}>
+      {isModalVisible && (
+        <div
+          className={`${css.modal} ${
+            isSettingModalOpen || isLogoutModalOpen ? css.hidden : ''
+          }`} 
+          ref={modalRef}
+        >
+          <div className={css.buttons}>
+            <div className={css.buttonsSettings}>
+              <svg className={css.buttonsSettingsImg}>
+                <use href={`${icon}#icon-settings`} />
+              </svg>
+              <button className={css.settingsButton} onClick={handleOpenSettings}>
+                Settings
+              </button>
+            </div>
+            <div className={css.buttonsLogout}>
+              <svg className={css.buttonsLogoutImg}>
+                <use href={`${icon}#icon-logout`} />
+              </svg>
+              <button className={css.logoutButton} onClick={handleOpenLogout}>
+                Logout
+              </button>
+            </div>
           </div>
         </div>
+      )}
+
         {isSettingModalOpen && (
           <SettingModal
             isOpen={isSettingModalOpen}
@@ -85,7 +98,6 @@ if (!isOpen && !isSettingModalOpen && !isLogoutModalOpen) return null;
           />
         )}
       </div>
-    </div>
   );
 };
 
