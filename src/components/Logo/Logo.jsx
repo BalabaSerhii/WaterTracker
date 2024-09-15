@@ -10,7 +10,7 @@ const Logo = () => {
 
   const handleWaterTrackerClick = () => {
     if (isLoggedIn) {
-      navigate("/homepage");
+      navigate("/home");
     } else {
       navigate("/welcome");
     }
