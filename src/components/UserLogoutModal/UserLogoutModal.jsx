@@ -4,7 +4,7 @@ import Modal from '../Modal/Modal';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/operations';
 
-export default function UserLogoutModal({ onClose, isOpen, setIsOpen }) {
+export default function UserLogoutModal({ onClose, isOpen }) {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logOut());
@@ -12,17 +12,16 @@ export default function UserLogoutModal({ onClose, isOpen, setIsOpen }) {
   };
 
   return (
-    <Modal
-      modalTitle="Log out"
-      onClose={onClose}
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-    >
+    <Modal modalTitle="Log out" onClose={onClose} isOpen={isOpen}>
       <div>
         <p className={css.text}>Do you really want to leave?</p>
         <div className={css.div}>
-          <button onClick={onClose}>Cancel</button>
-          <button onClick={handleLogout}>Log out</button>
+          <button className={css.cancel} onClick={onClose}>
+            Cancel
+          </button>
+          <button className={css.logout} onClick={handleLogout}>
+            Log out
+          </button>
         </div>
       </div>
     </Modal>
