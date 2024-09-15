@@ -7,9 +7,9 @@ import { useDispatch } from 'react-redux';
 import { patchWater } from '../../redux/water/operations';
 import icon from '../../assets/img/icons.svg';
 
-export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
-  const [amount, setAmount] = useState(50);
-  const [inputAmount, setInputAmount] = useState('50');
+export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id, waterVolume }) {
+  const [amount, setAmount] = useState(waterVolume || 50);
+  const [inputAmount, setInputAmount] = useState(String(waterVolume || 50));
   const [currentTime, setCurrentTime] = useState(() => {
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, '0');
@@ -19,21 +19,10 @@ export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const formatCurrentTime = () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, '0');
-      const minutes = now.getMinutes().toString().padStart(2, '0');
-      return `${hours}:${minutes}`;
-    };
-    setCurrentTime(formatCurrentTime());
-  }, []);
-
   const handleSave = () => {
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString().split('T')[0];
-    const isoDateTime = `${formattedDate}T${currentTime}:00`; // Додаємо секунди до ISO формату
-    console.log(isoDateTime);
+    const isoDateTime = `${formattedDate}T${currentTime}:00`;
 
     dispatch(
       patchWater({
@@ -95,7 +84,7 @@ export default function TodayListEditModal({ onClose, isOpen, setIsOpen, id }) {
             height="36"
             fillColor="#407BFF"
           />
-          <span className={style.number}>{amount} ml</span>
+          <span className={style.number}>{waterVolume} ml</span> 
           <span className={style.numberTime}>{currentTime}</span>
         </div>
         <p className={style.large_text}>Correct entered data:</p>
