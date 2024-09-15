@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
 import styles from './SettingModal.module.css';
@@ -7,122 +13,135 @@ import defaultAvatar from '../../assets/img/desc/User.png';
 import ButtonComponent from '../ButtonComponent/ButtonComponent';
 import { selectUserData } from '../../redux/user/selectors';
 import { updateUserInfo, updateUserPhoto } from '../../redux/user/operations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUserData);
 
-  const defaultUser = {
-    photo: '',
-    gender: 'woman',
-    name: '',
-    email: '',
-    password: '',
-    newPassword: '',
-    confirmPassword: '',
-  };
+  const defaultUser = useMemo(
+    () => ({
+      photo: '',
+      gender: 'woman',
+      name: '',
+      email: '',
+      password: '',
+      newPassword: '',
+      confirmPassword: '',
+    }),
+    []
+  );
 
   const [userData, setUserData] = useState(user || defaultUser);
   const [initialUserData, setInitialUserData] = useState(user || defaultUser);
-  const [localPhotoURL, setLocalPhotoURL] = useState(null); 
+  const [localPhotoURL, setLocalPhotoURL] = useState(null);
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const [isSaveDisabled, setIsSaveDisabled] = useState(true);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
-    if (user && user.email) {
-      const email = user.email;
-      const nameFromEmail = email.split('@')[0];
-
+    if (user?.email) {
+      const nameFromEmail = user.email.split('@')[0];
       const updatedUser = {
         ...user,
-        email: user.email,
         name: user.name || nameFromEmail,
         photo: user.photo || defaultAvatar,
         gender: user.gender || 'woman',
       };
-
       setUserData(updatedUser);
       setInitialUserData(updatedUser);
     }
   }, [user]);
 
   useEffect(() => {
-    const isDataChanged =
-      JSON.stringify(userData) !== JSON.stringify(initialUserData);
-    setIsSaveDisabled(!isDataChanged);
+    setIsSaveDisabled(
+      JSON.stringify(userData) === JSON.stringify(initialUserData)
+    );
   }, [userData, initialUserData]);
 
-  const handleChange = e => {
+  const handleChange = useCallback(e => {
     const { name, value } = e.target;
     setUserData(prevData => ({ ...prevData, [name]: value }));
-  };
+  }, []);
 
-  const handlePhotoChange = e => {
+  const handlePhotoChange = useCallback(e => {
     const file = e.target.files[0];
     if (file) {
-      setLocalPhotoURL(URL.createObjectURL(file)); 
+      setLocalPhotoURL(URL.createObjectURL(file));
       setUserData(prevData => ({ ...prevData, photo: file }));
     }
-  };
+  }, []);
 
-  const handleSave = async () => {
-    setErrorMessage('');
-    setSuccessMessage('');
+  const validatePassword = useCallback(() => {
+    if (!userData.password) {
+      toast.error('Please enter your current password to change it', {
+        autoClose: 2500,
+      });
+      return false;
+    }
 
+    if (userData.newPassword.length < 8 || userData.newPassword.length > 20) {
+      toast.error('New password must be between 8 and 20 characters', {
+        autoClose: 2500,
+      });
+      return false;
+    }
+
+    if (userData.newPassword !== userData.confirmPassword) {
+      toast.error('New passwords do not match', { autoClose: 2500 });
+      return false;
+    }
+
+    return true;
+  }, [userData]);
+
+  const handleSave = useCallback(async () => {
+    toast.dismiss();
     try {
-      
-      if (
-        userData.newPassword &&
-        userData.newPassword !== userData.confirmPassword
-      ) {
-        setErrorMessage('Passwords do not match!');
+      if (userData.newPassword && !validatePassword()) {
         return;
       }
 
-     
       if (userData.photo && typeof userData.photo === 'object') {
         const formData = new FormData();
         formData.append('photo', userData.photo);
-
-        dispatch(updateUserPhoto(formData))
-          .then(() => {
-            setSuccessMessage('Avatar updated successfully!');
-          })
-          .catch(() => {
-            setErrorMessage('Failed to update avatar.');
-          });
+        await dispatch(updateUserPhoto(formData));
+        toast.success('Avatar updated successfully!', { autoClose: 2500 });
       }
 
       const updatedUserInfo = {
         name: userData.name,
         email: userData.email,
         gender: userData.gender,
-        oldPassword: userData.password, 
+        oldPassword: userData.password,
         password: userData.newPassword,
       };
 
-      dispatch(updateUserInfo(updatedUserInfo))
-        .then(() => {
-          setSuccessMessage(
-            'User information and password updated successfully!'
-          );
-        })
-        .catch(error => {
-          setErrorMessage('Failed to update user information or password.');
-        });
+      await dispatch(updateUserInfo(updatedUserInfo));
 
-      onClose(); 
+      if (userData.newPassword) {
+        toast.success('Password updated successfully!', { autoClose: 2500 });
+      }
+
+      toast.success('User information updated successfully!', {
+        autoClose: 2500,
+      });
+      onClose();
     } catch (error) {
-      setErrorMessage('Failed to update user information.');
+      toast.error('Failed to update user information', { autoClose: 2500 });
     }
-  };
+  }, [dispatch, userData, validatePassword, onClose]);
+
+  const handlePhotoClick = useCallback(() => {
+    fileInputRef.current.click();
+  }, []);
 
   return (
     <div className={styles.container}>
+      <ToastContainer />
       <Modal
         modalTitle="Setting"
         onClose={onClose}
@@ -140,12 +159,12 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   src={localPhotoURL || userData.photo || defaultAvatar}
                   alt="user avatar"
                   className={styles.avatar}
-                  onClick={() => document.getElementById('photo').click()}
+                  onClick={handlePhotoClick}
                   style={{ cursor: 'pointer' }}
                 />
                 <button
                   className={styles.uploadButton}
-                  onClick={() => document.getElementById('photo').click()}
+                  onClick={handlePhotoClick}
                 >
                   <IconComponent id="upload" width="16" height="16" />
                   Upload a photo
@@ -155,6 +174,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   id="photo"
                   name="photo"
                   className={styles.hiddenInput}
+                  ref={fileInputRef}
                   onChange={handlePhotoChange}
                   style={{ display: 'none' }}
                 />
@@ -226,7 +246,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   value={userData.password}
                   onChange={handleChange}
                   className={styles.input}
-                  placeholder="Password"
+                  placeholder="Current password"
                 />
                 <button
                   className={styles.buttonSvg}
@@ -254,7 +274,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   value={userData.newPassword}
                   onChange={handleChange}
                   className={styles.input}
-                  placeholder="Password"
+                  placeholder="New password"
                 />
                 <button
                   className={styles.buttonSvg}
@@ -282,7 +302,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   value={userData.confirmPassword}
                   onChange={handleChange}
                   className={styles.input}
-                  placeholder="Password"
+                  placeholder="Confirm new password"
                 />
                 <button
                   className={styles.buttonSvg}
@@ -302,11 +322,6 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
               </div>
             </div>
           </div>
-
-          {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-          {successMessage && (
-            <div className={styles.success}>{successMessage}</div>
-          )}
 
           <div className={styles.buttonContainer}>
             <ButtonComponent
