@@ -69,7 +69,17 @@
   color: #407bff;
   margin-bottom: 16px;
 }
-
+.save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  background-color: #407bff;
+  color: #ffffff;
+  max-width: 384px;
+  border-radius: 10px;
+  border: transparent;
+}
 .btn_save {
   display: flex;
   width: 100%;
