@@ -95,16 +95,16 @@ const handleToggleModal = () => {
         </svg>
       </div>
 
-      {isLogoutModalOpen && <UserLogoutModal
+      {isLogoutModalOpen && (<UserLogoutModal
         isOpen={isLogoutModalOpen}
         onClose={handleCloseLogoutModal}
         onLogout={handleConfirmLogout}
-      />}
+      />)}
 
-      {isSettingModalOpen && <SettingModal
+      {isSettingModalOpen && (<SettingModal
         isOpen={isSettingModalOpen}
         onClose={handleCloseSettingModal}
-      />}
+      />)}
 
       {isUserLogoModalOpen && (
         <UserLogoModal
