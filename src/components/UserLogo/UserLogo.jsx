@@ -1,19 +1,15 @@
-import { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectUserAvatar,
-  selectUserInfo,
-} from "../../redux/user/selectors";
-import { logOut } from "../../redux/auth/operations";
-import UserLogoutModal from "../UserLogoutModal/UserLogoutModal";
-import SettingModal from "../SettingModal/SettingModal";
-import UserLogoModal from "../UserLogoModal/UserLogoModal";
-import icon from '../../assets/img/icons.svg'
-import css from "./UserLogo.module.css";
-import { use } from "i18next";
+import { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserAvatar, selectUserInfo } from '../../redux/user/selectors';
+import { logOut } from '../../redux/auth/operations';
+import UserLogoutModal from '../UserLogoutModal/UserLogoutModal';
+import SettingModal from '../SettingModal/SettingModal';
+import UserLogoModal from '../UserLogoModal/UserLogoModal';
+import icon from '../../assets/img/icons.svg';
+import defaultAvatar from '../../assets/img/desc/User.png'; 
+import css from './UserLogo.module.css';
 
 const UserLogo = () => {
-  
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
   const userAvatar = useSelector(selectUserAvatar);
@@ -23,8 +19,6 @@ const UserLogo = () => {
   const [isUserLogoModalOpen, setIsUserLogoModalOpen] = useState(false);
   const [anchorPosition, setAnchorPosition] = useState(null);
   const buttonRef = useRef(null);
-
-
 
   const handleCloseLogoutModal = () => {
     setIsLogoutModalOpen(false);
@@ -39,8 +33,8 @@ const UserLogo = () => {
     setIsSettingModalOpen(false);
   };
 
-  const handleUserLogoClick = (e) => {
-    if (e.target.closest("svg")) {
+  const handleUserLogoClick = e => {
+    if (e.target.closest('svg')) {
       const button = buttonRef.current;
       if (button) {
         const rect = button.getBoundingClientRect();
@@ -57,22 +51,19 @@ const UserLogo = () => {
     setIsUserLogoModalOpen(false);
   };
 
-   const getUserInitial = () => {
+  const getUserInitial = () => {
     if (userInfo?.name) {
       return userInfo.name.charAt(0).toUpperCase();
     }
     if (userInfo?.email) {
       return userInfo.email.charAt(0).toUpperCase();
     }
-    return "?";
+    return '?';
   };
-  
 
-const handleToggleModal = () => {
+  const handleToggleModal = () => {
     setIsUserLogoModalOpen(prevState => !prevState);
   };
-
-
 
   return (
     <div className={css.wrapper}>
@@ -83,17 +74,18 @@ const handleToggleModal = () => {
           className={css.userLogoButton}
           onClick={handleUserLogoClick}
         >
-         {userAvatar ? (
+          {userAvatar ? (
             <img
               src={userAvatar}
               alt={`${userInfo?.name || 'User'}'s avatar`}
               className={css.avatar}
-  
             />
           ) : (
-            <span className={css.userInfo}>
-              {getUserInitial()} {userInfo?.name || userInfo?.email || 'User'}
-            </span>
+            <img
+              src={defaultAvatar}
+              alt="Default avatar"
+              className={css.avatar}
+            />
           )}
         </button>
         <svg className={css.icon} onClick={handleToggleModal}>
@@ -101,23 +93,27 @@ const handleToggleModal = () => {
         </svg>
       </div>
 
-      {isLogoutModalOpen && (<UserLogoutModal
-        isOpen={isLogoutModalOpen}
-        onClose={handleCloseLogoutModal}
-        onLogout={handleConfirmLogout}
-      />)}
+      {isLogoutModalOpen && (
+        <UserLogoutModal
+          isOpen={isLogoutModalOpen}
+          onClose={handleCloseLogoutModal}
+          onLogout={handleConfirmLogout}
+        />
+      )}
 
-      {isSettingModalOpen && (<SettingModal
-        isOpen={isSettingModalOpen}
-        onClose={handleCloseSettingModal}
-      />)}
+      {isSettingModalOpen && (
+        <SettingModal
+          isOpen={isSettingModalOpen}
+          onClose={handleCloseSettingModal}
+        />
+      )}
 
       {isUserLogoModalOpen && (
         <UserLogoModal
           isOpen={isUserLogoModalOpen}
           onClose={handleCloseUserLogoModal}
           anchorPosition={anchorPosition}
-           userAvatar={userAvatar}
+          userAvatar={userAvatar}
         />
       )}
     </div>
