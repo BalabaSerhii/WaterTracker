@@ -4,6 +4,28 @@
   align-items: center;
   gap: 24px;
 }
+.cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  background-color: #d7e3ff;
+  color: #407bff;
+  max-width: 384px;
+  border-radius: 10px;
+  border: transparent;
+}
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 30px;
+  background-color: #ef5050;
+  color: #ffffff;
+  max-width: 384px;
+  border-radius: 10px;
+  border: transparent;
+}
 .text {
   font-family: Roboto;
   font-size: 18px;

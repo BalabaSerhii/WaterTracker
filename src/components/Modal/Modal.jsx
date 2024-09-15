@@ -12,7 +12,7 @@ export default function Modal({
   setIsOpen,
 }) {
   const handleCloseModal = () => {
-    setIsOpen(false);
+    // setIsOpen(false);
     if (onClose) onClose();
   };
 
@@ -104,5 +104,5 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  setIsOpen: PropTypes.func.isRequired,
+  setIsOpen: PropTypes.func,
 };
