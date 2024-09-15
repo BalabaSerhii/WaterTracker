@@ -246,7 +246,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   value={userData.password}
                   onChange={handleChange}
                   className={styles.input}
-                  placeholder="Current password"
+                  placeholder="Password"
                 />
                 <button
                   className={styles.buttonSvg}
@@ -274,7 +274,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   value={userData.newPassword}
                   onChange={handleChange}
                   className={styles.input}
-                  placeholder="New password"
+                  placeholder="Password"
                 />
                 <button
                   className={styles.buttonSvg}
@@ -302,7 +302,7 @@ const SettingModal = ({ onClose, isOpen, setIsOpen }) => {
                   value={userData.confirmPassword}
                   onChange={handleChange}
                   className={styles.input}
-                  placeholder="Confirm new password"
+                  placeholder="Password"
                 />
                 <button
                   className={styles.buttonSvg}
