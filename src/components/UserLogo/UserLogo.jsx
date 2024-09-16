@@ -12,7 +12,7 @@ import css from './UserLogo.module.css';
 const UserLogo = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector(selectUserInfo);
-  const userAvatar = useSelector(selectUserAvatar);
+  const userAvatar = useSelector(selectUserAvatar); 
 
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
@@ -76,7 +76,7 @@ const UserLogo = () => {
         >
           {userAvatar ? (
             <img
-              src={userAvatar}
+              src={userAvatar} 
               alt={`${userInfo?.name || 'User'}'s avatar`}
               className={css.avatar}
             />
