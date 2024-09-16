@@ -38,7 +38,7 @@ export default function MonthStatsTable() {
 
   useEffect(() => {
     dispatch(getWaterByMonth(monthRange));
-  }, [dispatch, monthRange]);
+  }, [dispatch, monthRange, month]);
 
   const handleOpenModal = (event, day) => {
     const rect = event.currentTarget.getBoundingClientRect();
