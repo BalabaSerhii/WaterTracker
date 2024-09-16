@@ -9,7 +9,9 @@
   border-radius: 10px;
   padding: 24px 12px;
   max-width: 280px;
-  overflow-y: auto;
+  max-height: 90vh; // Обмежує висоту модалки 90% від висоти екрану
+  overflow-y: auto; // Додає вертикальний скрол, якщо контент не вміщується
+  width: 100%;
 
   @include tablet {
     max-width: 704px;
@@ -44,5 +46,4 @@
     padding: 0;
     border: transparent;
   }
-
-  }
+}
