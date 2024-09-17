@@ -3,7 +3,7 @@
 // export const selectUserLoading = (state) => state.users.isLoading;
 // export const selectUserError = (state) => state.users.isError;
 // export const selectWaterDailyNorma = (state) => state.users.data.waterAmount;
-
+import defaultAvatar from '../../assets/img/desc/User.png';
 import { createSelector } from "@reduxjs/toolkit";
 
 // Селектор для данных пользователя
@@ -40,7 +40,7 @@ export const selectUserWaterAmount = createSelector(
 
 // Селектор для получения аватара пользователя
 export const selectUserAvatar = createSelector([selectUserData], (userData) =>
-  userData ? userData.avatar : null
+  userData ? userData.avatar : defaultAvatar // Возвращаем стандартный аватар, если пользовательский не задан
 );
 
 // Селектор для получения основной информации о пользователе (кроме аватара и воды)

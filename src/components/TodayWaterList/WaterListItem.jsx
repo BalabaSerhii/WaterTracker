@@ -68,6 +68,7 @@ export default function WaterListItem({ day }) {
           onClose={handleCloseEditModal}
           setIsOpen={setIsEditModalOpen}
           id={day._id}
+          waterVolume={day.waterVolume}
         />
       )}
       {isDeleteModalOpen && (

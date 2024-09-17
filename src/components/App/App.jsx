@@ -57,7 +57,7 @@ export default function App() {
       <SharedLayout>
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="/" />
+            <Route path="/"  element={<WelcomePage />}/>
             <Route path="/welcome" element={<WelcomePage />}></Route>
             <Route
               path="/signin"

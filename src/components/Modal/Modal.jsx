@@ -1,14 +1,20 @@
-import { useEffect } from "react";
-import ReactDOM from "react-dom";
-import styles from "./style.module.scss";
-import PropTypes from "prop-types";
+import { useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import styles from './style.module.scss';
+import PropTypes from 'prop-types';
+import icon from '../../assets/img/icons.svg';
 
-export default function Modal({ modalTitle, onClose, children, isOpen, setIsOpen }) {
+export default function Modal({
+  modalTitle,
+  onClose,
+  children,
+  isOpen,
+  setIsOpen,
+}) {
   const handleCloseModal = () => {
-    setIsOpen(false); 
+    // setIsOpen(false);
     if (onClose) onClose();
   };
-
 
   useEffect(() => {
     // if (isOpen) {
@@ -18,15 +24,15 @@ export default function Modal({ modalTitle, onClose, children, isOpen, setIsOpen
     // }
 
     const handleKeyDown = ({ key }) => {
-      if (key === "Escape") {
+      if (key === 'Escape') {
         handleCloseModal();
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen]); // Trigger effect when isOpen changes
 
@@ -34,12 +40,12 @@ export default function Modal({ modalTitle, onClose, children, isOpen, setIsOpen
 
   return ReactDOM.createPortal(
     <div className={styles.modalWrapper} onClick={handleCloseModal}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <div className={styles.modalTop}>
           <h3>{modalTitle}</h3>
           <button onClick={handleCloseModal}>
             <svg className={styles.svg} width={20} height={20}>
-              <use href="/src/assets/img/icons.svg#icon-cross"></use>
+              <use href={`${icon}#icon-cross`}></use>
             </svg>
           </button>
         </div>
@@ -98,5 +104,5 @@ Modal.propTypes = {
   children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  setIsOpen: PropTypes.func.isRequired,
+  setIsOpen: PropTypes.func,
 };

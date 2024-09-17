@@ -1,28 +1,39 @@
-import css from "./DailyNormaModal.module.css";
-import Modal from "../Modal/Modal";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import css from './DailyNormaModal.module.css';
+import Modal from '../Modal/Modal';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchUser,
   updateUserAmountOfWater,
-} from "../../redux/user/operations";
-import { selectUserWaterAmount,selectUserData } from "../../redux/user/selectors";
-// import ButtonComponent from "../Modal/ButtonComponent/ButtonComponent";
+} from '../../redux/user/operations';
+import {
+  selectUserWaterAmount,
+  selectUserData,
+} from '../../redux/user/selectors';
 
-export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdate }) {
+export default function DailyNormaModal({
+  isOpen,
+  onClose,
+  setIsOpen,
+  setIsUpdate,
+}) {
   const dispatch = useDispatch();
-  const userData = useSelector(selectUserData)
-  const [gender, setGender] = useState("For women");
+  const userData = useSelector(selectUserData);
+  const [gender, setGender] = useState('For women');
   const [weight, setWeight] = useState(0);
   const [activityTime, setActivityTime] = useState(0);
   const [requiredWater, setRequiredWater] = useState(1.8);
-  const [consumedWater, setConsumedWater] = useState(0);
+  const [consumedWater, setConsumedWater] = useState(requiredWater);
 
   useEffect(() => {
     if (isOpen) {
       dispatch(fetchUser());
     }
   }, [isOpen, dispatch]);
+
+  useEffect(() => {
+    setConsumedWater(requiredWater);
+  }, [requiredWater]);
 
   const weightInKg = parseFloat(weight);
   const activityInHours = parseFloat(activityTime);
@@ -36,18 +47,18 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdat
       activityInHours < 0
     ) {
       setRequiredWater(0);
-
       return;
     }
 
-    if (gender === "For women") {
+    if (gender === 'For women') {
       waterAmount = weightInKg * 0.03 + activityInHours * 0.4;
-    } else if (gender === "For man") {
+    } else if (gender === 'For man') {
       waterAmount = weightInKg * 0.04 + activityInHours * 0.6;
     }
 
     setRequiredWater(waterAmount.toFixed(2));
   };
+
   const handleSave = async () => {
     const obj = {
       waterAmount: Number(consumedWater),
@@ -61,14 +72,17 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdat
   if (!isOpen) return null;
 
   return (
-    <Modal modalTitle="My daily norma" onClose={onClose} setIsOpen={setIsOpen} isOpen={isOpen}>
+    <Modal
+      modalTitle="My daily norma"
+      onClose={onClose}
+      setIsOpen={setIsOpen}
+      isOpen={isOpen}
+    >
       <div className={css.formula_div}>
         <p>
-          {" "}
           For women: <span className={css.formula}>V=(M*0,03) + (T*0,4)</span>
         </p>
         <p>
-          {" "}
           For men: <span className={css.formula}>V=(M*0,04) + (T*0,6)</span>
         </p>
       </div>
@@ -85,8 +99,8 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdat
             <input
               type="radio"
               value="For women"
-              checked={gender === "For women"}
-              onChange={() => setGender("For women")}
+              checked={gender === 'For women'}
+              onChange={() => setGender('For women')}
             />
             For women
           </label>
@@ -94,8 +108,8 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdat
             <input
               type="radio"
               value="For man"
-              checked={gender === "For man"}
-              onChange={() => setGender("For man")}
+              checked={gender === 'For man'}
+              onChange={() => setGender('For man')}
             />
             For man
           </label>
@@ -106,47 +120,43 @@ export default function DailyNormaModal({ isOpen, onClose, setIsOpen, setIsUpdat
             className={css.input}
             type="text"
             value={weight}
-            onChange={(e) => setWeight(e.target.value)}
+            onChange={e => setWeight(e.target.value)}
             onBlur={calculateWaterRequirement}
           />
         </div>
         <div>
           <p className={css.small_text}>
             The time of active participation in sports or other activities with
-            a high physical. load in hours:{" "}
+            a high physical load in hours:{' '}
           </p>
           <input
             className={css.input}
             type="text"
             value={activityTime}
-            onChange={(e) => setActivityTime(e.target.value)}
+            onChange={e => setActivityTime(e.target.value)}
             onBlur={calculateWaterRequirement}
           />
         </div>
         <div>
           <p className={css.small_text}>
-            The required amount of water in liters per day:{" "}
+            The required amount of water in liters per day:{' '}
             <span className={css.liters}>{requiredWater}</span>
           </p>
         </div>
         <div>
           <p className={css.small_text}>
-            Write down how much water you will drink:{" "}
+            Write down how much water you will drink:{' '}
           </p>
-
           <input
             className={css.input}
             type="text"
-            placeholder={requiredWater}
-            onChange={(e) => setConsumedWater(e.target.value)}
+            value={consumedWater}
+            onChange={e => setConsumedWater(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleSave}>
+        <button className={css.save} type="button" onClick={handleSave}>
           Save
         </button>
-        {/* <div className={css.btn_save}>
-            <ButtonComponent text="Save" onClick={handleSave} />
-          </div> */}
       </form>
     </Modal>
   );

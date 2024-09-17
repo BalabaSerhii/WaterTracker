@@ -24,7 +24,7 @@ const userData = useSelector(selectUserData)
           <div className={css.waterDailyContainer}>
             <p className={css.waterDailyText}>My daily norma</p>
             <div className={css.dailyNormaContainer}>
-            <h2 className={css.waterDailyTitle}>{userData?.waterAmount}L</h2>
+            <h2 className={css.waterDailyTitle}>{userData?.waterAmount || '1.5'}L</h2>
               <button type="button" className={css.editbutton} onClick={handleOpenModal}>Edit</button>
             </div>
             <DailyNormaModal

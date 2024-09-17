@@ -38,11 +38,11 @@ export default function MonthStatsTable() {
 
   useEffect(() => {
     dispatch(getWaterByMonth(monthRange));
-  }, [dispatch, monthRange]);
+  }, [dispatch, monthRange, month]);
 
   const handleOpenModal = (event, day) => {
-    const rect = event.target.getBoundingClientRect();
-    setModalPosition({ top: rect.bottom + window.scrollY, left: rect.left + window.scrollX });
+    const rect = event.currentTarget.getBoundingClientRect();
+    setModalPosition({ top: rect.top + window.scrollY-210, left: rect.left + window.scrollX+20 }); // Зміна координат для відображення зверху
     setSelectedDay(day);
     setIsModalOpen(true);
   };
@@ -50,6 +50,10 @@ export default function MonthStatsTable() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedDay(null);
+  };
+
+  const handleMouseLeave = () => {
+    handleCloseModal();
   };
 
   const dataArr = month?.data || [];
@@ -60,10 +64,13 @@ export default function MonthStatsTable() {
 
       <ul className={css.calendar}>
         {dataArr.map((day) => (
-          <li key={day.date}>
+          <li 
+            key={day.date} 
+            onClick={(event) => handleOpenModal(event, day)} 
+            onMouseLeave={handleMouseLeave}
+          >
             <MonthStatsItem 
               day={day} 
-              handleOpenModal={(event) => handleOpenModal(event, day)} 
             />
           </li>
         ))}
@@ -72,7 +79,10 @@ export default function MonthStatsTable() {
       {isModalOpen && selectedDay && (
         <div 
           className={css.modal} 
-          style={{ top: modalPosition.top, left: modalPosition.left }}
+          style={{ 
+            top: modalPosition.top, 
+            left: modalPosition.left,
+          }}
         >
           <DaysGeneralStats day={selectedDay} onClose={handleCloseModal} />
         </div>
