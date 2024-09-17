@@ -14,7 +14,7 @@ const authSlice = createSlice({
   reducers: {
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
-    }
+    },
   },
   extraReducers: builder =>
     builder
@@ -61,7 +61,7 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
-        state.accessToken = action.payload;
+        state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
@@ -71,4 +71,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
- export const { setIsLoggedIn } = authSlice.actions;
+export const { setIsLoggedIn } = authSlice.actions;
